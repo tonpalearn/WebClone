@@ -1,0 +1,289 @@
+<!doctype html>
+<html lang="th">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>เผ็ดเผ็ด · ราชพฤกษ์ — ไทยรสจัด homemade (คอนเซ็ปต์เว็บใหม่)</title>
+  <meta name="description" content="คอนเซ็ปต์ redesign สาขาราชพฤกษ์ของเผ็ดเผ็ด ไม่ใช่เว็บทางการ เว้นแต่เจ้าของอนุมัติ" />
+  <meta name="robots" content="noindex,nofollow" />
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            charcoal: '#0c0705',
+            ink: '#160a07',
+            chili: '#e11d2a',
+            ember: '#ff3b30',
+            flame: '#ff7a18',
+            mango: '#ff9e2c',
+            basil: '#2fae66',
+            lime: '#7bd637',
+            cream: '#fff6ec',
+            sand: '#f7d9b5'
+          },
+          fontFamily: {
+            display: ['Georgia', 'Cormorant Garamond', 'serif'],
+            body: ['Avenir Next', 'Helvetica Neue', 'sans-serif']
+          },
+          boxShadow: {
+            glow: '0 0 80px rgba(225,29,42,.38)',
+            flameglow: '0 0 70px rgba(255,122,24,.34)',
+            glass: '0 24px 90px rgba(0,0,0,.46), inset 0 1px 0 rgba(255,255,255,.16)'
+          }
+        }
+      }
+    }
+  </script>
+  <style>
+    html { scroll-behavior: smooth; }
+    body { margin: 0; background: #0c0705; color: #fff6ec; overflow-x: hidden; }
+    .aurora {
+      background:
+        radial-gradient(circle at 8% 6%, rgba(225,29,42,.50), transparent 30rem),
+        radial-gradient(circle at 82% 8%, rgba(255,122,24,.30), transparent 30rem),
+        radial-gradient(circle at 50% 80%, rgba(47,174,102,.20), transparent 38rem),
+        linear-gradient(135deg, #0c0705 0%, #1c0a06 52%, #070302 100%);
+    }
+    .noise:before {
+      content: ""; position: fixed; inset: 0; pointer-events: none; z-index: 50; opacity: .12; mix-blend-mode: screen;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 240 240' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.5'/%3E%3C/svg%3E");
+    }
+    .glass { background: linear-gradient(145deg, rgba(255,246,236,.14), rgba(255,246,236,.045)); border: 1px solid rgba(255,246,236,.18); backdrop-filter: blur(24px) saturate(160%); box-shadow: 0 24px 90px rgba(0,0,0,.46), inset 0 1px 0 rgba(255,255,255,.14); }
+    .glass-dark { background: linear-gradient(145deg, rgba(22,10,7,.80), rgba(22,10,7,.42)); border: 1px solid rgba(255,246,236,.16); backdrop-filter: blur(22px) saturate(150%); box-shadow: 0 24px 90px rgba(0,0,0,.40), inset 0 1px 0 rgba(255,255,255,.10); }
+    .text-balance { text-wrap: balance; }
+    .reveal { opacity: 0; transform: translateY(24px); filter: blur(7px); animation: reveal .9s cubic-bezier(.16,1,.3,1) forwards; }
+    .delay-1 { animation-delay: .12s; } .delay-2 { animation-delay: .22s; } .delay-3 { animation-delay: .32s; }
+    @keyframes reveal { to { opacity: 1; transform: none; filter: none; } }
+    .dish { position: relative; overflow: hidden; }
+    .dish:before { content:""; position:absolute; inset:0; background:
+      radial-gradient(circle at 30% 25%, rgba(255,255,255,.28), transparent 45%); mix-blend-mode: screen; }
+    @media (prefers-reduced-motion: reduce) { * { animation-duration: .01ms !important; scroll-behavior: auto !important; transition-duration: .01ms !important; } }
+  </style>
+</head>
+<body class="aurora noise font-body">
+  <div id="root"></div>
+
+  <script crossorigin src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
+  <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
+  <script src="https://unpkg.com/@babel/standalone@7.23.6/babel.min.js"></script>
+  <script>
+    // บังคับ Babel ใช้ classic JSX runtime (React.createElement) กัน import react/jsx-runtime ที่ทำให้ไม่ mount
+    if (window.Babel && Babel.registerPreset) {
+      Babel.registerPreset('react-classic', { presets: [[Babel.availablePresets['react'], { runtime: 'classic' }]] });
+    }
+  </script>
+  <script type="text/babel" data-presets="react-classic">
+    const C = {
+      phone1: '0650929690',
+      phone1d: '065-092-9690',
+      phone2: '0635165574',
+      phone2d: '063-516-5574',
+      line: '@phedphed.aw',
+      lineUrl: 'https://line.me/R/ti/p/%40phedphed.aw',
+      email: 'mail@phedphed.com',
+      map: 'https://www.google.com/maps/search/?api=1&query=The%20Circle%20Ratchaphruek%20Bangkok'
+    };
+
+    // Placeholder จานอาหารด้วย gradient ร้อน + อิโมจิ (ไม่ใช้รูปจริง)
+    function Dish({ from, to, icon, label }) {
+      return <div className={`dish grid h-44 place-items-center rounded-[1.8rem] bg-gradient-to-br ${from} ${to} shadow-flameglow`}>
+        <span className="relative z-10 text-6xl drop-shadow-lg" role="img" aria-label={label}>{icon}</span>
+      </div>;
+    }
+
+    function Nav() {
+      return <header className="fixed left-3 right-3 top-3 z-40 mx-auto grid max-w-7xl grid-cols-[auto_1fr_auto] items-center gap-4 rounded-full border border-white/15 bg-charcoal/60 px-3 py-2 shadow-glass backdrop-blur-2xl md:left-6 md:right-6 md:top-5">
+        <a href="#top" className="flex min-w-0 items-center gap-3" aria-label="เผ็ดเผ็ด ราชพฤกษ์ บนสุด">
+          <span className="grid h-12 w-12 place-items-center rounded-2xl bg-gradient-to-br from-chili to-flame text-2xl shadow-glow" role="img" aria-label="พริก">🌶️</span>
+          <span className="leading-tight">
+            <strong className="block tracking-[.10em] text-cream">เผ็ดเผ็ด</strong>
+            <small className="hidden text-sand/75 sm:block">ราชพฤกษ์ · The Circle</small>
+          </span>
+        </a>
+        <nav className="hidden justify-center gap-8 text-sm font-semibold text-sand/75 lg:flex" aria-label="เมนูหลัก">
+          <a className="hover:text-mango" href="#menu">เมนูเด่น</a>
+          <a className="hover:text-mango" href="#why">จุดเด่นร้าน</a>
+          <a className="hover:text-mango" href="#branch">สาขาราชพฤกษ์</a>
+          <a className="hover:text-mango" href="#visit">เวลา · ติดต่อ</a>
+        </nav>
+        <a href={`tel:${C.phone1}`} className="rounded-full bg-gradient-to-r from-chili to-ember px-5 py-3 text-sm font-black text-white shadow-glow">โทรเลย</a>
+      </header>
+    }
+
+    function Hero() {
+      return <section id="top" className="relative mx-auto grid min-h-screen max-w-7xl grid-cols-1 items-center gap-10 px-4 pb-24 pt-32 md:px-8 lg:grid-cols-[1.02fr_.98fr] lg:pt-40">
+        <div className="reveal">
+          <p className="mb-5 inline-flex items-center gap-2 rounded-full border border-white/15 bg-white/5 px-4 py-1.5 text-xs font-black uppercase tracking-[.22em] text-mango">🔥 ไทยรสจัด · homemade · The Circle ราชพฤกษ์</p>
+          <h1 className="font-display text-[15vw] leading-[.84] tracking-[-.06em] text-balance text-cream md:text-[9vw] lg:text-[6.9rem]">รสจัดถึงเครื่อง <span className="bg-gradient-to-r from-ember via-flame to-mango bg-clip-text text-transparent">จัดจ้านทุกคำ</span></h1>
+          <p className="mt-7 max-w-2xl text-lg leading-8 text-sand/88 md:text-xl">อาหารไทยรสจัดวัตถุดิบทำเอง สไตล์ Bistro ที่ The Circle ราชพฤกษ์ — นั่งสบาย รสถึงใจ สั่งกลับบ้านก็ได้ จองโต๊ะ แอด Line หรือสั่งเดลิเวอรีได้ในแตะเดียว</p>
+          <div className="mt-8 flex flex-col gap-3 sm:flex-row sm:flex-wrap">
+            <a className="rounded-full bg-gradient-to-r from-chili to-ember px-7 py-4 text-center font-black text-white shadow-glow transition hover:-translate-y-1" href={`tel:${C.phone1}`}>📞 โทรจองโต๊ะ {C.phone1d}</a>
+            <a className="rounded-full bg-gradient-to-r from-basil to-lime px-7 py-4 text-center font-black text-charcoal shadow-flameglow transition hover:-translate-y-1" href={C.lineUrl} target="_blank" rel="noopener">💬 แอด Line {C.line}</a>
+            <a className="glass rounded-full px-7 py-4 text-center font-black text-cream transition hover:-translate-y-1" href="#menu">🛵 สั่งเดลิเวอรี</a>
+          </div>
+        </div>
+
+        <div className="reveal delay-1 relative min-h-[520px] lg:min-h-[680px]">
+          <div className="absolute -right-4 top-2 z-20 hidden h-44 w-44 place-items-center rounded-full bg-gradient-to-br from-chili to-flame text-center font-display text-3xl font-black leading-tight text-white shadow-glow md:grid">รสจัด<br/>จัดเต็ม</div>
+          <div className="glass absolute inset-x-0 top-4 grid grid-cols-2 gap-3 overflow-hidden rounded-[3rem] p-4 md:inset-x-6 md:top-0">
+            <Dish from="from-chili" to="to-ember" icon="🍜" label="ก๋วยเตี๋ยวรสจัด" />
+            <Dish from="from-flame" to="to-mango" icon="🍳" label="ผัดกะเพรา" />
+            <Dish from="from-basil" to="to-lime" icon="🥗" label="ยำรสแซ่บ" />
+            <Dish from="from-ember" to="to-flame" icon="🍤" label="ของทอด" />
+            <div className="col-span-2 rounded-[1.8rem] border border-white/15 bg-charcoal/55 p-5 backdrop-blur-2xl">
+              <p className="text-xs font-black uppercase tracking-[.2em] text-mango">แตะเดียวถึงร้าน</p>
+              <div className="mt-2 grid grid-cols-3 gap-2 text-center">
+                <div className="rounded-2xl bg-white/10 p-3"><strong className="block text-lg">โทร</strong><span className="text-xs text-sand/65">จองโต๊ะ</span></div>
+                <div className="rounded-2xl bg-white/10 p-3"><strong className="block text-lg">Line</strong><span className="text-xs text-sand/65">สอบถาม</span></div>
+                <div className="rounded-2xl bg-white/10 p-3"><strong className="block text-lg">แผนที่</strong><span className="text-xs text-sand/65">ราชพฤกษ์</span></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+    }
+
+    function Menu() {
+      const dishes = [
+        ['🍛', 'จานเด็ดรสจัด', 'ปรุงสดรสถึงเครื่อง เผ็ดร้อนกลมกล่อม', 'from-chili', 'to-ember'],
+        ['🥘', 'แกง · ต้มรสแซ่บ', 'น้ำซุปเข้มข้น เครื่องแกงทำเอง', 'from-flame', 'to-mango'],
+        ['🥗', 'ยำ · สลัดรสจี๊ดจ๊าด', 'เปรี้ยว เผ็ด สดชื่น ตัดเลี่ยน', 'from-basil', 'to-lime'],
+        ['🍤', 'ของทอด · ทานเล่น', 'กรอบนอกนุ่มใน ทานเพลินทั้งโต๊ะ', 'from-ember', 'to-flame'],
+        ['🍚', 'ตามสั่ง · จานเดียว', 'อิ่มเร็ว เหมาะมื้อกลางวัน', 'from-mango', 'to-flame'],
+        ['🍧', 'ของหวาน · เครื่องดื่ม', 'ดับร้อนหลังมื้อรสจัด', 'from-basil', 'to-lime']
+      ];
+      return <section id="menu" className="mx-auto max-w-7xl px-4 py-20 md:px-8">
+        <div className="mb-10">
+          <p className="text-xs font-black uppercase tracking-[.25em] text-mango">01 · เมนูเด่น</p>
+          <h2 className="mt-4 max-w-4xl font-display text-5xl leading-[.9] tracking-[-.05em] md:text-7xl">เมนูยอดนิยมที่ราชพฤกษ์</h2>
+          <p className="mt-4 max-w-2xl text-sand/70">ภาพประกอบเป็นตัวอย่างคอนเซ็ปต์ (placeholder) — เมนู ราคา และรูปจริงรอทางร้านยืนยัน</p>
+        </div>
+        <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
+          {dishes.map((d) => <article key={d[1]} className="glass group rounded-[2.1rem] p-4 transition hover:-translate-y-1">
+            <Dish from={d[3]} to={d[4]} icon={d[0]} label={d[1]} />
+            <h3 className="mt-5 px-1 text-2xl font-black tracking-tight">{d[1]}</h3>
+            <p className="mt-2 px-1 leading-7 text-sand/72">{d[2]}</p>
+          </article>)}
+        </div>
+        <div className="mt-8 flex flex-col gap-3 sm:flex-row">
+          <a className="rounded-full bg-gradient-to-r from-chili to-ember px-7 py-4 text-center font-black text-white shadow-glow" href={`tel:${C.phone1}`}>โทรสั่ง/จองโต๊ะ</a>
+          <a className="rounded-full bg-gradient-to-r from-basil to-lime px-7 py-4 text-center font-black text-charcoal" href={C.lineUrl} target="_blank" rel="noopener">สอบถามเมนูทาง Line</a>
+        </div>
+      </section>
+    }
+
+    function Why() {
+      const cards = [
+        ['🌶️', 'รสจัดจริง', 'ปรุงเข้มถึงเครื่องแบบไทยแท้ ไม่กลัวเผ็ด ไม่กลัวจัด'],
+        ['🥄', 'วัตถุดิบ homemade', 'เครื่องแกง น้ำจิ้ม ซอส ทำเอง คุมรสให้คงที่ทุกจาน'],
+        ['🪑', 'บรรยากาศ Bistro', 'นั่งสบายสไตล์บิสโทรที่ The Circle ราชพฤกษ์'],
+        ['🛵', 'สั่งง่ายหลายช่องทาง', 'นั่งร้าน · กลับบ้าน · เดลิเวอรี · จองโต๊ะล่วงหน้า']
+      ];
+      return <section id="why" className="mx-auto max-w-7xl px-4 py-20 md:px-8">
+        <div className="grid gap-5 lg:grid-cols-[.85fr_1.15fr]">
+          <div className="glass-dark rounded-[2.7rem] p-8 md:p-10">
+            <p className="text-xs font-black uppercase tracking-[.25em] text-mango">02 · ทำไมต้องเผ็ดเผ็ด</p>
+            <h2 className="mt-5 font-display text-5xl leading-[.9] tracking-[-.05em] md:text-6xl">รสจัด ถึงใจ ในที่เดียว</h2>
+            <p className="mt-6 text-lg leading-8 text-sand/75">จุดเด่นของร้านถูกจัดให้เห็นชัดตั้งแต่ต้น — รสจัด วัตถุดิบทำเอง และบรรยากาศนั่งสบาย เพื่อให้ลูกค้าตัดสินใจมาได้เร็ว</p>
+          </div>
+          <div className="grid gap-4 sm:grid-cols-2">
+            {cards.map((c) => <article key={c[1]} className="glass group rounded-[2.1rem] p-6 transition hover:-translate-y-1">
+              <span className="grid h-14 w-14 place-items-center rounded-2xl bg-gradient-to-br from-chili/80 to-flame/80 text-3xl" role="img" aria-label={c[1]}>{c[0]}</span>
+              <h3 className="mt-6 text-2xl font-black tracking-tight">{c[1]}</h3>
+              <p className="mt-3 leading-7 text-sand/72">{c[2]}</p>
+            </article>)}
+          </div>
+        </div>
+      </section>
+    }
+
+    function Branch() {
+      return <section id="branch" className="mx-auto max-w-7xl px-4 py-20 md:px-8">
+        <div className="glass rounded-[3rem] p-8 md:p-12">
+          <div className="grid gap-10 lg:grid-cols-[1.1fr_.9fr]">
+            <div>
+              <p className="text-xs font-black uppercase tracking-[.25em] text-mango">03 · สาขาที่คุณกำลังจะมา</p>
+              <h2 className="mt-4 font-display text-5xl leading-[.9] tracking-[-.05em] md:text-7xl">เผ็ดเผ็ด · ราชพฤกษ์</h2>
+              <p className="mt-6 max-w-xl text-lg leading-8 text-sand/82">สไตล์ Bistro ที่ <strong className="text-cream">The Circle ราชพฤกษ์</strong> — หน้านี้รวมทุกอย่างของสาขาราชพฤกษ์ไว้ที่เดียว ไม่ต้องไล่หาในตารางหลายสาขาอีกต่อไป</p>
+              <div className="mt-7 grid gap-3 sm:grid-cols-2">
+                <a className="rounded-2xl border border-white/15 bg-white/5 p-4 transition hover:bg-white/10" href={`tel:${C.phone1}`}>
+                  <span className="text-xs uppercase tracking-[.18em] text-mango">โทร</span>
+                  <strong className="mt-1 block text-lg">{C.phone1d}</strong>
+                </a>
+                <a className="rounded-2xl border border-white/15 bg-white/5 p-4 transition hover:bg-white/10" href={`tel:${C.phone2}`}>
+                  <span className="text-xs uppercase tracking-[.18em] text-mango">โทร (สำรอง)</span>
+                  <strong className="mt-1 block text-lg">{C.phone2d}</strong>
+                </a>
+                <a className="rounded-2xl border border-white/15 bg-white/5 p-4 transition hover:bg-white/10" href={C.lineUrl} target="_blank" rel="noopener">
+                  <span className="text-xs uppercase tracking-[.18em] text-mango">Line</span>
+                  <strong className="mt-1 block text-lg">{C.line}</strong>
+                </a>
+                <a className="rounded-2xl border border-white/15 bg-white/5 p-4 transition hover:bg-white/10" href={`mailto:${C.email}`}>
+                  <span className="text-xs uppercase tracking-[.18em] text-mango">อีเมล</span>
+                  <strong className="mt-1 block text-base">{C.email}</strong>
+                </a>
+              </div>
+            </div>
+            <div className="grid content-between gap-4">
+              <div className="dish grid h-56 place-items-center rounded-[2.2rem] bg-gradient-to-br from-chili via-flame to-mango shadow-glow">
+                <div className="relative z-10 text-center">
+                  <span className="text-6xl" role="img" aria-label="ที่ตั้ง">📍</span>
+                  <p className="mt-2 font-black text-white">The Circle ราชพฤกษ์</p>
+                </div>
+              </div>
+              <a className="rounded-full bg-gradient-to-r from-basil to-lime px-7 py-4 text-center font-black text-charcoal shadow-flameglow transition hover:-translate-y-1" href={C.map} target="_blank" rel="noopener">เปิดแผนที่ Google Maps →</a>
+              <p className="text-center text-sm text-sand/60">มีสาขาอื่นในเครือด้วย — <a className="underline decoration-mango/60 underline-offset-2 hover:text-mango" href="http://www.phedphed.com/" target="_blank" rel="noopener">ดูสาขาทั้งหมด</a></p>
+            </div>
+          </div>
+        </div>
+      </section>
+    }
+
+    function Visit() {
+      return <section id="visit" className="mx-auto max-w-7xl px-4 py-20 pb-32 md:px-8">
+        <div className="grid gap-5 lg:grid-cols-2">
+          <div className="glass-dark rounded-[3rem] p-8 md:p-10">
+            <p className="text-xs font-black uppercase tracking-[.25em] text-mango">04 · เวลาทำการ</p>
+            <h2 className="mt-5 font-display text-4xl leading-[.95] tracking-[-.04em] md:text-5xl">เปิดทุกวัน</h2>
+            <div className="mt-6 flex items-end gap-3">
+              <strong className="font-display text-6xl text-cream">10:30</strong>
+              <span className="pb-2 text-2xl text-sand/70">–</span>
+              <strong className="font-display text-6xl text-cream">21:30</strong>
+            </div>
+            <p className="mt-4 text-sm text-sand/60">* เวลาโดยประมาณ โปรดยืนยันเวลากับร้านอีกครั้งก่อนเดินทาง</p>
+          </div>
+          <div className="glass rounded-[3rem] p-8 md:p-10">
+            <p className="text-xs font-black uppercase tracking-[.25em] text-mango">ติดต่อด่วน</p>
+            <h2 className="mt-5 font-display text-4xl leading-[.95] tracking-[-.04em] md:text-5xl">พร้อมเสิร์ฟความแซ่บ</h2>
+            <div className="mt-7 flex flex-col gap-3">
+              <a className="rounded-full bg-gradient-to-r from-chili to-ember px-7 py-4 text-center font-black text-white shadow-glow" href={`tel:${C.phone1}`}>📞 โทร {C.phone1d}</a>
+              <a className="rounded-full bg-gradient-to-r from-basil to-lime px-7 py-4 text-center font-black text-charcoal" href={C.lineUrl} target="_blank" rel="noopener">💬 แอด Line {C.line}</a>
+              <a className="glass rounded-full px-7 py-4 text-center font-black text-cream" href={C.map} target="_blank" rel="noopener">📍 เปิดแผนที่ The Circle ราชพฤกษ์</a>
+            </div>
+          </div>
+        </div>
+      </section>
+    }
+
+    function App() {
+      return <>
+        <Nav />
+        <main><Hero /><Menu /><Why /><Branch /><Visit /></main>
+        <footer className="border-t border-white/10 px-5 py-8 pb-28 text-sm leading-7 text-sand/65 md:px-10">
+          <p><strong className="text-cream">Concept redesign demo prepared for discussion.</strong> This is not the official website unless approved by the business owner.</p>
+          <p className="mt-2">ตัวอย่างคอนเซ็ปต์เว็บไซต์ที่ออกแบบเพื่อใช้พูดคุย/เสนอแนวทางเท่านั้น ยังไม่ใช่เว็บไซต์ทางการของธุรกิจนี้ เว้นแต่เจ้าของธุรกิจจะอนุมัติ · ภาพอาหารทั้งหมดเป็น placeholder ไม่ใช่รูปจริง · เวลาทำการโปรดยืนยันกับร้าน</p>
+        </footer>
+        <div className="fixed bottom-3 left-3 right-3 z-50 grid grid-cols-3 gap-2 rounded-full border border-white/15 bg-charcoal/75 p-2 backdrop-blur-2xl md:hidden">
+          <a className="rounded-full bg-gradient-to-r from-chili to-ember py-3 text-center font-black text-white" href={`tel:${C.phone1}`}>โทร</a>
+          <a className="rounded-full bg-gradient-to-r from-basil to-lime py-3 text-center font-black text-charcoal" href={C.lineUrl} target="_blank" rel="noopener">Line</a>
+          <a className="rounded-full bg-white/10 py-3 text-center font-black" href={C.map} target="_blank" rel="noopener">แผนที่</a>
+        </div>
+      </>;
+    }
+
+    ReactDOM.createRoot(document.getElementById('root')).render(<App />);
+  </script>
+</body>
+</html>

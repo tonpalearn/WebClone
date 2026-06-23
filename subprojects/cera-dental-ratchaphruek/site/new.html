@@ -1,0 +1,346 @@
+<!doctype html>
+<html lang="th">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>CERA Dental Clinic — คลินิกทันตกรรมราชพฤกษ์ (คอนเซ็ปต์เว็บใหม่)</title>
+  <meta name="description" content="คอนเซ็ปต์เว็บไซต์ใหม่สำหรับคลินิกทันตกรรมราชพฤกษ์ — สะอาด น่าเชื่อถือ มือถือมาก่อน. ตัวอย่างเพื่อการพูดคุย ไม่ใช่เว็บไซต์ทางการเว้นแต่เจ้าของธุรกิจอนุมัติ" />
+  <meta name="robots" content="noindex,nofollow" />
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            ink: '#0c2740',
+            slate2: '#456079',
+            teal: '#15b5c4',
+            ocean: '#1186d6',
+            deep: '#0e5aa7',
+            mint: '#e6fbfb',
+            sky: '#eef6fd',
+            cloud: '#f7fbff'
+          },
+          fontFamily: {
+            display: ['"Trebuchet MS"','"Segoe UI"','system-ui','sans-serif'],
+            body: ['"Segoe UI"','system-ui','-apple-system','sans-serif']
+          },
+          boxShadow: {
+            glass: '0 20px 60px rgba(17,134,214,.14), inset 0 1px 0 rgba(255,255,255,.9)',
+            soft: '0 12px 36px rgba(12,39,64,.10)',
+            pill: '0 10px 28px rgba(17,134,214,.30)'
+          }
+        }
+      }
+    }
+  </script>
+  <style>
+    html { scroll-behavior:smooth; }
+    body { margin:0; background:#f7fbff; color:#0c2740; overflow-x:hidden; }
+    .bg-aura {
+      background:
+        radial-gradient(circle at 88% -4%, rgba(21,181,196,.18), transparent 30rem),
+        radial-gradient(circle at 4% 6%, rgba(17,134,214,.16), transparent 26rem),
+        radial-gradient(circle at 50% 120%, rgba(14,90,167,.10), transparent 40rem),
+        linear-gradient(180deg,#f7fbff 0%,#eef6fd 60%,#f7fbff 100%);
+    }
+    .glass { background:linear-gradient(150deg, rgba(255,255,255,.82), rgba(255,255,255,.55)); border:1px solid rgba(255,255,255,.85); backdrop-filter:blur(18px) saturate(140%); box-shadow:0 20px 60px rgba(17,134,214,.14), inset 0 1px 0 rgba(255,255,255,.9); }
+    .glass-tint { background:linear-gradient(150deg, rgba(230,251,251,.9), rgba(238,246,253,.7)); border:1px solid rgba(255,255,255,.85); backdrop-filter:blur(16px) saturate(140%); box-shadow:0 16px 44px rgba(17,134,214,.12); }
+    .text-balance { text-wrap:balance; }
+    .reveal { opacity:0; transform:translateY(20px); animation:rv .8s cubic-bezier(.16,1,.3,1) forwards; }
+    .d1{animation-delay:.1s}.d2{animation-delay:.2s}.d3{animation-delay:.3s}.d4{animation-delay:.4s}
+    @keyframes rv { to { opacity:1; transform:none; } }
+    .tooth { filter: drop-shadow(0 8px 18px rgba(17,134,214,.25)); }
+    @media (prefers-reduced-motion: reduce){ *{animation-duration:.01ms!important;scroll-behavior:auto!important;transition-duration:.01ms!important} }
+  </style>
+</head>
+<body class="bg-aura font-body">
+  <div id="root"></div>
+
+  <script crossorigin src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
+  <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
+  <script src="https://unpkg.com/@babel/standalone@7.23.6/babel.min.js"></script>
+  <script>
+    // บังคับ Babel ให้ใช้ classic JSX runtime (React.createElement) กัน import จาก react/jsx-runtime ที่ทำให้ไม่ mount
+    if (window.Babel && Babel.registerPreset) {
+      Babel.registerPreset('react-classic', { presets: [[Babel.availablePresets['react'], { runtime: 'classic' }]] });
+    }
+  </script>
+  <script type="text/babel" data-presets="react-classic">
+    const PHONE_TEL = '0917375477';
+    const PHONE_DISP = '091-737-5477';
+    const LINE_ID = '@ceradental';
+    const LINE_URL = 'https://line.me/R/ti/p/' + encodeURIComponent('@ceradental');
+    const MAP_URL = 'https://www.google.com/maps/search/?api=1&query=' + encodeURIComponent('85/11-12 ถนนราชพฤกษ์ ตำบลบางกร่าง อำเภอเมืองนนทบุรี');
+
+    // โลโก้ placeholder แบบ SVG (ไม่ใช้โลโก้จริง)
+    function ToothMark({size=44}) {
+      return (
+        <svg width={size} height={size} viewBox="0 0 48 48" className="tooth" aria-hidden="true">
+          <defs>
+            <linearGradient id="tg" x1="0" y1="0" x2="1" y2="1">
+              <stop offset="0" stopColor="#15b5c4"/><stop offset="1" stopColor="#1186d6"/>
+            </linearGradient>
+          </defs>
+          <path fill="url(#tg)" d="M24 6c-5 0-7-2-11-2-5 0-9 4-9 11 0 6 2 9 4 15 1.6 4.8 2.4 12 5 12 2.2 0 2.3-7 5-7s2.8 7 5 7c2.6 0 3.4-7.2 5-12 2-6 4-9 4-15 0-7-4-11-9-11-4 0-6 2-8 2z"/>
+        </svg>
+      );
+    }
+
+    function Nav() {
+      return (
+        <header className="fixed inset-x-3 top-3 z-40 mx-auto flex max-w-6xl items-center justify-between gap-3 rounded-full border border-white/80 bg-white/70 px-3 py-2 shadow-soft backdrop-blur-xl md:inset-x-6 md:top-5 md:px-4">
+          <a href="#top" className="flex items-center gap-2.5" aria-label="CERA Dental top">
+            <span className="grid h-11 w-11 place-items-center rounded-full bg-white shadow-soft"><ToothMark size={26}/></span>
+            <span className="leading-tight">
+              <strong className="block text-[15px] tracking-tight text-ink">CERA Dental</strong>
+              <small className="block text-[11px] text-slate2">คลินิกทันตกรรมราชพฤกษ์</small>
+            </span>
+          </a>
+          <nav className="hidden gap-7 text-sm font-semibold text-slate2 lg:flex" aria-label="หลัก">
+            <a className="hover:text-ocean" href="#services">บริการ</a>
+            <a className="hover:text-ocean" href="#hours">เวลาทำการ</a>
+            <a className="hover:text-ocean" href="#why">ทำไมเลือกเรา</a>
+            <a className="hover:text-ocean" href="#contact">ติดต่อ</a>
+          </nav>
+          <div className="flex items-center gap-2">
+            <a href={LINE_URL} target="_blank" rel="noopener" className="hidden rounded-full border border-deep/15 bg-mint px-4 py-2.5 text-sm font-bold text-deep sm:inline-block">ทักไลน์</a>
+            <a href={'tel:'+PHONE_TEL} className="rounded-full bg-gradient-to-r from-teal to-ocean px-5 py-2.5 text-sm font-extrabold text-white shadow-pill">โทร</a>
+          </div>
+        </header>
+      );
+    }
+
+    function Hero() {
+      return (
+        <section id="top" className="relative mx-auto grid max-w-6xl grid-cols-1 items-center gap-10 px-4 pb-16 pt-28 md:px-8 lg:grid-cols-[1.05fr_.95fr] lg:pt-36">
+          <div className="reveal">
+            <span className="inline-flex items-center gap-2 rounded-full border border-deep/12 bg-white/70 px-4 py-1.5 text-xs font-bold text-deep shadow-soft">
+              <span className="h-2 w-2 rounded-full bg-teal"></span> คลินิกทันตกรรมเฉพาะทาง · ราชพฤกษ์ นนทบุรี
+            </span>
+            <h1 className="mt-5 font-display text-[12vw] font-extrabold leading-[.95] tracking-tight text-balance text-ink md:text-6xl lg:text-[4.4rem]">
+              ดูแลรอยยิ้มของคุณ<br/><span className="bg-gradient-to-r from-teal to-ocean bg-clip-text text-transparent">อย่างมืออาชีพ</span>
+            </h1>
+            <p className="mt-5 max-w-xl text-lg leading-8 text-slate2">
+              ทันตกรรมครบวงจร ตั้งแต่ตรวจเช็กทั่วไป จัดฟัน วีเนียร์ ไปจนถึงรากฟันเทียม โดยทีมทันตแพทย์ ในบรรยากาศสะอาดและเป็นกันเอง นัดหมายล่วงหน้าได้ทางโทรศัพท์หรือไลน์
+            </p>
+            <div className="mt-7 flex flex-col gap-3 sm:flex-row">
+              <a href={'tel:'+PHONE_TEL} className="rounded-full bg-gradient-to-r from-teal to-ocean px-7 py-4 text-center font-extrabold text-white shadow-pill transition hover:-translate-y-0.5">โทรปรึกษา {PHONE_DISP}</a>
+              <a href={LINE_URL} target="_blank" rel="noopener" className="glass rounded-full px-7 py-4 text-center font-extrabold text-deep transition hover:-translate-y-0.5">ทักไลน์ {LINE_ID}</a>
+            </div>
+            <div className="mt-6 flex flex-wrap items-center gap-x-6 gap-y-2 text-sm font-semibold text-slate2">
+              <span className="inline-flex items-center gap-2"><Dot/> นัดหมายล่วงหน้า</span>
+              <span className="inline-flex items-center gap-2"><Dot/> ทันตแพทย์เฉพาะทาง</span>
+              <span className="inline-flex items-center gap-2"><Dot/> เครื่องมือทันสมัย</span>
+            </div>
+          </div>
+
+          <div className="reveal d1 relative">
+            <div className="glass overflow-hidden rounded-[2.5rem] p-3">
+              {/* รูป placeholder — ไม่ใช้รูปจริง */}
+              <div className="relative grid h-[360px] place-items-center overflow-hidden rounded-[2rem] bg-gradient-to-br from-mint via-sky to-white md:h-[440px]">
+                <div className="absolute inset-0 opacity-60" style={{background:'radial-gradient(circle at 30% 30%, rgba(21,181,196,.25), transparent 60%)'}}></div>
+                <div className="relative text-center">
+                  <span className="mx-auto grid h-28 w-28 place-items-center rounded-full bg-white shadow-soft"><ToothMark size={68}/></span>
+                  <p className="mt-4 text-sm font-semibold text-slate2">[ พื้นที่ภาพคลินิก / placeholder ]</p>
+                </div>
+              </div>
+            </div>
+            {/* การ์ดลอย: เวลาทำการแบบย่อ ดึงจุดอ่อนเดิมขึ้นมาตั้งแต่ Hero */}
+            <div className="glass absolute -bottom-5 -left-2 w-52 rounded-3xl p-4 shadow-glass md:-left-6">
+              <p className="text-[11px] font-bold uppercase tracking-wide text-teal">เวลาทำการ</p>
+              <p className="mt-1 text-sm font-extrabold leading-tight text-ink">ทุกวัน 10:00–20:00<span className="align-super text-[10px] text-ocean"> *</span></p>
+              <p className="mt-1 text-[10px] text-slate2">* โปรดยืนยันเวลาจริงกับคลินิก</p>
+            </div>
+            <div className="glass absolute -right-2 top-6 hidden rounded-2xl px-4 py-3 shadow-glass md:block">
+              <p className="text-[11px] font-bold text-slate2">โทรเลย</p>
+              <p className="text-sm font-extrabold text-deep">{PHONE_DISP}</p>
+            </div>
+          </div>
+        </section>
+      );
+    }
+
+    function Dot(){ return <span className="h-1.5 w-1.5 rounded-full bg-teal"></span>; }
+
+    function Services() {
+      const groups = [
+        { t:'รากฟันเทียม', d:'ทดแทนฟันที่สูญเสีย แบบซี่เดี่ยว บริดจ์ และ ALL-ON-X', items:['รากฟันเทียมซี่เดี่ยว','รากฟันเทียมแบบบริดจ์','ALL-ON-X'] },
+        { t:'จัดฟัน', d:'ปรับการเรียงตัวของฟัน ทั้งแบบเหล็กและแบบใส', items:['จัดฟันเหล็ก','จัดฟันใส'] },
+        { t:'วีเนียร์ & ครอบฟัน', d:'ปรับรูปร่างและบูรณะฟันให้สวยและแข็งแรง', items:['วีเนียร์','ครอบฟัน'] },
+        { t:'ทันตกรรมทั่วไป', d:'ดูแลสุขภาพช่องปากในชีวิตประจำวัน', items:['ขูดหินปูน','อุดฟัน','รักษารากฟัน','ฟอกสีฟัน'] },
+        { t:'ทันตกรรมเด็ก', d:'ดูแลฟันน้ำนมและสร้างนิสัยรักการดูแลฟันให้เด็ก', items:['ตรวจ/ดูแลฟันเด็ก'] },
+      ];
+      return (
+        <section id="services" className="mx-auto max-w-6xl px-4 py-16 md:px-8">
+          <div className="mb-8 text-center">
+            <p className="text-xs font-extrabold uppercase tracking-[.2em] text-teal">บริการของเรา</p>
+            <h2 className="mt-3 font-display text-4xl font-extrabold tracking-tight text-ink md:text-5xl">ทันตกรรมครบวงจร ในที่เดียว</h2>
+            <p className="mx-auto mt-3 max-w-2xl text-slate2">เลือกบริการที่ตรงกับความต้องการของคุณ หากไม่แน่ใจ ปรึกษาทันตแพทย์เพื่อวางแผนการรักษาที่เหมาะสมได้</p>
+          </div>
+          <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
+            {groups.map((g,i)=>(
+              <article key={g.t} className={'glass rounded-3xl p-6 transition hover:-translate-y-1 '+(i===0?'lg:row-span-1 ring-1 ring-teal/30':'')}>
+                <span className="grid h-12 w-12 place-items-center rounded-2xl bg-gradient-to-br from-teal to-ocean text-white shadow-pill"><ToothMark size={26}/></span>
+                <h3 className="mt-4 text-xl font-extrabold text-ink">{g.t}</h3>
+                <p className="mt-2 text-sm leading-6 text-slate2">{g.d}</p>
+                <ul className="mt-4 flex flex-wrap gap-2">
+                  {g.items.map(x=>(<li key={x} className="rounded-full bg-sky px-3 py-1 text-xs font-semibold text-deep">{x}</li>))}
+                </ul>
+              </article>
+            ))}
+            <article className="glass-tint flex flex-col justify-center rounded-3xl p-6 text-center">
+              <p className="text-lg font-extrabold text-ink">ไม่แน่ใจว่าต้องทำอะไร?</p>
+              <p className="mt-2 text-sm text-slate2">ทักมาเล่าอาการได้ ทีมงานช่วยแนะนำเบื้องต้นและนัดหมายให้</p>
+              <a href={LINE_URL} target="_blank" rel="noopener" className="mt-4 rounded-full bg-gradient-to-r from-teal to-ocean px-6 py-3 font-extrabold text-white shadow-pill">ทักไลน์ปรึกษา</a>
+            </article>
+          </div>
+          <p className="mt-6 text-center text-xs text-slate2">* รายละเอียดและความเหมาะสมของการรักษาขึ้นกับการตรวจประเมินโดยทันตแพทย์</p>
+        </section>
+      );
+    }
+
+    function Hours() {
+      const rows = [
+        ['จันทร์ – ศุกร์','10:00 – 20:00'],
+        ['เสาร์ – อาทิตย์','10:00 – 20:00'],
+        ['วันหยุดนักขัตฤกษ์','โปรดสอบถามล่วงหน้า'],
+      ];
+      return (
+        <section id="hours" className="mx-auto max-w-6xl px-4 py-16 md:px-8">
+          <div className="glass grid grid-cols-1 gap-8 rounded-[2.5rem] p-7 md:grid-cols-[1fr_1.1fr] md:p-10">
+            <div>
+              <p className="text-xs font-extrabold uppercase tracking-[.2em] text-teal">เวลาทำการ</p>
+              <h2 className="mt-3 font-display text-4xl font-extrabold tracking-tight text-ink md:text-5xl">เปิดให้บริการเมื่อไหร่</h2>
+              <p className="mt-3 text-slate2">เพื่อความสะดวก แนะนำให้โทรหรือทักไลน์เพื่อนัดหมายล่วงหน้า จะได้ไม่ต้องรอและมั่นใจว่าทันตแพทย์พร้อมดูแล</p>
+              <div className="mt-6 flex flex-col gap-3 sm:flex-row">
+                <a href={'tel:'+PHONE_TEL} className="rounded-full bg-gradient-to-r from-teal to-ocean px-6 py-3.5 text-center font-extrabold text-white shadow-pill">โทรนัดหมาย</a>
+                <a href={LINE_URL} target="_blank" rel="noopener" className="glass-tint rounded-full px-6 py-3.5 text-center font-extrabold text-deep">ทักไลน์</a>
+              </div>
+            </div>
+            <div className="glass-tint rounded-3xl p-6">
+              <ul className="divide-y divide-deep/10">
+                {rows.map(r=>(
+                  <li key={r[0]} className="flex items-center justify-between py-3.5">
+                    <span className="font-semibold text-ink">{r[0]}</span>
+                    <span className="font-extrabold text-deep">{r[1]}</span>
+                  </li>
+                ))}
+              </ul>
+              <div className="mt-4 rounded-2xl bg-white/70 p-3 text-center text-xs font-semibold text-slate2">
+                ⚠ เวลาทำการนี้เป็นค่าตัวอย่าง — โปรดยืนยันเวลาจริงกับคลินิกก่อนเผยแพร่
+              </div>
+            </div>
+          </div>
+        </section>
+      );
+    }
+
+    function Why() {
+      const cards = [
+        ['ทันตแพทย์เฉพาะทาง','ดูแลโดยทีมทันตแพทย์ พร้อมวางแผนการรักษาให้เหมาะกับแต่ละคน'],
+        ['เครื่องมือทันสมัย','ใช้เครื่องมือและขั้นตอนที่ได้มาตรฐาน เพื่อความสะอาดและความมั่นใจ'],
+        ['ทำเลราชพฤกษ์','อยู่ติดถนนราชพฤกษ์ ย่านบางกร่าง เมืองนนทบุรี เดินทางสะดวก'],
+        ['นัดหมายง่าย','โทรหรือทักไลน์เพื่อนัดหมายและสอบถามได้ ไม่ต้องรอคิวนาน'],
+      ];
+      return (
+        <section id="why" className="mx-auto max-w-6xl px-4 py-16 md:px-8">
+          <div className="mb-8 text-center">
+            <p className="text-xs font-extrabold uppercase tracking-[.2em] text-teal">ทำไมเลือกเรา</p>
+            <h2 className="mt-3 font-display text-4xl font-extrabold tracking-tight text-ink md:text-5xl">ความสบายใจที่ตั้งใจมอบให้</h2>
+          </div>
+          <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+            {cards.map((c,i)=>(
+              <article key={c[0]} className="glass rounded-3xl p-6 transition hover:-translate-y-1">
+                <span className="grid h-11 w-11 place-items-center rounded-2xl bg-mint text-deep font-extrabold">{String(i+1).padStart(2,'0')}</span>
+                <h3 className="mt-4 text-lg font-extrabold text-ink">{c[0]}</h3>
+                <p className="mt-2 text-sm leading-6 text-slate2">{c[1]}</p>
+              </article>
+            ))}
+          </div>
+        </section>
+      );
+    }
+
+    function Gallery() {
+      return (
+        <section id="gallery" className="mx-auto max-w-6xl px-4 py-16 md:px-8">
+          <div className="mb-8 flex items-end justify-between gap-4">
+            <div>
+              <p className="text-xs font-extrabold uppercase tracking-[.2em] text-teal">บรรยากาศคลินิก</p>
+              <h2 className="mt-3 font-display text-4xl font-extrabold tracking-tight text-ink md:text-5xl">พื้นที่สะอาด สบายใจ</h2>
+            </div>
+          </div>
+          <div className="grid grid-cols-2 gap-4 md:grid-cols-4">
+            {[1,2,3,4,5,6,7,8].map(n=>(
+              <div key={n} className={'glass relative grid place-items-center overflow-hidden rounded-3xl '+(n%5===1?'col-span-2 row-span-2 aspect-square':'aspect-square')}>
+                <div className="absolute inset-0 bg-gradient-to-br from-mint via-sky to-white"></div>
+                <div className="relative text-center">
+                  <span className="mx-auto grid h-12 w-12 place-items-center rounded-full bg-white/80 shadow-soft"><ToothMark size={22}/></span>
+                  <p className="mt-2 text-[11px] font-semibold text-slate2">placeholder {n}</p>
+                </div>
+              </div>
+            ))}
+          </div>
+          <p className="mt-4 text-center text-xs text-slate2">ภาพทั้งหมดเป็น placeholder สำหรับตัวอย่างคอนเซ็ปต์ ยังไม่ใช่ภาพจริงของคลินิก</p>
+        </section>
+      );
+    }
+
+    function Contact() {
+      return (
+        <section id="contact" className="mx-auto max-w-6xl px-4 py-16 pb-28 md:px-8">
+          <div className="glass grid grid-cols-1 gap-8 rounded-[2.5rem] p-7 md:grid-cols-2 md:p-10">
+            <div>
+              <p className="text-xs font-extrabold uppercase tracking-[.2em] text-teal">ติดต่อเรา</p>
+              <h2 className="mt-3 font-display text-4xl font-extrabold tracking-tight text-ink md:text-5xl">แวะมาหาเราได้</h2>
+              <div className="mt-6 space-y-4 text-slate2">
+                <p className="flex gap-3"><b className="min-w-16 font-extrabold text-ink">ที่อยู่</b><span>85/11-12 ถนนราชพฤกษ์ ต.บางกร่าง อ.เมืองนนทบุรี</span></p>
+                <p className="flex gap-3"><b className="min-w-16 font-extrabold text-ink">โทร</b><a className="font-extrabold text-deep" href={'tel:'+PHONE_TEL}>{PHONE_DISP}</a></p>
+                <p className="flex gap-3"><b className="min-w-16 font-extrabold text-ink">ไลน์</b><a className="font-extrabold text-deep" href={LINE_URL} target="_blank" rel="noopener">{LINE_ID}</a></p>
+                <p className="flex gap-3"><b className="min-w-16 font-extrabold text-ink">เวลา</b><span>ทุกวัน 10:00–20:00 <span className="text-xs">(โปรดยืนยันกับคลินิก)</span></span></p>
+              </div>
+              <div className="mt-7 flex flex-col gap-3 sm:flex-row">
+                <a href={'tel:'+PHONE_TEL} className="rounded-full bg-gradient-to-r from-teal to-ocean px-6 py-3.5 text-center font-extrabold text-white shadow-pill">โทร {PHONE_DISP}</a>
+                <a href={MAP_URL} target="_blank" rel="noopener" className="glass-tint rounded-full px-6 py-3.5 text-center font-extrabold text-deep">เปิดแผนที่</a>
+              </div>
+            </div>
+            <a href={MAP_URL} target="_blank" rel="noopener" className="glass-tint group relative grid min-h-[260px] place-items-center overflow-hidden rounded-3xl">
+              <div className="absolute inset-0 opacity-70" style={{backgroundImage:'linear-gradient(rgba(17,134,214,.12) 1px,transparent 1px),linear-gradient(90deg,rgba(17,134,214,.12) 1px,transparent 1px)',backgroundSize:'34px 34px'}}></div>
+              <div className="relative text-center">
+                <span className="mx-auto grid h-14 w-14 place-items-center rounded-full bg-gradient-to-br from-teal to-ocean text-white shadow-pill">📍</span>
+                <p className="mt-3 font-extrabold text-ink">เปิดใน Google Maps</p>
+                <p className="text-xs text-slate2">ถนนราชพฤกษ์ · บางกร่าง · นนทบุรี</p>
+              </div>
+            </a>
+          </div>
+        </section>
+      );
+    }
+
+    function App() {
+      return (
+        <>
+          <Nav/>
+          <main><Hero/><Services/><Hours/><Why/><Gallery/><Contact/></main>
+          <footer className="border-t border-deep/10 bg-white/50 px-5 py-8 pb-28 text-sm leading-7 text-slate2 md:px-10">
+            <div className="mx-auto max-w-6xl">
+              <div className="flex items-center gap-2 text-ink"><ToothMark size={22}/><strong>CERA Dental — คลินิกทันตกรรมราชพฤกษ์</strong></div>
+              <p className="mt-3"><strong className="text-ink">Concept redesign demo prepared for discussion.</strong> This is not the official website unless approved by the business owner.</p>
+              <p className="mt-1">ตัวอย่างคอนเซ็ปต์เว็บไซต์เพื่อใช้พูดคุย/เสนอแนวทางเท่านั้น ยังไม่ใช่เว็บไซต์ทางการของธุรกิจนี้ เว้นแต่เจ้าของธุรกิจจะอนุมัติ · เวลาทำการเป็นค่าตัวอย่าง โปรดยืนยันกับคลินิก · ไม่ใช่การเคลมผลการรักษา</p>
+            </div>
+          </footer>
+          {/* แถบติดต่อลอยล่างจอ — มือถือ */}
+          <div className="fixed inset-x-3 bottom-3 z-50 grid grid-cols-3 gap-2 rounded-full border border-white/80 bg-white/80 p-2 shadow-soft backdrop-blur-xl md:hidden">
+            <a className="rounded-full bg-gradient-to-r from-teal to-ocean py-3 text-center font-extrabold text-white" href={'tel:'+PHONE_TEL}>โทร</a>
+            <a className="rounded-full bg-mint py-3 text-center font-extrabold text-deep" href={LINE_URL} target="_blank" rel="noopener">ไลน์</a>
+            <a className="rounded-full bg-sky py-3 text-center font-extrabold text-deep" href={MAP_URL} target="_blank" rel="noopener">แผนที่</a>
+          </div>
+        </>
+      );
+    }
+
+    ReactDOM.createRoot(document.getElementById('root')).render(<App/>);
+  </script>
+</body>
+</html>

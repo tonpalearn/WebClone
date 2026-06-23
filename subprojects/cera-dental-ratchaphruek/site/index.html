@@ -1,0 +1,254 @@
+<!doctype html>
+<html lang="th">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>CERA Dental — เว็บเดิม vs เว็บใหม่ (หน้าเปรียบเทียบ)</title>
+  <meta name="description" content="หน้าเปรียบเทียบคอนเซ็ปต์เว็บไซต์เดิมและเว็บใหม่ของคลินิกทันตกรรมราชพฤกษ์ เพื่อใช้พูดคุยเสนอแนวทางออกแบบ ไม่ใช่เว็บไซต์ทางการเว้นแต่เจ้าของอนุมัติ" />
+  <meta name="robots" content="noindex,nofollow" />
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: { extend: {
+        colors: { ink:'#0c2740', slate2:'#456079', teal:'#15b5c4', ocean:'#1186d6', deep:'#0e5aa7', mint:'#e6fbfb', sky:'#eef6fd', cloud:'#f7fbff', rust:'#b4541f' },
+        fontFamily: { display:['"Trebuchet MS"','"Segoe UI"','system-ui','sans-serif'], body:['"Segoe UI"','system-ui','-apple-system','sans-serif'] },
+        boxShadow: { soft:'0 12px 36px rgba(12,39,64,.10)', pill:'0 10px 28px rgba(17,134,214,.30)', glass:'0 20px 60px rgba(17,134,214,.14), inset 0 1px 0 rgba(255,255,255,.9)' }
+      } }
+    }
+  </script>
+  <style>
+    html { scroll-behavior:smooth; }
+    body { margin:0; background:#f7fbff; color:#0c2740; overflow-x:hidden; }
+    .bg-aura { background:
+      radial-gradient(circle at 88% -4%, rgba(21,181,196,.16), transparent 30rem),
+      radial-gradient(circle at 4% 6%, rgba(17,134,214,.14), transparent 26rem),
+      linear-gradient(180deg,#f7fbff 0%,#eef6fd 55%,#f7fbff 100%); }
+    .glass { background:linear-gradient(150deg, rgba(255,255,255,.82), rgba(255,255,255,.55)); border:1px solid rgba(255,255,255,.85); backdrop-filter:blur(18px) saturate(140%); box-shadow:0 20px 60px rgba(17,134,214,.14), inset 0 1px 0 rgba(255,255,255,.9); }
+    .text-balance { text-wrap:balance; }
+    .reveal { opacity:0; transform:translateY(18px); animation:rv .8s cubic-bezier(.16,1,.3,1) forwards; }
+    .d1{animation-delay:.1s}.d2{animation-delay:.2s}
+    @keyframes rv { to { opacity:1; transform:none; } }
+    .frame { width:100%; height:100%; border:0; display:block; background:#fff; }
+    /* ป้ายมุมเฟรม */
+    .tag { position:absolute; top:.75rem; left:.75rem; z-index:5; font-size:11px; font-weight:800; letter-spacing:.04em; padding:.35rem .7rem; border-radius:999px; }
+    /* slider */
+    .scrubWrap { position:relative; overflow:hidden; border-radius:1.25rem; }
+    .scrubAfter { position:absolute; inset:0; overflow:hidden; will-change:width; }
+    .scrubHandle { position:absolute; top:0; bottom:0; width:3px; background:linear-gradient(#15b5c4,#1186d6); z-index:8; transform:translateX(-50%); }
+    .scrubKnob { position:absolute; top:50%; left:50%; transform:translate(-50%,-50%); width:46px; height:46px; border-radius:999px; background:#fff; box-shadow:0 8px 22px rgba(12,39,64,.28); display:grid; place-items:center; color:#0e5aa7; font-weight:900; cursor:ew-resize; z-index:9; user-select:none; }
+    /* กันการ scroll ภายใน iframe ตอนลากบนมือถือ: overlay โปร่งใส */
+    .scrubGuard { position:absolute; inset:0; z-index:7; cursor:ew-resize; }
+    @media (prefers-reduced-motion: reduce){ *{animation-duration:.01ms!important;scroll-behavior:auto!important} }
+  </style>
+</head>
+<body class="bg-aura font-body">
+
+  <!-- NAV -->
+  <header class="fixed inset-x-3 top-3 z-40 mx-auto flex max-w-6xl items-center justify-between gap-3 rounded-full border border-white/80 bg-white/70 px-3 py-2 shadow-soft backdrop-blur-xl md:inset-x-6 md:top-5 md:px-4">
+    <a href="#top" class="flex items-center gap-2.5" aria-label="ด้านบน">
+      <span class="grid h-10 w-10 place-items-center rounded-full bg-white shadow-soft">
+        <svg width="24" height="24" viewBox="0 0 48 48" aria-hidden="true"><defs><linearGradient id="n" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#15b5c4"/><stop offset="1" stop-color="#1186d6"/></linearGradient></defs><path fill="url(#n)" d="M24 6c-5 0-7-2-11-2-5 0-9 4-9 11 0 6 2 9 4 15 1.6 4.8 2.4 12 5 12 2.2 0 2.3-7 5-7s2.8 7 5 7c2.6 0 3.4-7.2 5-12 2-6 4-9 4-15 0-7-4-11-9-11-4 0-6 2-8 2z"/></svg>
+      </span>
+      <span class="leading-tight">
+        <strong class="block text-[15px] tracking-tight text-ink">CERA Dental</strong>
+        <small class="block text-[11px] text-slate2">เปรียบเทียบเว็บเดิม ↔ เว็บใหม่</small>
+      </span>
+    </a>
+    <nav class="hidden gap-7 text-sm font-semibold text-slate2 lg:flex">
+      <a class="hover:text-ocean" href="#compare">เทียบหน้าเว็บ</a>
+      <a class="hover:text-ocean" href="#table">ตารางเทียบ</a>
+      <a class="hover:text-ocean" href="#pitch">ข้อเสนอ</a>
+    </nav>
+    <a href="new.html" target="_blank" rel="noopener" class="rounded-full bg-gradient-to-r from-teal to-ocean px-5 py-2.5 text-sm font-extrabold text-white shadow-pill">เปิดเว็บใหม่</a>
+  </header>
+
+  <!-- HERO -->
+  <section id="top" class="mx-auto max-w-6xl px-4 pb-10 pt-28 text-center md:px-8 lg:pt-36">
+    <span class="reveal inline-flex items-center gap-2 rounded-full border border-deep/12 bg-white/70 px-4 py-1.5 text-xs font-bold text-deep shadow-soft">
+      <span class="h-2 w-2 rounded-full bg-teal"></span> ข้อเสนอออกแบบเว็บไซต์ · คลินิกทันตกรรมราชพฤกษ์
+    </span>
+    <h1 class="reveal d1 mx-auto mt-5 max-w-4xl font-display text-[11vw] font-extrabold leading-[.96] tracking-tight text-balance text-ink md:text-6xl lg:text-[4.6rem]">
+      เว็บเดิม <span class="text-slate2">vs</span> <span class="bg-gradient-to-r from-teal to-ocean bg-clip-text text-transparent">เว็บใหม่</span>
+    </h1>
+    <p class="reveal d2 mx-auto mt-5 max-w-2xl text-lg leading-8 text-slate2">
+      เปรียบเทียบให้เห็นชัดในหน้าเดียว — เว็บใหม่ที่สะอาด โหลดเร็ว บอกเวลาทำการ และโทร/ทักไลน์ได้ในปุ่มเดียว เปลี่ยนคนที่เสิร์ชเจอให้กลายเป็นคนไข้ที่ติดต่อเข้ามา
+    </p>
+    <div class="reveal d2 mt-7 flex flex-col items-center justify-center gap-3 sm:flex-row">
+      <a href="new.html" target="_blank" rel="noopener" class="rounded-full bg-gradient-to-r from-teal to-ocean px-7 py-4 font-extrabold text-white shadow-pill transition hover:-translate-y-0.5">เปิดเว็บใหม่เต็มจอ →</a>
+      <a href="old.html" target="_blank" rel="noopener" class="glass rounded-full px-7 py-4 font-extrabold text-slate2 transition hover:-translate-y-0.5">ดูเว็บเดิมจำลอง</a>
+    </div>
+  </section>
+
+  <!-- COMPARE: side-by-side iframes -->
+  <section id="compare" class="mx-auto max-w-6xl px-4 py-10 md:px-8">
+    <div class="mb-6 text-center">
+      <p class="text-xs font-extrabold uppercase tracking-[.2em] text-teal">เทียบของจริง</p>
+      <h2 class="mt-3 font-display text-3xl font-extrabold tracking-tight text-ink md:text-4xl">วางคู่กัน เห็นความต่างทันที</h2>
+      <p class="mx-auto mt-3 max-w-2xl text-sm text-slate2">ทั้งสองกรอบคือหน้าเว็บจริงที่โหลดมาแสดง — ซ้ายคือสภาพเว็บเดิม (จำลอง) ขวาคือคอนเซ็ปต์เว็บใหม่ บนมือถือจะเรียงบน–ล่าง</p>
+    </div>
+
+    <div class="grid grid-cols-1 gap-5 lg:grid-cols-2">
+      <!-- เดิม -->
+      <div class="glass rounded-[1.6rem] p-3">
+        <div class="relative h-[460px] overflow-hidden rounded-[1.25rem] md:h-[560px]">
+          <span class="tag bg-rust/90 text-white">● เดิม</span>
+          <iframe class="frame" src="old.html" title="หน้าจำลองเว็บเดิม CERA Dental" loading="lazy"></iframe>
+        </div>
+        <div class="flex items-center justify-between px-2 pt-3">
+          <p class="text-sm font-semibold text-slate2">สภาพเว็บเดิม (จำลอง)</p>
+          <a href="old.html" target="_blank" rel="noopener" class="text-sm font-extrabold text-deep hover:underline">เปิดเต็มจอ ↗</a>
+        </div>
+      </div>
+      <!-- ใหม่ -->
+      <div class="glass rounded-[1.6rem] p-3 ring-1 ring-teal/40">
+        <div class="relative h-[460px] overflow-hidden rounded-[1.25rem] md:h-[560px]">
+          <span class="tag bg-gradient-to-r from-teal to-ocean text-white">✦ ใหม่</span>
+          <iframe class="frame" src="new.html" title="คอนเซ็ปต์เว็บใหม่ CERA Dental" loading="lazy"></iframe>
+        </div>
+        <div class="flex items-center justify-between px-2 pt-3">
+          <p class="text-sm font-semibold text-deep">คอนเซ็ปต์เว็บใหม่</p>
+          <a href="new.html" target="_blank" rel="noopener" class="text-sm font-extrabold text-deep hover:underline">เปิดเต็มจอ ↗</a>
+        </div>
+      </div>
+    </div>
+
+    <!-- SLIDER: ลากเทียบ (desktop เด่น, ใช้ได้ทุกจอ) -->
+    <div class="mt-8">
+      <div class="mb-4 text-center">
+        <h3 class="font-display text-2xl font-extrabold text-ink">หรือลากเพื่อเทียบทับกัน</h3>
+        <p class="mt-2 text-sm text-slate2">ลากปุ่มกลางซ้าย–ขวา เพื่อเผยเว็บใหม่ทับบนเว็บเดิม</p>
+      </div>
+      <div class="glass rounded-[1.6rem] p-3">
+        <div id="scrub" class="scrubWrap h-[440px] md:h-[600px]">
+          <!-- ชั้นล่าง = เดิม -->
+          <iframe class="frame" src="old.html" title="เว็บเดิม (ชั้นล่างสไลเดอร์)" loading="lazy"></iframe>
+          <span class="tag bg-rust/90 text-white">● เดิม</span>
+          <!-- ชั้นบน = ใหม่ (ครอบด้วยความกว้างที่ปรับได้) -->
+          <div id="scrubAfter" class="scrubAfter" style="width:50%;">
+            <!-- ต้องกว้างเท่า wrapper เสมอ เพื่อให้สัดส่วนภาพถูก -->
+            <div id="scrubAfterInner" style="position:absolute;top:0;left:0;height:100%;">
+              <iframe class="frame" src="new.html" title="เว็บใหม่ (ชั้นบนสไลเดอร์)" loading="lazy"></iframe>
+              <span class="tag bg-gradient-to-r from-teal to-ocean text-white" style="left:auto;right:.75rem;">✦ ใหม่</span>
+            </div>
+          </div>
+          <!-- guard ดักลากทับ iframe -->
+          <div id="scrubGuard" class="scrubGuard"></div>
+          <div id="scrubHandle" class="scrubHandle" style="left:50%;">
+            <div class="scrubKnob">⇆</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="mt-7 flex flex-col items-center justify-center gap-3 sm:flex-row">
+      <a href="new.html" target="_blank" rel="noopener" class="rounded-full bg-gradient-to-r from-teal to-ocean px-7 py-4 font-extrabold text-white shadow-pill transition hover:-translate-y-0.5">เปิดเว็บใหม่เต็มจอ →</a>
+      <a href="old.html" target="_blank" rel="noopener" class="glass rounded-full px-7 py-4 font-extrabold text-slate2 transition hover:-translate-y-0.5">ดูเว็บเดิมจำลอง</a>
+    </div>
+  </section>
+
+  <!-- TABLE -->
+  <section id="table" class="mx-auto max-w-6xl px-4 py-14 md:px-8">
+    <div class="mb-8 text-center">
+      <p class="text-xs font-extrabold uppercase tracking-[.2em] text-teal">เทียบทีละข้อ</p>
+      <h2 class="mt-3 font-display text-3xl font-extrabold tracking-tight text-ink md:text-4xl">ต่างกันตรงไหนบ้าง</h2>
+    </div>
+    <div class="glass overflow-hidden rounded-[1.6rem]">
+      <div class="grid grid-cols-[1.3fr_1fr_1fr] gap-px bg-deep/10 text-sm md:text-base">
+        <!-- head -->
+        <div class="bg-white/70 p-4 font-extrabold text-ink">หัวข้อ</div>
+        <div class="bg-white/70 p-4 text-center font-extrabold text-rust">เว็บเดิม</div>
+        <div class="bg-white/70 p-4 text-center font-extrabold text-deep">เว็บใหม่</div>
+        <!-- rows -->
+        <div class="bg-cloud p-4 font-semibold text-ink">มือถือ (Responsive)</div>
+        <div class="bg-cloud p-4 text-center text-slate2"><span class="text-rust">✗</span> เลย์เอาต์คงที่ ปุ่มไม่ปรับตามจอ</div>
+        <div class="bg-cloud p-4 text-center text-slate2"><span class="text-teal">✓</span> ออกแบบมือถือมาก่อน แตะง่าย</div>
+
+        <div class="bg-white/60 p-4 font-semibold text-ink">ความเร็วโหลด</div>
+        <div class="bg-white/60 p-4 text-center text-slate2"><span class="text-rust">✗</span> รูปเยอะ ไม่ย่อ โหลดช้า</div>
+        <div class="bg-white/60 p-4 text-center text-slate2"><span class="text-teal">✓</span> เบา ใช้กราฟิกแทนรูปหนัก</div>
+
+        <div class="bg-cloud p-4 font-semibold text-ink">ปุ่มนัด / ติดต่อ</div>
+        <div class="bg-cloud p-4 text-center text-slate2"><span class="text-rust">✗</span> ปุ่ม “ปรึกษา” ซ้ำหลายจุด สับสน</div>
+        <div class="bg-cloud p-4 text-center text-slate2"><span class="text-teal">✓</span> โทร/ไลน์/นัด ชัด ปุ่มเดียวต่อจุดประสงค์</div>
+
+        <div class="bg-white/60 p-4 font-semibold text-ink">ความน่าเชื่อถือ</div>
+        <div class="bg-white/60 p-4 text-center text-slate2"><span class="text-rust">✗</span> ไม่มีเวลาทำการ ขาดข้อมูลหมอ</div>
+        <div class="bg-white/60 p-4 text-center text-slate2"><span class="text-teal">✓</span> เวลาทำการเด่น + จุดน่าเชื่อถือ</div>
+
+        <div class="bg-cloud p-4 font-semibold text-ink">ดีไซน์</div>
+        <div class="bg-cloud p-4 text-center text-slate2"><span class="text-rust">✗</span> รก ไม่มีลำดับสายตา</div>
+        <div class="bg-cloud p-4 text-center text-slate2"><span class="text-teal">✓</span> สะอาด โปร่ง โทนฟ้า/ขาวมืออาชีพ</div>
+      </div>
+    </div>
+    <p class="mt-4 text-center text-xs text-slate2">“เว็บเดิม” อ้างอิงจากการสังเกตหน้าเว็บปัจจุบันเชิงโครงสร้าง · เวลาทำการในเว็บใหม่เป็นค่าตัวอย่าง โปรดยืนยันกับคลินิก</p>
+  </section>
+
+  <!-- PITCH -->
+  <section id="pitch" class="mx-auto max-w-6xl px-4 py-14 pb-28 md:px-8">
+    <div class="glass grid grid-cols-1 gap-8 rounded-[2rem] p-8 text-center md:p-12">
+      <div>
+        <p class="text-xs font-extrabold uppercase tracking-[.2em] text-teal">ข้อเสนอจากทีมออกแบบ</p>
+        <h2 class="mt-3 font-display text-3xl font-extrabold tracking-tight text-balance text-ink md:text-4xl">อยากให้หน้าเว็บคลินิกดูแบบ “เว็บใหม่” ไหม?</h2>
+        <p class="mx-auto mt-4 max-w-2xl text-slate2">เราออกแบบให้ตรงกับคลินิกจริง ปรับสี ข้อความ รูป และเวลาทำการให้ถูกต้อง พร้อมเชื่อมปุ่มโทร/ไลน์/แผนที่ให้คนไข้ติดต่อง่ายที่สุด — เริ่มจากคุยกันก่อน ไม่มีข้อผูกมัด</p>
+        <div class="mt-7 flex flex-col items-center justify-center gap-3 sm:flex-row">
+          <a href="#" class="rounded-full bg-gradient-to-r from-teal to-ocean px-7 py-4 font-extrabold text-white shadow-pill transition hover:-translate-y-0.5">ติดต่อทีมออกแบบ</a>
+          <a href="new.html" target="_blank" rel="noopener" class="glass rounded-full px-7 py-4 font-extrabold text-deep transition hover:-translate-y-0.5">ดูเว็บใหม่อีกครั้ง</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="border-t border-deep/10 bg-white/50 px-5 py-8 pb-10 text-sm leading-7 text-slate2 md:px-10">
+    <div class="mx-auto max-w-6xl">
+      <strong class="text-ink">CERA Dental — คลินิกทันตกรรมราชพฤกษ์ · หน้าเปรียบเทียบคอนเซ็ปต์</strong>
+      <p class="mt-2">ตัวอย่างคอนเซ็ปต์เว็บไซต์เพื่อใช้พูดคุย/เสนอแนวทางเท่านั้น ยังไม่ใช่เว็บไซต์ทางการของธุรกิจนี้ เว้นแต่เจ้าของธุรกิจจะอนุมัติ</p>
+      <p class="mt-1 text-xs">ไม่ใช้โลโก้/รูปจริงของคลินิก (placeholder ทั้งหมด) · ไม่เคลมผลการรักษา/รับประกันผล · ข้อมูลติดต่อจากแหล่งสาธารณะ · เวลาทำการเป็นค่าตัวอย่าง โปรดยืนยันกับคลินิก</p>
+    </div>
+  </footer>
+
+  <script>
+    // สไลเดอร์ลากเทียบ — ตั้งความกว้าง inner = ความกว้าง wrapper เพื่อให้ภาพเว็บใหม่ไม่ถูกบีบ
+    (function(){
+      var wrap = document.getElementById('scrub');
+      var after = document.getElementById('scrubAfter');
+      var inner = document.getElementById('scrubAfterInner');
+      var handle = document.getElementById('scrubHandle');
+      var guard = document.getElementById('scrubGuard');
+      if(!wrap||!after||!inner||!handle) return;
+
+      function sizeInner(){ inner.style.width = wrap.clientWidth + 'px'; }
+      function setPct(p){
+        p = Math.max(0, Math.min(100, p));
+        after.style.width = p + '%';
+        handle.style.left = p + '%';
+      }
+      sizeInner(); setPct(50);
+      window.addEventListener('resize', function(){ sizeInner(); });
+
+      var dragging = false;
+      function pctFromX(clientX){
+        var r = wrap.getBoundingClientRect();
+        return ((clientX - r.left) / r.width) * 100;
+      }
+      function start(e){ dragging = true; guard.style.pointerEvents='auto'; move(e); }
+      function end(){ dragging = false; }
+      function move(e){
+        if(!dragging) return;
+        var x = (e.touches ? e.touches[0].clientX : e.clientX);
+        setPct(pctFromX(x));
+        if(e.cancelable) e.preventDefault();
+      }
+      // เริ่มลากจากปุ่มหรือจาก guard
+      handle.addEventListener('mousedown', start);
+      guard.addEventListener('mousedown', start);
+      window.addEventListener('mousemove', move);
+      window.addEventListener('mouseup', end);
+      handle.addEventListener('touchstart', start, {passive:false});
+      guard.addEventListener('touchstart', start, {passive:false});
+      window.addEventListener('touchmove', move, {passive:false});
+      window.addEventListener('touchend', end);
+    })();
+  </script>
+</body>
+</html>

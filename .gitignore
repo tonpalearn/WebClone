@@ -22,4 +22,7 @@ __pycache__/
 .pytest_cache/
 .venv/
 
+# Local tooling (preview launch config — keep out of shared repo)
+.claude/
+
 # Keep generated output reviewable; do not ignore output/subprojects by default

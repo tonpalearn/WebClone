@@ -1,0 +1,290 @@
+<!doctype html>
+<html lang="th">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>เผ็ดเผ็ด ราชพฤกษ์ — เว็บเดิม vs เว็บใหม่ (คอนเซ็ปต์เปรียบเทียบ)</title>
+  <meta name="description" content="หน้าเปรียบเทียบคอนเซ็ปต์ redesign สาขาราชพฤกษ์ของเผ็ดเผ็ด เว็บเดิมเทียบเว็บใหม่ ไม่ใช่เว็บทางการ เว้นแต่เจ้าของอนุมัติ" />
+  <meta name="robots" content="noindex,nofollow" />
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            charcoal: '#0c0705',
+            ink: '#160a07',
+            chili: '#e11d2a',
+            ember: '#ff3b30',
+            flame: '#ff7a18',
+            mango: '#ff9e2c',
+            basil: '#2fae66',
+            lime: '#7bd637',
+            cream: '#fff6ec',
+            sand: '#f7d9b5'
+          },
+          fontFamily: {
+            display: ['Georgia', 'Cormorant Garamond', 'serif'],
+            body: ['Avenir Next', 'Helvetica Neue', 'sans-serif']
+          },
+          boxShadow: {
+            glow: '0 0 80px rgba(225,29,42,.38)',
+            flameglow: '0 0 70px rgba(255,122,24,.34)',
+            glass: '0 24px 90px rgba(0,0,0,.46), inset 0 1px 0 rgba(255,255,255,.16)'
+          }
+        }
+      }
+    }
+  </script>
+  <style>
+    html { scroll-behavior: smooth; }
+    body { margin: 0; background: #0c0705; color: #fff6ec; overflow-x: hidden; }
+    .aurora {
+      background:
+        radial-gradient(circle at 8% 6%, rgba(225,29,42,.50), transparent 30rem),
+        radial-gradient(circle at 82% 8%, rgba(255,122,24,.30), transparent 30rem),
+        radial-gradient(circle at 50% 82%, rgba(47,174,102,.18), transparent 38rem),
+        linear-gradient(135deg, #0c0705 0%, #1c0a06 52%, #070302 100%);
+    }
+    .noise:before {
+      content: ""; position: fixed; inset: 0; pointer-events: none; z-index: 50; opacity: .12; mix-blend-mode: screen;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 240 240' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.5'/%3E%3C/svg%3E");
+    }
+    .glass { background: linear-gradient(145deg, rgba(255,246,236,.14), rgba(255,246,236,.045)); border: 1px solid rgba(255,246,236,.18); backdrop-filter: blur(24px) saturate(160%); box-shadow: 0 24px 90px rgba(0,0,0,.46), inset 0 1px 0 rgba(255,255,255,.14); }
+    .glass-dark { background: linear-gradient(145deg, rgba(22,10,7,.80), rgba(22,10,7,.42)); border: 1px solid rgba(255,246,236,.16); backdrop-filter: blur(22px) saturate(150%); box-shadow: 0 24px 90px rgba(0,0,0,.40), inset 0 1px 0 rgba(255,255,255,.10); }
+    .text-balance { text-wrap: balance; }
+    .reveal { opacity: 0; transform: translateY(24px); filter: blur(7px); animation: reveal .9s cubic-bezier(.16,1,.3,1) forwards; }
+    .delay-1 { animation-delay: .12s; } .delay-2 { animation-delay: .22s; }
+    @keyframes reveal { to { opacity: 1; transform: none; filter: none; } }
+
+    /* กรอบ iframe จำลองอุปกรณ์ + กัน iframe จับ scroll/คลิกตอนเลื่อนหน้า (กดปุ่มเปิดเต็มจอแทน) */
+    .frame-screen { position: relative; overflow: hidden; }
+    .frame-screen iframe { width: 100%; height: 100%; border: 0; display: block; background:#fff; }
+    .frame-screen .lock { position: absolute; inset: 0; z-index: 5; }
+
+    /* Slider เทียบ before/after แบบลากได้ */
+    .ba { position: relative; width: 100%; overflow: hidden; border-radius: 1.6rem; touch-action: none; }
+    .ba .pane { position: absolute; inset: 0; }
+    .ba .pane iframe { width: 100%; height: 100%; border: 0; display: block; background:#fff; }
+    .ba .after { z-index: 2; } /* layer บนสุด ถูกครอบด้วย clip */
+    .ba .lock { position:absolute; inset:0; }
+    .ba-handle { position: absolute; top: 0; bottom: 0; z-index: 4; width: 2px; background: linear-gradient(#ff7a18,#e11d2a); box-shadow: 0 0 24px rgba(255,122,24,.7); cursor: ew-resize; }
+    .ba-knob { position: absolute; top: 50%; left: 50%; transform: translate(-50%,-50%); height: 56px; width: 56px; border-radius: 9999px; display: grid; place-items: center; background: linear-gradient(145deg,#ff7a18,#e11d2a); color: #fff; font-weight: 900; box-shadow: 0 10px 30px rgba(0,0,0,.5), inset 0 1px 0 rgba(255,255,255,.4); cursor: ew-resize; user-select: none; }
+    @media (prefers-reduced-motion: reduce) { * { animation-duration: .01ms !important; scroll-behavior: auto !important; } }
+  </style>
+</head>
+<body class="aurora noise font-body">
+
+  <!-- ===== NAV ===== -->
+  <header class="fixed left-3 right-3 top-3 z-40 mx-auto grid max-w-7xl grid-cols-[auto_1fr_auto] items-center gap-4 rounded-full border border-white/15 bg-charcoal/60 px-3 py-2 shadow-glass backdrop-blur-2xl md:left-6 md:right-6 md:top-5">
+    <a href="#top" class="flex min-w-0 items-center gap-3" aria-label="บนสุด">
+      <span class="grid h-12 w-12 place-items-center rounded-2xl bg-gradient-to-br from-chili to-flame text-2xl shadow-glow" role="img" aria-label="พริก">🌶️</span>
+      <span class="leading-tight">
+        <strong class="block tracking-[.10em] text-cream">เผ็ดเผ็ด</strong>
+        <small class="hidden text-sand/75 sm:block">ราชพฤกษ์ · เปรียบเทียบเว็บ</small>
+      </span>
+    </a>
+    <nav class="hidden justify-center gap-8 text-sm font-semibold text-sand/75 lg:flex" aria-label="เมนูหลัก">
+      <a class="hover:text-mango" href="#compare">เทียบข้างกัน</a>
+      <a class="hover:text-mango" href="#slider">ลากเทียบ</a>
+      <a class="hover:text-mango" href="#table">ตารางเทียบ</a>
+      <a class="hover:text-mango" href="#pitch">ข้อเสนอ</a>
+    </nav>
+    <a href="new.html" target="_blank" rel="noopener" class="rounded-full bg-gradient-to-r from-chili to-ember px-5 py-3 text-sm font-black text-white shadow-glow">เปิดเว็บใหม่</a>
+  </header>
+
+  <!-- ===== HERO ===== -->
+  <section id="top" class="relative mx-auto max-w-7xl px-4 pb-10 pt-32 text-center md:px-8 lg:pt-40">
+    <p class="reveal mx-auto mb-5 inline-flex items-center gap-2 rounded-full border border-white/15 bg-white/5 px-4 py-1.5 text-xs font-black uppercase tracking-[.22em] text-mango">🌶️ เผ็ดเผ็ด · สาขาราชพฤกษ์ · The Circle</p>
+    <h1 class="reveal delay-1 mx-auto max-w-5xl font-display text-[14vw] leading-[.86] tracking-[-.05em] text-balance text-cream md:text-[8vw] lg:text-[6.6rem]">เว็บเดิม <span class="text-sand/45">vs</span> <span class="bg-gradient-to-r from-ember via-flame to-mango bg-clip-text text-transparent">เว็บใหม่</span></h1>
+    <p class="reveal delay-2 mx-auto mt-7 max-w-2xl text-lg leading-8 text-sand/86 md:text-xl">เทียบให้เห็นกับตา — จากเว็บยุคเก่าที่ดูบนมือถือลำบากและข้อมูลหลายสาขาปนกัน สู่หน้าร้านที่น่ากิน โหลดไว และกดโทร/แอด Line/สั่งเดลิเวอรีได้ในแตะเดียว</p>
+    <div class="reveal delay-2 mt-8 flex flex-col items-center justify-center gap-3 sm:flex-row sm:flex-wrap">
+      <a class="rounded-full bg-gradient-to-r from-chili to-ember px-7 py-4 text-center font-black text-white shadow-glow transition hover:-translate-y-1" href="new.html" target="_blank" rel="noopener">เปิดเว็บใหม่เต็มจอ →</a>
+      <a class="glass rounded-full px-7 py-4 text-center font-black text-cream transition hover:-translate-y-1" href="old.html" target="_blank" rel="noopener">ดูเว็บเดิมจำลอง</a>
+    </div>
+  </section>
+
+  <!-- ===== COMPARE: side-by-side iframes ===== -->
+  <section id="compare" class="mx-auto max-w-7xl px-4 py-16 md:px-8">
+    <div class="mb-8 text-center">
+      <p class="text-xs font-black uppercase tracking-[.25em] text-mango">01 · เทียบข้างกัน</p>
+      <h2 class="mt-3 font-display text-4xl leading-[.92] tracking-[-.04em] md:text-6xl">เดิม กับ ใหม่ ในจอเดียว</h2>
+      <p class="mx-auto mt-3 max-w-2xl text-sand/70">ซ้าย = เว็บเดิม (จำลอง) · ขวา = เว็บใหม่ — บนมือถือจะเรียงบน-ล่าง อยากดูเต็ม ๆ กดปุ่ม "เปิดเต็มจอ" ใต้แต่ละกรอบ</p>
+    </div>
+
+    <div class="grid gap-6 lg:grid-cols-2">
+      <!-- OLD -->
+      <div class="glass rounded-[2rem] p-4">
+        <div class="mb-3 flex items-center justify-between px-1">
+          <span class="inline-flex items-center gap-2 rounded-full bg-white/10 px-4 py-1.5 text-sm font-black text-sand/80"><span class="h-2.5 w-2.5 rounded-full bg-sand/40"></span> เดิม</span>
+          <span class="text-xs text-sand/55">ดีไซน์ยุค 2010</span>
+        </div>
+        <div class="frame-screen h-[460px] rounded-[1.4rem] md:h-[560px]">
+          <iframe src="old.html" title="หน้าจำลองเว็บเดิมของเผ็ดเผ็ด" loading="lazy" scrolling="no"></iframe>
+          <div class="lock"></div>
+        </div>
+        <a href="old.html" target="_blank" rel="noopener" class="mt-3 block rounded-full bg-white/10 px-5 py-3 text-center text-sm font-black text-cream transition hover:bg-white/15">เปิดเว็บเดิมจำลองเต็มจอ</a>
+      </div>
+
+      <!-- NEW -->
+      <div class="glass rounded-[2rem] p-4 ring-1 ring-flame/40">
+        <div class="mb-3 flex items-center justify-between px-1">
+          <span class="inline-flex items-center gap-2 rounded-full bg-gradient-to-r from-chili to-flame px-4 py-1.5 text-sm font-black text-white"><span class="h-2.5 w-2.5 rounded-full bg-lime"></span> ใหม่</span>
+          <span class="text-xs text-mango">glass · mobile-first</span>
+        </div>
+        <div class="frame-screen h-[460px] rounded-[1.4rem] md:h-[560px]">
+          <iframe src="new.html" title="หน้าคอนเซ็ปต์เว็บใหม่ของเผ็ดเผ็ด สาขาราชพฤกษ์" loading="lazy"></iframe>
+          <div class="lock"></div>
+        </div>
+        <a href="new.html" target="_blank" rel="noopener" class="mt-3 block rounded-full bg-gradient-to-r from-chili to-ember px-5 py-3 text-center text-sm font-black text-white shadow-glow transition hover:-translate-y-0.5">เปิดเว็บใหม่เต็มจอ</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== SLIDER: drag to compare ===== -->
+  <section id="slider" class="mx-auto max-w-6xl px-4 py-16 md:px-8">
+    <div class="mb-8 text-center">
+      <p class="text-xs font-black uppercase tracking-[.25em] text-mango">02 · ลากเทียบ</p>
+      <h2 class="mt-3 font-display text-4xl leading-[.92] tracking-[-.04em] md:text-6xl">ลากแถบกลางเพื่อสไลด์</h2>
+      <p class="mx-auto mt-3 max-w-2xl text-sand/70">ลากปุ่มกลางซ้าย-ขวา เพื่อเผยเว็บเดิม (ซ้าย) ทับด้วยเว็บใหม่ (ขวา) เห็นความต่างในเฟรมเดียว</p>
+    </div>
+
+    <div class="glass rounded-[2rem] p-4">
+      <div id="ba" class="ba h-[480px] md:h-[600px]">
+        <!-- under: OLD -->
+        <div class="pane before">
+          <iframe src="old.html" title="เว็บเดิม (ลากเทียบ)" loading="lazy" scrolling="no"></iframe>
+          <div class="lock"></div>
+        </div>
+        <!-- over: NEW (clipped) -->
+        <div id="baAfter" class="pane after" style="clip-path: inset(0 0 0 50%);">
+          <iframe src="new.html" title="เว็บใหม่ (ลากเทียบ)" loading="lazy" scrolling="no"></iframe>
+          <div class="lock"></div>
+        </div>
+        <div id="baHandle" class="ba-handle" style="left:50%;">
+          <div class="ba-knob" id="baKnob">⇄</div>
+        </div>
+        <!-- labels -->
+        <span class="pointer-events-none absolute left-3 top-3 z-[6] rounded-full bg-black/55 px-3 py-1 text-xs font-black text-sand/85 backdrop-blur">เดิม</span>
+        <span class="pointer-events-none absolute right-3 top-3 z-[6] rounded-full bg-gradient-to-r from-chili to-flame px-3 py-1 text-xs font-black text-white">ใหม่</span>
+      </div>
+      <p class="mt-3 text-center text-xs text-sand/55">เฟรมตัวอย่างถูกล็อกการเลื่อนไว้เพื่อให้ลากเทียบได้ลื่น — ดูแบบโต้ตอบเต็ม ๆ ที่ปุ่ม "เปิดเต็มจอ" ด้านบน</p>
+    </div>
+  </section>
+
+  <!-- ===== TABLE ===== -->
+  <section id="table" class="mx-auto max-w-5xl px-4 py-16 md:px-8">
+    <div class="mb-8 text-center">
+      <p class="text-xs font-black uppercase tracking-[.25em] text-mango">03 · ตารางเทียบ</p>
+      <h2 class="mt-3 font-display text-4xl leading-[.92] tracking-[-.04em] md:text-6xl">ต่างกันตรงไหนบ้าง</h2>
+    </div>
+    <div class="glass overflow-hidden rounded-[2rem]">
+      <table class="w-full border-collapse text-left">
+        <thead>
+          <tr class="border-b border-white/15 text-sm">
+            <th class="p-4 font-black text-sand/70 md:p-5">หัวข้อ</th>
+            <th class="p-4 font-black text-sand/70 md:p-5">เว็บเดิม</th>
+            <th class="p-4 font-black text-mango md:p-5">เว็บใหม่</th>
+          </tr>
+        </thead>
+        <tbody class="text-sm md:text-base">
+          <tr class="border-b border-white/10">
+            <td class="p-4 font-bold text-cream md:p-5">มือถือ (responsive)</td>
+            <td class="p-4 text-sand/75 md:p-5"><span class="font-black text-ember">✗</span> เลย์เอาต์คงที่ ซูม-เลื่อนเอง</td>
+            <td class="p-4 text-sand/90 md:p-5"><span class="font-black text-lime">✓</span> mobile-first ปรับทุกจอ</td>
+          </tr>
+          <tr class="border-b border-white/10 bg-white/[.03]">
+            <td class="p-4 font-bold text-cream md:p-5">ความเร็ว</td>
+            <td class="p-4 text-sand/75 md:p-5"><span class="font-black text-ember">✗</span> โครงเก่า โหลดช้า</td>
+            <td class="p-4 text-sand/90 md:p-5"><span class="font-black text-lime">✓</span> หน้าเดียวเบา โหลดไว</td>
+          </tr>
+          <tr class="border-b border-white/10">
+            <td class="p-4 font-bold text-cream md:p-5">ปุ่มสั่ง / จอง</td>
+            <td class="p-4 text-sand/75 md:p-5"><span class="font-black text-ember">✗</span> ไม่มีปุ่มเด่น ต้องหาเอง</td>
+            <td class="p-4 text-sand/90 md:p-5"><span class="font-black text-lime">✓</span> โทร/Line/เดลิเวอรี 1 แตะ</td>
+          </tr>
+          <tr class="border-b border-white/10 bg-white/[.03]">
+            <td class="p-4 font-bold text-cream md:p-5">ความชัดของข้อมูลสาขา</td>
+            <td class="p-4 text-sand/75 md:p-5"><span class="font-black text-ember">✗</span> 8+ สาขายัดตารางเดียว</td>
+            <td class="p-4 text-sand/90 md:p-5"><span class="font-black text-lime">✓</span> หน้าเฉพาะราชพฤกษ์</td>
+          </tr>
+          <tr>
+            <td class="p-4 font-bold text-cream md:p-5">ดีไซน์ / แบรนด์</td>
+            <td class="p-4 text-sand/75 md:p-5"><span class="font-black text-ember">✗</span> ยุค 2010 ดูจืด</td>
+            <td class="p-4 text-sand/90 md:p-5"><span class="font-black text-lime">✓</span> glass น่ากิน มีชีวิตชีวา</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <!-- ===== PITCH ===== -->
+  <section id="pitch" class="mx-auto max-w-5xl px-4 py-16 pb-28 md:px-8">
+    <div class="glass rounded-[2.6rem] p-8 text-center md:p-12">
+      <p class="text-xs font-black uppercase tracking-[.25em] text-mango">04 · ข้อเสนอ</p>
+      <h2 class="mx-auto mt-4 max-w-3xl font-display text-4xl leading-[.94] tracking-[-.04em] text-balance md:text-6xl">อยากให้หน้าร้านออนไลน์ขายความแซ่บได้จริง?</h2>
+      <p class="mx-auto mt-5 max-w-2xl text-lg leading-8 text-sand/82">เราทำคอนเซ็ปต์นี้ขึ้นเพื่อให้เห็นภาพว่าเว็บใหม่ของสาขาราชพฤกษ์จะหน้าตาเป็นอย่างไร ถ้าทางร้านสนใจ เราปรับสี ข้อความ รูปอาหารจริง เมนู และโปรโมชันให้เป็นเว็บจริงได้ — เริ่มจากหน้าเดียวก่อนก็ได้</p>
+      <div class="mt-8 grid gap-3 sm:grid-cols-3">
+        <div class="rounded-2xl border border-white/12 bg-white/5 p-5"><strong class="block text-2xl text-cream">โทร/Line</strong><span class="text-sm text-sand/65">กดติดต่อใน 1 แตะ</span></div>
+        <div class="rounded-2xl border border-white/12 bg-white/5 p-5"><strong class="block text-2xl text-cream">เฉพาะสาขา</strong><span class="text-sm text-sand/65">ข้อมูลไม่ปนกัน</span></div>
+        <div class="rounded-2xl border border-white/12 bg-white/5 p-5"><strong class="block text-2xl text-cream">พร้อมยิงแอด</strong><span class="text-sm text-sand/65">ส่งลิงก์ให้ลูกค้าได้เลย</span></div>
+      </div>
+      <div class="mt-8 flex flex-col items-center justify-center gap-3 sm:flex-row sm:flex-wrap">
+        <a class="rounded-full bg-gradient-to-r from-chili to-ember px-7 py-4 text-center font-black text-white shadow-glow transition hover:-translate-y-1" href="#">ติดต่อทีมออกแบบ</a>
+        <a class="rounded-full bg-gradient-to-r from-basil to-lime px-7 py-4 text-center font-black text-charcoal transition hover:-translate-y-1" href="new.html" target="_blank" rel="noopener">ดูเว็บใหม่อีกครั้ง</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== FOOTER ===== -->
+  <footer class="border-t border-white/10 px-5 py-8 pb-28 text-sm leading-7 text-sand/65 md:px-10">
+    <p><strong class="text-cream">Concept redesign demo prepared for discussion.</strong> This is not the official website unless approved by the business owner.</p>
+    <p class="mt-2">ตัวอย่างคอนเซ็ปต์เว็บไซต์เพื่อใช้พูดคุย/เสนอแนวทางเท่านั้น ยังไม่ใช่เว็บไซต์ทางการของธุรกิจนี้ เว้นแต่เจ้าของธุรกิจจะอนุมัติ · ภาพอาหารทั้งหมดเป็น placeholder ไม่ใช่รูปจริง · ไม่ได้ใช้โลโก้/ข้อความ/เมนู/ราคา/รีวิว/รางวัลจริงของร้าน · เวลาทำการโปรดยืนยันกับร้าน</p>
+  </footer>
+
+  <!-- mobile sticky -->
+  <div class="fixed bottom-3 left-3 right-3 z-50 grid grid-cols-2 gap-2 rounded-full border border-white/15 bg-charcoal/75 p-2 backdrop-blur-2xl md:hidden">
+    <a class="rounded-full bg-gradient-to-r from-chili to-ember py-3 text-center font-black text-white" href="new.html" target="_blank" rel="noopener">เปิดเว็บใหม่</a>
+    <a class="rounded-full bg-white/10 py-3 text-center font-black text-cream" href="old.html" target="_blank" rel="noopener">เว็บเดิม</a>
+  </div>
+
+  <script>
+    // ===== Drag-to-compare slider =====
+    (function () {
+      var ba = document.getElementById('ba');
+      var after = document.getElementById('baAfter');
+      var handle = document.getElementById('baHandle');
+      if (!ba || !after || !handle) return;
+      var dragging = false;
+
+      function setPos(clientX) {
+        var rect = ba.getBoundingClientRect();
+        var x = clientX - rect.left;
+        var pct = Math.max(0, Math.min(1, x / rect.width));
+        var p = (pct * 100).toFixed(2);
+        after.style.clipPath = 'inset(0 0 0 ' + p + '%)';
+        handle.style.left = p + '%';
+      }
+      function start(e) { dragging = true; e.preventDefault(); }
+      function move(e) {
+        if (!dragging) return;
+        var cx = (e.touches && e.touches[0]) ? e.touches[0].clientX : e.clientX;
+        setPos(cx);
+      }
+      function end() { dragging = false; }
+
+      handle.addEventListener('mousedown', start);
+      handle.addEventListener('touchstart', start, { passive: false });
+      window.addEventListener('mousemove', move);
+      window.addEventListener('touchmove', move, { passive: false });
+      window.addEventListener('mouseup', end);
+      window.addEventListener('touchend', end);
+      // คลิก/แตะบนแถบพื้นที่ก็ขยับได้
+      ba.addEventListener('click', function (e) {
+        if (e.target.closest('.ba-handle')) return;
+        setPos(e.clientX);
+      });
+    })();
+  </script>
+</body>
+</html>
