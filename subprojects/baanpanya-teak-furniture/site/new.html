@@ -3,32 +3,25 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>บ้านปัญญา เฟอร์นิเจอร์ไม้สัก — Glass Redesign Concept</title>
-  <meta name="description" content="คอนเซ็ปต์ redesign เว็บไซต์ร้านบ้านปัญญา เฟอร์นิเจอร์ไม้สัก (BNP Furniture) — ตัวอย่างเพื่อพูดคุย ไม่ใช่เว็บทางการ" />
+  <title>บ้านปัญญา เฟอร์นิเจอร์ไม้สัก — คอนเซ็ปต์เว็บใหม่</title>
+  <meta name="description" content="คอนเซ็ปต์ redesign ร้านบ้านปัญญา เฟอร์นิเจอร์ไม้สัก (BNP Furniture) สไตล์นิตยสารงานคราฟต์ — ตัวอย่างเพื่อพูดคุย ไม่ใช่เว็บทางการ" />
   <meta name="robots" content="noindex,nofollow" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Chonburi&family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;0,9..144,600;1,9..144,400;1,9..144,500&family=IBM+Plex+Sans+Thai:wght@300;400;500;600&display=swap" rel="stylesheet" />
   <script src="https://cdn.tailwindcss.com"></script>
   <script>
     tailwind.config = {
       theme: {
         extend: {
           colors: {
-            espresso: '#1a0f08',
-            bark: '#2a1a0d',
-            teak: '#a8662f',
-            amber: '#c8893f',
-            brass: '#e0b265',
-            honey: '#f2cf8a',
-            cream: '#f7ecd9',
-            sand: '#e9d6b8',
-            jade: '#3f6b54'
+            paper: '#f1e7d6', panel: '#e7d9c0', ink: '#221a0f',
+            teak: '#9a5e2b', rust: '#7c4421', brass: '#a87c33', forest: '#2c4434'
           },
           fontFamily: {
-            display: ['Georgia', 'Cormorant Garamond', 'serif'],
-            body: ['Avenir Next', 'Helvetica Neue', 'sans-serif']
-          },
-          boxShadow: {
-            glow: '0 0 80px rgba(200,137,63,.34)',
-            glass: '0 24px 90px rgba(0,0,0,.42), inset 0 1px 0 rgba(255,255,255,.16)'
+            display: ['Chonburi', 'serif'],
+            serif: ['Fraunces', 'Georgia', 'serif'],
+            body: ['"IBM Plex Sans Thai"', 'ui-sans-serif', 'sans-serif']
           }
         }
       }
@@ -36,34 +29,27 @@
   </script>
   <style>
     html { scroll-behavior: smooth; }
-    body { margin: 0; background: #1a0f08; color: #f7ecd9; overflow-x: hidden; }
-    .aurora {
-      background:
-        radial-gradient(circle at 12% 8%, rgba(200,137,63,.42), transparent 30rem),
-        radial-gradient(circle at 80% 12%, rgba(224,178,101,.24), transparent 28rem),
-        radial-gradient(circle at 50% 78%, rgba(168,102,47,.30), transparent 40rem),
-        linear-gradient(135deg, #1a0f08 0%, #2a1a0d 52%, #140b05 100%);
+    body { margin: 0; background: #f1e7d6; color: #221a0f; -webkit-font-smoothing: antialiased; }
+    .paper-tex:before {
+      content: ""; position: fixed; inset: 0; pointer-events: none; z-index: 0; opacity: .5; mix-blend-mode: multiply;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.045'/%3E%3C/svg%3E");
     }
-    .woodgrain:before {
-      content: ""; position: fixed; inset: 0; pointer-events: none; z-index: 0; opacity: .10; mix-blend-mode: overlay;
-      background-image:
-        repeating-linear-gradient(96deg, rgba(247,236,217,.5) 0px, rgba(247,236,217,0) 2px, rgba(0,0,0,.18) 5px, rgba(247,236,217,0) 9px);
-    }
-    .noise:before {
-      content: ""; position: fixed; inset: 0; pointer-events: none; z-index: 50; opacity: .10; mix-blend-mode: screen;
-      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 240 240' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.5'/%3E%3C/svg%3E");
-    }
-    .glass { background: linear-gradient(145deg, rgba(247,236,217,.15), rgba(247,236,217,.045)); border: 1px solid rgba(247,236,217,.18); backdrop-filter: blur(24px) saturate(160%); box-shadow: 0 24px 90px rgba(0,0,0,.42), inset 0 1px 0 rgba(255,255,255,.14); }
-    .glass-dark { background: linear-gradient(145deg, rgba(42,26,13,.80), rgba(42,26,13,.44)); border: 1px solid rgba(247,236,217,.16); backdrop-filter: blur(22px) saturate(150%); box-shadow: 0 24px 90px rgba(0,0,0,.38), inset 0 1px 0 rgba(255,255,255,.10); }
-    .text-balance { text-wrap: balance; }
-    .reveal { opacity: 0; transform: translateY(24px); filter: blur(7px); animation: reveal .9s cubic-bezier(.16,1,.3,1) forwards; }
-    .delay-1 { animation-delay: .12s; } .delay-2 { animation-delay: .22s; } .delay-3 { animation-delay: .32s; }
-    @keyframes reveal { to { opacity: 1; transform: none; filter: none; } }
-    @media (prefers-reduced-motion: reduce) { * { animation-duration: .01ms !important; scroll-behavior: auto !important; transition-duration: .01ms !important; } }
+    .rule { border-top: 1px solid rgba(34,26,15,.26); }
+    .rule-thick { border-top: 2px solid #221a0f; }
+    .dropcap:first-letter { font-family: 'Chonburi', serif; font-size: 3.3em; line-height: .72; float: left; margin: .06em .12em 0 0; color: #9a5e2b; }
+    .ul-link { background-image: linear-gradient(currentColor,currentColor); background-size: 100% 1px; background-position: 0 100%; background-repeat: no-repeat; padding-bottom: 2px; transition: background-size .4s cubic-bezier(.16,1,.3,1); }
+    .ul-link:hover { background-size: 0% 1px; }
+    .hover-card { transition: transform .5s cubic-bezier(.16,1,.3,1), background-color .4s ease; }
+    .hover-card:hover { transform: translateY(-4px); background-color: #ece0c8; }
+    .vtext { writing-mode: vertical-rl; }
+    .reveal { opacity: 0; transform: translateY(20px); animation: rv 1s cubic-bezier(.16,1,.3,1) forwards; }
+    .d1 { animation-delay: .1s } .d2 { animation-delay: .2s } .d3 { animation-delay: .3s } .d4 { animation-delay: .42s }
+    @keyframes rv { to { opacity: 1; transform: none; } }
+    @media (prefers-reduced-motion: reduce) { * { animation: none !important; scroll-behavior: auto !important; } .reveal { opacity: 1; transform: none; } }
   </style>
 </head>
-<body class="aurora woodgrain noise font-body">
-  <div id="root"></div>
+<body class="paper-tex font-body">
+  <div id="root" class="relative z-10"></div>
 
   <script crossorigin src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
   <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
@@ -75,220 +61,228 @@
     }
   </script>
   <script type="text/babel" data-presets="react-classic">
-    const PHONE = '0984287619';
-    const PHONE2 = '0835369597';
-    const MAP = 'https://www.google.com/maps/search/?api=1&query=%E0%B8%96%E0%B8%99%E0%B8%99%E0%B8%A3%E0%B8%B2%E0%B8%8A%E0%B8%9E%E0%B8%A4%E0%B8%81%E0%B8%A9%E0%B9%8C%20%E0%B8%9A%E0%B8%B2%E0%B8%87%E0%B8%A3%E0%B8%B1%E0%B8%81%E0%B8%99%E0%B9%89%E0%B8%AD%E0%B8%A2%20%E0%B8%99%E0%B8%99%E0%B8%97%E0%B8%9A%E0%B8%B8%E0%B8%A3%E0%B8%B5';
+    const PHONE = '0984287619', PHONE_D = '098-428-7619';
+    const PHONE2 = '0835369597', PHONE2_D = '083-536-9597';
     const LINE = 'https://line.me/R/ti/p/@teak';
+    const MAP = 'https://www.google.com/maps/search/?api=1&query=' + encodeURIComponent('ถนนราชพฤกษ์ บางรักน้อย นนทบุรี');
 
-    function Wood({className, label, icon}) {
-      return <div className={`relative overflow-hidden rounded-[1.6rem] ${className}`} role="img" aria-label={label}>
-        <div className="absolute inset-0" style={{background:'linear-gradient(135deg,#3a2412 0%,#6b431f 45%,#a8662f 100%)'}}></div>
-        <div className="absolute inset-0 opacity-25" style={{backgroundImage:'repeating-linear-gradient(115deg, rgba(247,236,217,.35) 0 2px, transparent 2px 7px)'}}></div>
-        <div className="absolute inset-0 grid place-items-center">
-          <div className="text-center">
-            <div className="text-4xl md:text-5xl">{icon}</div>
-            <div className="mt-2 text-xs font-bold uppercase tracking-[.18em] text-cream/80">{label}</div>
-          </div>
+    // ── ลายเส้นเฟอร์นิเจอร์ไม้ (แทน emoji) สไตล์ catalog/engraving ──
+    function Piece({ k, className }) {
+      const c = { fill: 'none', stroke: 'currentColor', strokeWidth: 2.1, strokeLinecap: 'round', strokeLinejoin: 'round' };
+      const art = {
+        altar: <g {...c}><path d="M58 16h24M70 16v12"/><rect x="50" y="28" width="40" height="9"/><rect x="36" y="45" width="68" height="9"/><rect x="20" y="62" width="100" height="10"/><path d="M28 72v34M112 72v34M52 72v30M88 72v30"/><path d="M20 106h100"/></g>,
+        cabinet: <g {...c}><path d="M30 26q40-14 80 0"/><rect x="30" y="26" width="80" height="80"/><path d="M70 26v80"/><circle cx="63" cy="66" r="2.4"/><circle cx="77" cy="66" r="2.4"/><path d="M44 50v32M96 50v32"/><path d="M34 106l-6 10M106 106l6 10"/></g>,
+        bed: <g {...c}><rect x="16" y="40" width="22" height="44"/><path d="M22 40v-6M32 40v-6"/><path d="M16 66h106v12H16z"/><path d="M122 78v14M24 84v8"/><path d="M38 66h84"/></g>,
+        dining: <g {...c}><path d="M22 50h96v8H22z"/><path d="M34 58v36M106 58v36"/><path d="M44 94h12v-20M84 94h12v-20"/><path d="M44 74h12M84 74h12"/></g>,
+        sofa: <g {...c}><path d="M22 60h96v30H22z"/><path d="M22 60v-12h96v12"/><path d="M22 60v-18M118 60v-18"/><path d="M22 42h12v18M106 42h12v18"/><path d="M34 90v10M106 90v10"/><path d="M70 60v30"/></g>,
+        bespoke: <g {...c}><path d="M70 22l-22 64M70 22l22 64"/><circle cx="70" cy="22" r="4"/><path d="M48 86l8-6M92 86l-8-6"/><path d="M22 100h96"/><path d="M30 100v-6M46 100v-6M62 100v-6M78 100v-6M94 100v-6M110 100v-6"/></g>
+      };
+      return <svg viewBox="0 0 140 120" className={className} role="img" aria-hidden="true">{art[k] || art.altar}</svg>;
+    }
+
+    function Num({ children, className = '' }) {
+      return <span className={`font-display text-brass ${className}`}>{children}</span>;
+    }
+
+    function SectionHead({ n, kicker, title, id }) {
+      return <div id={id} className="rule pt-6">
+        <div className="flex items-baseline gap-4">
+          <Num className="text-2xl">{n}</Num>
+          <span className="font-serif text-[.7rem] uppercase tracking-[.34em] text-rust">{kicker}</span>
         </div>
+        <h2 className="mt-4 max-w-4xl font-display text-[2.4rem] leading-[1.05] text-ink md:text-[3.4rem]">{title}</h2>
       </div>;
     }
 
-    function Nav() {
-      return <header className="fixed left-3 right-3 top-3 z-40 mx-auto grid max-w-7xl grid-cols-[auto_1fr_auto] items-center gap-4 rounded-full border border-white/15 bg-espresso/60 px-3 py-2 shadow-glass backdrop-blur-2xl md:left-6 md:right-6 md:top-5">
-        <a href="#top" className="flex min-w-0 items-center gap-3" aria-label="บ้านปัญญา top">
-          <span className="grid h-12 w-12 place-items-center rounded-full border border-brass/40 bg-gradient-to-br from-teak to-bark text-2xl">🪵</span>
-          <span className="leading-tight">
-            <strong className="block tracking-[.10em] text-cream">บ้านปัญญา</strong>
-            <small className="hidden text-sand/70 sm:block">เฟอร์นิเจอร์ไม้สักแท้</small>
-          </span>
-        </a>
-        <nav className="hidden justify-center gap-8 text-sm font-semibold text-sand/75 lg:flex" aria-label="main">
-          <a className="hover:text-brass" href="#collection">หมวดสินค้า</a>
-          <a className="hover:text-brass" href="#custom">งานสั่งทำ</a>
-          <a className="hover:text-brass" href="#why">จุดเด่น</a>
-          <a className="hover:text-brass" href="#visit">ติดต่อ</a>
-        </nav>
-        <a href={`tel:${PHONE}`} className="rounded-full bg-gradient-to-r from-brass to-honey px-5 py-3 text-sm font-black text-espresso shadow-[0_12px_34px_rgba(224,178,101,.30)]">โทร</a>
+    function Masthead() {
+      return <header className="mx-auto max-w-6xl px-5 pt-7 md:px-8">
+        <div className="flex flex-wrap items-end justify-between gap-3">
+          <div className="font-serif text-[.66rem] uppercase tracking-[.32em] text-rust">เฟอร์นิเจอร์ไม้สักแท้ · งานสั่งทำ</div>
+          <div className="font-serif text-[.66rem] uppercase tracking-[.32em] text-ink/55">ราชพฤกษ์ · นนทบุรี · ฉบับแนะนำร้าน</div>
+        </div>
+        <div className="mt-3 flex items-center justify-between rule-thick pt-3">
+          <a href="#top" className="font-display text-3xl tracking-tight text-ink md:text-[2.7rem]">บ้านปัญญา</a>
+          <nav className="hidden gap-7 font-serif text-sm text-ink/70 md:flex">
+            <a className="ul-link" href="#catalog">หมวดงาน</a>
+            <a className="ul-link" href="#bespoke">งานสั่งทำ</a>
+            <a className="ul-link" href="#marks">จุดเด่น</a>
+            <a className="ul-link" href="#visit">เยี่ยมร้าน</a>
+          </nav>
+          <a href={`tel:${PHONE}`} className="font-serif text-sm font-medium text-rust ul-link md:hidden">โทร</a>
+        </div>
       </header>;
     }
 
     function Hero() {
-      return <section id="top" className="relative mx-auto grid min-h-screen max-w-7xl grid-cols-1 items-center gap-10 px-4 pb-20 pt-32 md:px-8 lg:grid-cols-[1.02fr_.98fr] lg:pt-40">
-        <div className="reveal">
-          <p className="mb-5 text-xs font-black uppercase tracking-[.26em] text-brass">ไม้สักแท้ · งานสั่งทำ · ริมถนนราชพฤกษ์</p>
-          <h1 className="font-display text-[15vw] leading-[.86] tracking-[-.05em] text-balance text-cream md:text-[9vw] lg:text-[6.8rem]">ไม้สักแท้ทุกชิ้น<br/>งานคราฟต์ที่อยู่กับบ้านไปอีกหลายสิบปี</h1>
-          <p className="mt-7 max-w-2xl text-lg leading-8 text-sand/88 md:text-xl">บ้านปัญญา เฟอร์นิเจอร์ไม้สัก — โต๊ะหมู่บูชา ตู้พระ เตียง โต๊ะอาหาร โซฟา และงานสั่งทำตามแบบ คัดไม้สักแท้ ประกอบด้วยช่างฝีมือ ส่งตรงจากหน้าร้านริมถนนราชพฤกษ์</p>
-          <div className="mt-8 flex flex-col gap-3 sm:flex-row">
-            <a className="rounded-full bg-gradient-to-r from-teak to-amber px-7 py-4 text-center font-black text-cream shadow-glow transition hover:-translate-y-1" href={`tel:${PHONE}`}>โทร 098-428-7619 →</a>
-            <a className="glass rounded-full px-7 py-4 text-center font-black text-cream transition hover:-translate-y-1" href={LINE} target="_blank" rel="noopener">แชต Line @teak</a>
-          </div>
-          <div className="mt-8 grid max-w-lg grid-cols-3 gap-3 text-center">
-            <div className="glass-dark rounded-2xl p-3"><strong className="block text-lg text-honey">ไม้สักแท้</strong><span className="text-xs text-sand/65">คัดเนื้อไม้</span></div>
-            <div className="glass-dark rounded-2xl p-3"><strong className="block text-lg text-honey">สั่งทำได้</strong><span className="text-xs text-sand/65">ตามแบบ/ขนาด</span></div>
-            <div className="glass-dark rounded-2xl p-3"><strong className="block text-lg text-honey">หน้าร้านจริง</strong><span className="text-xs text-sand/65">ราชพฤกษ์</span></div>
-          </div>
-        </div>
-
-        <div className="reveal delay-1 relative min-h-[560px] lg:min-h-[720px]">
-          <div className="glass absolute inset-x-0 top-4 overflow-hidden rounded-[3rem] p-3 md:inset-x-6 md:top-0">
-            <Wood className="h-[480px] w-full md:h-[620px]" label="โต๊ะหมู่บูชาไม้สัก" icon="🛕" />
-            <div className="absolute inset-x-6 bottom-6 rounded-[2rem] border border-white/15 bg-espresso/60 p-5 backdrop-blur-2xl">
-              <p className="text-xs font-black uppercase tracking-[.2em] text-brass">ติดต่อง่ายใน 1 แตะ</p>
-              <div className="mt-2 grid grid-cols-3 gap-2 text-center">
-                <div className="rounded-2xl bg-white/10 p-3"><strong className="block text-lg">โทร</strong><span className="text-xs text-sand/65">2 เบอร์</span></div>
-                <div className="rounded-2xl bg-white/10 p-3"><strong className="block text-lg">Line</strong><span className="text-xs text-sand/65">@teak</span></div>
-                <div className="rounded-2xl bg-white/10 p-3"><strong className="block text-lg">แผนที่</strong><span className="text-xs text-sand/65">ราชพฤกษ์</span></div>
-              </div>
+      return <section id="top" className="mx-auto max-w-6xl px-5 pb-16 pt-12 md:px-8 md:pt-16">
+        <div className="grid grid-cols-1 gap-10 lg:grid-cols-12 lg:gap-12">
+          <div className="reveal lg:col-span-7">
+            <p className="font-serif text-sm italic text-teak">ไม้สักแท้ทุกชิ้น · ส่งตรงจากหน้าร้านริมราชพฤกษ์</p>
+            <h1 className="mt-5 font-display text-[3.3rem] leading-[.98] tracking-tight text-ink sm:text-[4.2rem] lg:text-[5.4rem]">
+              งานไม้ที่อยู่<br/>กับบ้าน<span className="text-teak">ไปอีก</span><br/>หลายสิบปี
+            </h1>
+            <p className="dropcap mt-7 max-w-xl font-body text-[1.05rem] leading-8 text-ink/82">
+              บ้านปัญญารวมงานเฟอร์นิเจอร์ไม้สักแท้ — โต๊ะหมู่บูชา ตู้พระ เตียง โต๊ะอาหาร โซฟา และงานสั่งทำตามแบบ คัดเนื้อไม้ ประกอบด้วยช่างฝีมือ ให้เป็นเฟอร์นิเจอร์ที่อยู่กับครอบครัวไปได้ยาว ๆ
+            </p>
+            <div className="mt-8 flex flex-wrap items-center gap-x-7 gap-y-3 font-serif text-sm">
+              <a href={`tel:${PHONE}`} className="bg-ink px-6 py-3 font-medium text-paper transition hover:bg-teak">โทร {PHONE_D}</a>
+              <a href={LINE} target="_blank" rel="noopener" className="font-medium text-rust ul-link">หรือทักไลน์ @teak →</a>
             </div>
           </div>
-          <div className="glass absolute -left-1 bottom-2 hidden w-44 rotate-[-5deg] rounded-[2rem] p-3 sm:block md:w-52">
-            <Wood className="h-32" label="ตู้พระไม้สัก" icon="🗄️" />
-          </div>
-          <div className="glass absolute -right-1 bottom-0 hidden w-44 rotate-[4deg] rounded-[2rem] p-3 sm:block md:w-56">
-            <Wood className="h-40" label="เตียงไม้สัก" icon="🛏️" />
-          </div>
+
+          <aside className="reveal d2 lg:col-span-5">
+            <figure className="border border-ink/25 bg-panel/50 p-5">
+              <Piece k="altar" className="mx-auto h-52 w-full text-rust md:h-60" />
+              <figcaption className="mt-3 rule pt-3 font-serif text-xs text-ink/60">
+                <span className="italic">แผ่นแบบ</span> — โต๊ะหมู่บูชาไม้สัก, งานเข้าไม้ตามแบบดั้งเดิม
+              </figcaption>
+            </figure>
+            <ol className="mt-5 font-serif text-sm">
+              {[['๐๑','หมวดงานไม้สัก','#catalog'],['๐๒','งานสั่งทำตามแบบ','#bespoke'],['๐๓','สี่จุดที่ไว้ใจได้','#marks'],['๐๔','เยี่ยมร้าน · ติดต่อ','#visit']].map(r =>
+                <li key={r[0]}><a href={r[2]} className="flex items-center gap-4 rule py-3 text-ink/75 transition hover:text-rust">
+                  <Num className="text-base">{r[0]}</Num><span className="ul-link">{r[1]}</span><span className="ml-auto text-ink/30">→</span>
+                </a></li>
+              )}
+            </ol>
+          </aside>
         </div>
       </section>;
     }
 
-    function ValueStrip() {
-      const items = [['🌳','ไม้สักแท้','คัดเนื้อไม้สักธรรมชาติ'],['🔨','งานช่างฝีมือ','ประกอบ/แกะสลักด้วยมือ'],['📐','สั่งทำตามแบบ','ปรับขนาดให้พอดีบ้าน'],['📍','หน้าร้านริมราชพฤกษ์','มาดูของจริงได้']];
-      return <section className="mx-auto max-w-7xl px-4 md:px-8">
-        <div className="glass-dark grid grid-cols-2 gap-4 rounded-[2rem] p-6 md:grid-cols-4 md:p-8">
-          {items.map(it => <div key={it[1]} className="flex items-start gap-3">
-            <span className="text-2xl">{it[0]}</span>
-            <div><strong className="block text-cream">{it[1]}</strong><span className="text-sm text-sand/70">{it[2]}</span></div>
-          </div>)}
+    function Manifesto() {
+      const marks = [['ไม้สักแท้','คัดเนื้อไม้สักธรรมชาติ'],['งานช่างฝีมือ','ประกอบ·แกะด้วยมือ'],['สั่งทำตามแบบ','ปรับขนาดพอดีบ้าน'],['หน้าร้านจริง','ริมถนนราชพฤกษ์']];
+      return <section className="mx-auto max-w-6xl px-5 py-10 md:px-8">
+        <div className="rule-thick grid gap-8 pt-8 md:grid-cols-[1.5fr_1fr] md:gap-12">
+          <p className="font-display text-[1.6rem] leading-[1.25] text-ink md:text-[2.1rem]">
+            “เฟอร์นิเจอร์ไม้สักที่ดี ไม่ได้วัดกันที่วันแรกที่ซื้อ แต่วัดกันที่มันยังอยู่ดีในอีกยี่สิบปีข้างหน้า”
+          </p>
+          <dl className="grid grid-cols-2 gap-x-6 gap-y-5 self-end font-serif">
+            {marks.map((m,i) => <div key={m[0]} className="rule pt-3">
+              <Num className="text-sm">{['๐๑','๐๒','๐๓','๐๔'][i]}</Num>
+              <dt className="mt-1 font-body font-medium text-ink">{m[0]}</dt>
+              <dd className="text-[.8rem] text-ink/60">{m[1]}</dd>
+            </div>)}
+          </dl>
         </div>
       </section>;
     }
 
-    function Collection() {
-      const groups = [
-        ['🛕','งานบูชา','โต๊ะหมู่บูชา · ตู้พระ · หิ้งพระ','from-teak to-bark'],
-        ['🛏️','ห้องนอน','เตียง · ตู้เสื้อผ้า · โต๊ะเครื่องแป้ง','from-amber to-teak'],
-        ['🛋️','ห้องนั่งเล่น','โซฟาไม้ · ตู้โชว์ · ชั้นวาง','from-bark to-amber'],
-        ['🍽️','ห้องอาหาร','โต๊ะอาหาร · เก้าอี้ · ตู้ถ้วยชาม','from-teak to-amber'],
-        ['🪑','เฟอร์นิเจอร์ทั่วไป','โต๊ะ · ตู้ · ชั้น อเนกประสงค์','from-amber to-bark'],
-        ['📐','งานสั่งทำพิเศษ','ออกแบบ/ปรับขนาดตามบ้าน','from-jade to-teak']
+    function Catalog() {
+      const items = [
+        ['๐๑','altar','งานบูชา','โต๊ะหมู่บูชา · ตู้พระ · หิ้งพระ'],
+        ['๐๒','bed','ห้องนอน','เตียง · ตู้เสื้อผ้า · โต๊ะเครื่องแป้ง'],
+        ['๐๓','sofa','ห้องนั่งเล่น','โซฟาไม้ · ตู้โชว์ · ชั้นวาง'],
+        ['๐๔','dining','ห้องอาหาร','โต๊ะอาหาร · เก้าอี้ · ตู้ถ้วยชาม'],
+        ['๐๕','cabinet','ตู้ & ที่เก็บของ','ตู้โชว์ · ตู้เก็บของ · ชั้นหนังสือ'],
+        ['๐๖','bespoke','งานสั่งทำพิเศษ','ออกแบบ·ปรับขนาดตามบ้าน']
       ];
-      return <section id="collection" className="mx-auto max-w-7xl px-4 py-20 md:px-8">
-        <div className="mb-10">
-          <p className="text-xs font-black uppercase tracking-[.25em] text-brass">หมวดสินค้า</p>
-          <h2 className="mt-4 max-w-3xl font-display text-5xl leading-[.9] tracking-[-.04em] md:text-6xl">เลือกง่ายเป็นกลุ่ม ไม่ต้องไล่ดูทีละสิบกว่าหมวด</h2>
-          <p className="mt-4 max-w-2xl text-sand/75">จัดกลุ่มสินค้าให้สแกนเจอเร็วบนมือถือ — เลือกหมวดที่ต้องการ แล้วโทรหรือแชต Line สอบถามได้ทันที</p>
-        </div>
-        <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-          {groups.map(g => <article key={g[1]} className="glass group overflow-hidden rounded-[2rem] p-4 transition hover:-translate-y-1">
-            <div className={`relative grid h-40 place-items-center overflow-hidden rounded-[1.4rem] bg-gradient-to-br ${g[3]}`}>
-              <div className="absolute inset-0 opacity-20" style={{backgroundImage:'repeating-linear-gradient(115deg, rgba(247,236,217,.4) 0 2px, transparent 2px 8px)'}}></div>
-              <span className="text-5xl">{g[0]}</span>
+      return <section className="mx-auto max-w-6xl px-5 py-10 md:px-8">
+        <SectionHead id="catalog" n="๐๑" kicker="The Catalog" title="เลือกง่ายเป็นกลุ่ม ไม่ต้องไล่ทีละสิบกว่าหมวด" />
+        <p className="mt-4 max-w-2xl font-body text-ink/70">จัดกลุ่มงานให้สแกนเจอเร็วบนมือถือ เลือกหมวดที่ต้องการแล้วโทรหรือทักไลน์สอบถามได้ทันที</p>
+        <div className="mt-9 grid gap-px border border-ink/20 bg-ink/20 sm:grid-cols-2 lg:grid-cols-3">
+          {items.map(it => <article key={it[0]} className="hover-card flex flex-col bg-paper p-6">
+            <div className="flex items-start justify-between">
+              <Num className="text-lg">{it[0]}</Num>
+              <a href={LINE} target="_blank" rel="noopener" className="font-serif text-xs text-rust ul-link">สอบถาม →</a>
             </div>
-            <h3 className="mt-5 text-2xl font-black tracking-tight text-cream">{g[1]}</h3>
-            <p className="mt-2 text-sand/72">{g[2]}</p>
-            <a href={LINE} target="_blank" rel="noopener" className="mt-4 inline-block text-sm font-bold text-brass hover:text-honey">สอบถามหมวดนี้ →</a>
+            <div className="grid flex-1 place-items-center py-4"><Piece k={it[1]} className="h-28 w-full text-ink/80" /></div>
+            <h3 className="rule pt-3 font-display text-xl text-ink">{it[2]}</h3>
+            <p className="mt-1 font-serif text-sm text-ink/62">{it[3]}</p>
           </article>)}
         </div>
       </section>;
     }
 
-    function Custom() {
-      return <section id="custom" className="mx-auto grid max-w-7xl grid-cols-1 gap-5 px-4 py-10 md:px-8 lg:grid-cols-[1fr_1fr]">
-        <div className="glass overflow-hidden rounded-[3rem] p-3">
-          <Wood className="h-[420px] w-full" label="งานสั่งทำไม้สักตามแบบ" icon="📐" />
-        </div>
-        <div className="glass-dark rounded-[3rem] p-8 md:p-10">
-          <p className="text-xs font-black uppercase tracking-[.25em] text-brass">งานสั่งทำ</p>
-          <h2 className="mt-5 font-display text-5xl leading-[.9] tracking-[-.04em] md:text-6xl">อยากได้แบบไหน ขนาดเท่าไร บอกได้</h2>
-          <p className="mt-6 text-lg leading-8 text-sand/78">บ้านปัญญารับงานสั่งทำเฟอร์นิเจอร์ไม้สักตามแบบและขนาดที่ต้องการ ปรับให้พอดีพื้นที่บ้าน — ส่งรูปแบบที่ชอบหรือบอกความต้องการมาทาง Line ทางร้านช่วยแนะนำได้</p>
-          <div className="mt-8 flex flex-col gap-3 sm:flex-row">
-            <a className="rounded-full bg-gradient-to-r from-teak to-amber px-6 py-4 text-center font-black text-cream shadow-glow" href={LINE} target="_blank" rel="noopener">ส่งแบบทาง Line</a>
-            <a className="glass rounded-full px-6 py-4 text-center font-black text-cream" href={`tel:${PHONE2}`}>โทร 083-536-9597</a>
+    function Bespoke() {
+      return <section className="mx-auto max-w-6xl px-5 py-10 md:px-8">
+        <div className="rule grid gap-8 pt-6 md:grid-cols-2 md:gap-14">
+          <div className="order-2 border border-ink/25 p-6 md:order-1">
+            <Piece k="bespoke" className="mx-auto h-56 w-full text-teak md:h-72" />
+            <p className="mt-3 rule pt-3 text-center font-serif text-xs italic text-ink/55">แบบร่าง — งานสั่งทำตามขนาดและการใช้งานจริง</p>
+          </div>
+          <div className="order-1 md:order-2">
+            <div className="flex items-baseline gap-4"><Num className="text-2xl">๐๒</Num><span className="font-serif text-[.7rem] uppercase tracking-[.34em] text-rust">Bespoke</span></div>
+            <h2 className="mt-4 font-display text-[2.4rem] leading-[1.05] text-ink md:text-[3.2rem]">อยากได้แบบไหน<br/>ขนาดเท่าไร บอกได้</h2>
+            <p className="mt-6 font-body text-[1.05rem] leading-8 text-ink/80">รับงานสั่งทำเฟอร์นิเจอร์ไม้สักตามแบบและขนาดที่ต้องการ ปรับให้พอดีพื้นที่บ้าน — ส่งรูปแบบที่ชอบหรือเล่าความต้องการมาทางไลน์ ทางร้านช่วยแนะนำได้</p>
+            <div className="mt-8 flex flex-wrap items-center gap-x-7 gap-y-3 font-serif text-sm">
+              <a href={LINE} target="_blank" rel="noopener" className="bg-forest px-6 py-3 font-medium text-paper transition hover:bg-ink">ส่งแบบทางไลน์</a>
+              <a href={`tel:${PHONE2}`} className="font-medium text-rust ul-link">โทร {PHONE2_D} →</a>
+            </div>
           </div>
         </div>
       </section>;
     }
 
-    function Why() {
+    function Marks() {
       const cards = [
         ['ไม้สักแท้','คัดเนื้อไม้สักธรรมชาติสำหรับงานเฟอร์นิเจอร์ ใช้ได้ทนยาวนาน'],
         ['งานช่างฝีมือ','ประกอบและตกแต่งด้วยช่าง เน้นความเรียบร้อยของงานไม้'],
-        ['สั่งทำได้ตามแบบ','ปรับดีไซน์/ขนาดให้เข้ากับพื้นที่และการใช้งานจริง'],
+        ['สั่งทำได้ตามแบบ','ปรับดีไซน์และขนาดให้เข้ากับพื้นที่และการใช้งานจริง'],
         ['ทำเลมาดูของได้','หน้าร้านริมถนนราชพฤกษ์ ต.บางรักน้อย นนทบุรี แวะดูชิ้นจริงก่อนตัดสินใจ']
       ];
-      return <section id="why" className="mx-auto max-w-7xl px-4 py-20 md:px-8">
-        <div className="grid gap-5 lg:grid-cols-[.85fr_1.15fr]">
-          <div className="glass-dark rounded-[2.7rem] p-8 md:p-10">
-            <p className="text-xs font-black uppercase tracking-[.25em] text-brass">ทำไมต้องบ้านปัญญา</p>
-            <h2 className="mt-5 font-display text-5xl leading-[.9] tracking-[-.04em] md:text-6xl">งานไม้สักที่ไว้ใจได้ ตั้งแต่เลือกไม้จนถึงหน้าบ้าน</h2>
-            <p className="mt-6 text-lg leading-8 text-sand/75">เฟอร์นิเจอร์ไม้สักแท้สำหรับบ้านที่อยู่กันไปนาน — เลือกหมวดที่ต้องการ หรือปรึกษางานสั่งทำได้โดยตรง</p>
-          </div>
-          <div className="grid gap-4 sm:grid-cols-2">
-            {cards.map((c,i) => <article key={c[0]} className="glass group rounded-[2rem] p-6 transition hover:-translate-y-1">
-              <span className="font-display text-5xl text-brass/80">{String(i+1).padStart(2,'0')}</span>
-              <h3 className="mt-6 text-2xl font-black tracking-tight text-cream">{c[0]}</h3>
-              <p className="mt-3 leading-7 text-sand/72">{c[1]}</p>
-            </article>)}
-          </div>
-        </div>
-      </section>;
-    }
-
-    function Gallery() {
-      const tiles = [['🛕','โต๊ะหมู่บูชา'],['🗄️','ตู้พระ'],['🛏️','เตียงไม้สัก'],['🍽️','โต๊ะอาหาร'],['🛋️','โซฟาไม้'],['🪑','เก้าอี้/ม้านั่ง'],['📐','งานสั่งทำ'],['🪵','ไม้สักแท้']];
-      return <section className="mx-auto max-w-7xl px-4 py-10 md:px-8">
-        <div className="mb-6 flex items-end justify-between">
-          <h2 className="font-display text-4xl tracking-[-.03em] text-cream md:text-5xl">ตัวอย่างหมวดงาน</h2>
-          <span className="text-xs text-sand/55">ภาพ placeholder สำหรับเดโม</span>
-        </div>
-        <div className="grid grid-cols-2 gap-3 sm:grid-cols-4">
-          {tiles.map(t => <div key={t[1]} className="glass rounded-[1.4rem] p-2">
-            <Wood className="h-32 sm:h-36" label={t[1]} icon={t[0]} />
+      return <section className="mx-auto max-w-6xl px-5 py-10 md:px-8">
+        <SectionHead id="marks" n="๐๓" kicker="Why Baan Panya" title="ไว้ใจได้ตั้งแต่เลือกไม้ จนถึงหน้าบ้าน" />
+        <div className="mt-9 grid gap-px border border-ink/20 bg-ink/20 sm:grid-cols-2">
+          {cards.map((c,i) => <div key={c[0]} className="hover-card bg-paper p-7">
+            <Num className="font-serif text-4xl">{String(i+1).padStart(2,'0')}</Num>
+            <h3 className="mt-4 font-display text-2xl text-ink">{c[0]}</h3>
+            <p className="mt-2 font-body leading-7 text-ink/72">{c[1]}</p>
           </div>)}
         </div>
       </section>;
     }
 
-    function Visit() {
-      return <section id="visit" className="mx-auto max-w-7xl px-4 py-20 pb-32 md:px-8">
-        <div className="glass rounded-[3rem] p-8 md:p-12">
-          <p className="text-xs font-black uppercase tracking-[.25em] text-brass">ติดต่อ / แผนที่</p>
-          <h2 className="mt-5 font-display text-5xl leading-[.9] tracking-[-.04em] md:text-6xl">บ้านปัญญา เฟอร์นิเจอร์ไม้สัก</h2>
-          <p className="mt-6 max-w-3xl text-xl leading-9 text-sand/82">ริมถนนราชพฤกษ์ ต.บางรักน้อย อ.เมืองนนทบุรี (ฝั่งขาเข้ากรุงเทพ ถัดจากหมู่บ้านแกรนด์ บางกอก บูเลอวาร์ด ราชพฤกษ์ 50 เมตร)</p>
-          <div className="mt-5 grid gap-2 text-sand/78 sm:grid-cols-2">
-            <p>โทร: <a className="font-bold text-honey" href={`tel:${PHONE}`}>098-428-7619</a> · <a className="font-bold text-honey" href={`tel:${PHONE2}`}>083-536-9597</a></p>
-            <p>Line: <a className="font-bold text-honey" href={LINE} target="_blank" rel="noopener">@teak</a> · อีเมล: <span className="text-cream">baanpanya2009@gmail.com</span></p>
+    function Colophon() {
+      return <section id="visit" className="mx-auto max-w-6xl px-5 py-10 pb-28 md:px-8">
+        <SectionHead n="๐๔" kicker="Visit · Contact" title="แวะดูงานจริงริมราชพฤกษ์" />
+        <div className="mt-8 grid gap-8 md:grid-cols-[1.3fr_1fr] md:gap-14">
+          <div>
+            <p className="font-body text-[1.15rem] leading-9 text-ink/85">ริมถนนราชพฤกษ์ ต.บางรักน้อย อ.เมืองนนทบุรี<br/><span className="text-ink/60">ฝั่งขาเข้ากรุงเทพ ถัดจากหมู่บ้านแกรนด์ บางกอก บูเลอวาร์ด ราชพฤกษ์ ราว 50 เมตร</span></p>
+            <div className="mt-6 flex flex-wrap gap-x-7 gap-y-3 font-serif text-sm">
+              <a href={`tel:${PHONE}`} className="bg-ink px-6 py-3 font-medium text-paper transition hover:bg-teak">โทรเลย</a>
+              <a href={LINE} target="_blank" rel="noopener" className="border border-ink/40 px-6 py-3 font-medium text-ink transition hover:bg-panel">ไลน์ @teak</a>
+              <a href={MAP} target="_blank" rel="noopener" className="font-medium text-rust ul-link">เปิดแผนที่ →</a>
+            </div>
           </div>
-          <div className="mt-8 flex flex-col gap-3 sm:flex-row sm:flex-wrap">
-            <a className="rounded-full bg-gradient-to-r from-teak to-amber px-7 py-4 text-center font-black text-cream shadow-glow" href={`tel:${PHONE}`}>โทรเลย</a>
-            <a className="glass rounded-full px-7 py-4 text-center font-black text-cream" href={LINE} target="_blank" rel="noopener">แชต Line @teak</a>
-            <a className="glass rounded-full px-7 py-4 text-center font-black text-cream" href={MAP} target="_blank" rel="noopener">เปิดแผนที่</a>
-          </div>
+          <dl className="grid grid-cols-1 gap-4 self-start font-serif text-sm">
+            {[['โทรศัพท์',`${PHONE_D} · ${PHONE2_D}`],['ไลน์','@teak'],['อีเมล','baanpanya2009@gmail.com']].map(r =>
+              <div key={r[0]} className="rule pt-3"><dt className="text-[.66rem] uppercase tracking-[.28em] text-ink/45">{r[0]}</dt><dd className="mt-1 font-body text-ink">{r[1]}</dd></div>
+            )}
+          </dl>
         </div>
       </section>;
     }
 
+    function Footer() {
+      return <footer className="mx-auto max-w-6xl px-5 md:px-8">
+        <div className="rule-thick py-7 font-serif text-xs leading-6 text-ink/55">
+          <p className="text-ink/75">Concept redesign demo prepared for discussion. Not the official website unless approved by the business owner. Placeholder line-art only — no real logo/photos of the shop.</p>
+          <p className="mt-2">ตัวอย่างคอนเซ็ปต์เว็บไซต์ที่ออกแบบเพื่อใช้พูดคุย/เสนอแนวทางเท่านั้น ยังไม่ใช่เว็บไซต์ทางการของธุรกิจนี้ เว้นแต่เจ้าของธุรกิจจะอนุมัติ</p>
+        </div>
+      </footer>;
+    }
+
+    function MobileBar() {
+      return <div className="fixed inset-x-0 bottom-0 z-50 grid grid-cols-3 border-t-2 border-ink bg-paper font-serif text-sm md:hidden">
+        <a className="bg-ink py-3.5 text-center font-medium text-paper" href={`tel:${PHONE}`}>โทร</a>
+        <a className="border-x border-ink/20 py-3.5 text-center font-medium text-ink" href={LINE} target="_blank" rel="noopener">ไลน์</a>
+        <a className="py-3.5 text-center font-medium text-ink" href="#visit">แผนที่</a>
+      </div>;
+    }
+
     function App() {
       return <>
-        <Nav />
+        <Masthead />
         <main>
           <Hero />
-          <ValueStrip />
-          <Collection />
-          <Custom />
-          <Why />
-          <Gallery />
-          <Visit />
+          <Manifesto />
+          <Catalog />
+          <Bespoke />
+          <Marks />
+          <Colophon />
         </main>
-        <footer className="relative z-10 border-t border-white/10 px-5 py-8 pb-28 text-sm leading-7 text-sand/65 md:px-10">
-          <p><strong className="text-cream">Concept redesign demo prepared for discussion.</strong> This is not the official website unless approved by the business owner. Placeholder graphics only — no real logo/photos of the shop.</p>
-          <p className="mt-2">ตัวอย่างคอนเซ็ปต์เว็บไซต์ที่ออกแบบเพื่อใช้พูดคุย/เสนอแนวทางเท่านั้น ยังไม่ใช่เว็บไซต์ทางการของธุรกิจนี้ เว้นแต่เจ้าของธุรกิจจะอนุมัติ</p>
-        </footer>
-        <div className="fixed bottom-3 left-3 right-3 z-50 grid grid-cols-3 gap-2 rounded-full border border-white/15 bg-espresso/75 p-2 backdrop-blur-2xl md:hidden">
-          <a className="rounded-full bg-brass py-3 text-center font-black text-espresso" href={`tel:${PHONE}`}>โทร</a>
-          <a className="rounded-full bg-white/10 py-3 text-center font-black text-cream" href={LINE} target="_blank" rel="noopener">Line</a>
-          <a className="rounded-full bg-white/10 py-3 text-center font-black text-cream" href="#visit">แผนที่</a>
-        </div>
+        <Footer />
+        <MobileBar />
       </>;
     }
 
