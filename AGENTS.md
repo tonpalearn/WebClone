@@ -16,6 +16,19 @@ The output is not a counterfeit or impersonation site. It is a clearly labeled r
 
 Before modifying files outside this project, ask for confirmation.
 
+## Multi-Agent Collaboration
+
+This repo may be worked on by more than one agentic tool (e.g. **Claude Code** and **Hermes**) sharing the **same folder**. There is **no zone split** — any tool may touch any file. Coordination happens by **serializing through Git**, not by locking.
+
+**Golden rule — every tool, every time it starts (especially right after switching from the other tool):**
+
+1. `git fetch origin && git pull --rebase origin main` **before** editing anything.
+2. Do your work.
+3. `git add -A && git commit -m "[<tool>] ..."`, then `git pull --rebase origin main`, then `git push origin main` — **one tool pushes at a time**.
+4. Append a row to the handoff log in `COORDINATION.md`.
+
+Full protocol, commit tagging (`[claude]` / `[hermes]`), conflict handling, and the live handoff log: see [`COORDINATION.md`](COORDINATION.md).
+
 ## Required Workflow
 
 ### 1. Intake
