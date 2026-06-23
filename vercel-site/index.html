@@ -1,0 +1,29 @@
+<!doctype html>
+<html lang="th">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>TPL Design — WebClone Glass Demos</title>
+  <meta name="description" content="React + Tailwind glass redesign demos for WebClone proposals." />
+  <meta name="robots" content="noindex,nofollow" />
+  <link rel="preconnect" href="https://shakariki432.com" />
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            sumi: '#070302', ink: '#120705', lacquer: '#d71920', ember: '#ff4a2d', gold: '#f6b950', rice: '#fff7e5', washi: '#f3dfbd'
+          },
+          fontFamily: { display: ['Georgia','Cormorant Garamond','serif'], body: ['Avenir Next','Helvetica Neue','sans-serif'] },
+          boxShadow: { glow: '0 0 80px rgba(215,25,32,.32)', glass: '0 24px 90px rgba(0,0,0,.42), inset 0 1px 0 rgba(255,255,255,.16)' }
+        }
+      }
+    }
+  </script>
+</head>
+<body>
+  <div id="root"></div>
+  <script type="module" src="/src/main.jsx"></script>
+</body>
+</html>

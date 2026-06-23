@@ -1,0 +1,223 @@
+<!doctype html>
+<html lang="th">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>SHAKARIKI432 Ekkamai — Glass Redesign Demo</title>
+  <meta name="description" content="React + Tailwind glass concept redesign demo for SHAKARIKI432 Ekkamai. Not official unless approved by the business owner." />
+  <meta name="robots" content="noindex,nofollow" />
+  <link rel="preconnect" href="https://shakariki432.com" />
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            sumi: '#070302',
+            ink: '#120705',
+            lacquer: '#d71920',
+            ember: '#ff4a2d',
+            gold: '#f6b950',
+            rice: '#fff7e5',
+            washi: '#f3dfbd'
+          },
+          fontFamily: {
+            display: ['Georgia', 'Cormorant Garamond', 'serif'],
+            body: ['Avenir Next', 'Helvetica Neue', 'sans-serif']
+          },
+          boxShadow: {
+            glow: '0 0 80px rgba(215,25,32,.32)',
+            glass: '0 24px 90px rgba(0,0,0,.42), inset 0 1px 0 rgba(255,255,255,.16)'
+          }
+        }
+      }
+    }
+  </script>
+  <style>
+    html { scroll-behavior: smooth; }
+    body { margin: 0; background: #070302; color: #fff7e5; overflow-x: hidden; }
+    .aurora {
+      background:
+        radial-gradient(circle at 10% 8%, rgba(215,25,32,.48), transparent 30rem),
+        radial-gradient(circle at 78% 10%, rgba(246,185,80,.22), transparent 28rem),
+        radial-gradient(circle at 48% 75%, rgba(255,74,45,.24), transparent 38rem),
+        linear-gradient(135deg, #070302 0%, #190805 52%, #050201 100%);
+    }
+    .noise:before {
+      content: ""; position: fixed; inset: 0; pointer-events: none; z-index: 50; opacity: .13; mix-blend-mode: screen;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 240 240' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.5'/%3E%3C/svg%3E");
+    }
+    .glass { background: linear-gradient(145deg, rgba(255,247,229,.15), rgba(255,247,229,.045)); border: 1px solid rgba(255,247,229,.18); backdrop-filter: blur(24px) saturate(160%); box-shadow: 0 24px 90px rgba(0,0,0,.42), inset 0 1px 0 rgba(255,255,255,.14); }
+    .glass-dark { background: linear-gradient(145deg, rgba(18,7,5,.78), rgba(18,7,5,.42)); border: 1px solid rgba(255,247,229,.16); backdrop-filter: blur(22px) saturate(150%); box-shadow: 0 24px 90px rgba(0,0,0,.38), inset 0 1px 0 rgba(255,255,255,.10); }
+    .kanji-bg { font-family: Georgia, serif; writing-mode: vertical-rl; }
+    .text-balance { text-wrap: balance; }
+    .reveal { opacity: 0; transform: translateY(24px); filter: blur(7px); animation: reveal .9s cubic-bezier(.16,1,.3,1) forwards; }
+    .delay-1 { animation-delay: .12s; } .delay-2 { animation-delay: .22s; } .delay-3 { animation-delay: .32s; }
+    @keyframes reveal { to { opacity: 1; transform: none; filter: none; } }
+    @media (prefers-reduced-motion: reduce) { * { animation-duration: .01ms !important; scroll-behavior: auto !important; transition-duration: .01ms !important; } }
+  </style>
+</head>
+<body class="aurora noise font-body">
+  <div id="root"></div>
+
+  <script crossorigin src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
+  <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
+  <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+  <script type="text/babel">
+    const A = {
+      logo: 'https://shakariki432.com/wp-content/uploads/2023/03/cropped-messageImage_1678688833115-1-180x180.jpg',
+      hero: 'https://shakariki432.com/wp-content/uploads/2023/06/shakariki432-shakariki432-DSC00791.jpg',
+      graphic: 'https://shakariki432.com/wp-content/uploads/2023/05/22783866.png',
+      parking: 'https://shakariki432.com/wp-content/uploads/2023/06/Parking-Ekamai.jpg',
+      plan: 'https://shakariki432.com/wp-content/uploads/2023/07/%E8%A6%8B%E5%8F%96%E3%82%8A%E5%9B%B3-ALL-BRANCH-2023.7_page-0009-768x1024.jpg',
+      official: 'https://shakariki432.com/en/brand-en/shakariki-outlet-en/shakariki-432-ekami-en/'
+    };
+
+    function Nav() {
+      return <header className="fixed left-3 right-3 top-3 z-40 mx-auto grid max-w-7xl grid-cols-[auto_1fr_auto] items-center gap-4 rounded-full border border-white/15 bg-sumi/55 px-3 py-2 shadow-glass backdrop-blur-2xl md:left-6 md:right-6 md:top-5">
+        <a href="#top" className="flex min-w-0 items-center gap-3" aria-label="SHAKARIKI432 concept top">
+          <img src={A.logo} alt="SHAKARIKI432 public logo mark" className="h-12 w-12 rounded-full border border-white/20 bg-rice object-cover" />
+          <span className="leading-tight">
+            <strong className="block tracking-[.12em] text-rice">SHAKARIKI432</strong>
+            <small className="hidden text-washi/70 sm:block">Ekkamai glass concept</small>
+          </span>
+        </a>
+        <nav className="hidden justify-center gap-8 text-sm font-semibold text-washi/70 lg:flex" aria-label="main">
+          <a className="hover:text-gold" href="#before">Before/After</a>
+          <a className="hover:text-gold" href="#experience">Experience</a>
+          <a className="hover:text-gold" href="#rooms">Rooms</a>
+          <a className="hover:text-gold" href="#visit">Visit</a>
+        </nav>
+        <a href="tel:020041713" className="rounded-full bg-gradient-to-r from-gold to-[#ffe6a7] px-5 py-3 text-sm font-black text-ink shadow-[0_12px_34px_rgba(246,185,80,.24)]">โทร</a>
+      </header>
+    }
+
+    function Hero() {
+      return <section id="top" className="relative mx-auto grid min-h-screen max-w-7xl grid-cols-1 items-center gap-10 px-4 pb-20 pt-32 md:px-8 lg:grid-cols-[.95fr_1.05fr] lg:pt-40">
+        <div className="reveal">
+          <p className="mb-5 text-xs font-black uppercase tracking-[.28em] text-gold">大阪の夜 · Ekkamai / Sukhumvit 63</p>
+          <h1 className="font-display text-[17vw] leading-[.82] tracking-[-.08em] text-balance text-rice md:text-[10vw] lg:text-[7.7rem]">ไม่ใช่แค่หน้าเว็บ — แต่เป็นประตูเข้าร้านอิซากายะตอนกลางคืน</h1>
+          <p className="mt-7 max-w-2xl text-lg leading-8 text-washi/86 md:text-xl">คอนเซ็ปต์ redesign ที่ใช้ logo, CI, รูป และข้อมูล public จาก SHAKARIKI432 เพื่อทำให้หน้า Ekkamai branch ดูเป็น premium glass landing page: โทรง่าย เปิดแผนที่เร็ว และขายบรรยากาศโอซาก้าได้ชัดกว่าเดิม</p>
+          <div className="mt-8 flex flex-col gap-3 sm:flex-row">
+            <a className="rounded-full bg-gradient-to-r from-lacquer to-ember px-7 py-4 text-center font-black text-white shadow-glow transition hover:-translate-y-1" href="tel:020041713">โทร 02-004-1713 →</a>
+            <a className="glass rounded-full px-7 py-4 text-center font-black text-rice transition hover:-translate-y-1" href="https://www.google.com/maps/search/?api=1&query=114%2F1-114%2F2%20Soi%20Sukhumvit%2063%20Ekkamai%20Bangkok" target="_blank" rel="noopener">เปิดแผนที่</a>
+          </div>
+        </div>
+
+        <div className="reveal delay-1 relative min-h-[600px] lg:min-h-[760px]">
+          <div className="absolute -right-6 top-4 z-20 hidden h-48 w-48 place-items-center rounded-full bg-gradient-to-br from-ember to-lacquer font-display text-6xl font-black shadow-glow md:grid">432</div>
+          <div className="glass absolute inset-x-0 top-4 overflow-hidden rounded-[3rem] p-3 md:inset-x-8 md:top-0">
+            <img src={A.hero} alt="Official public restaurant image from SHAKARIKI432 website" className="h-[520px] w-full rounded-[2.35rem] object-cover md:h-[660px]" />
+            <div className="absolute inset-x-6 bottom-6 rounded-[2rem] border border-white/15 bg-sumi/55 p-5 backdrop-blur-2xl">
+              <p className="text-xs font-black uppercase tracking-[.2em] text-gold">Hero conversion panel</p>
+              <div className="mt-2 grid grid-cols-3 gap-2 text-center">
+                <div className="rounded-2xl bg-white/10 p-3"><strong className="block text-xl">Call</strong><span className="text-xs text-washi/65">1 tap</span></div>
+                <div className="rounded-2xl bg-white/10 p-3"><strong className="block text-xl">Map</strong><span className="text-xs text-washi/65">Ekkamai</span></div>
+                <div className="rounded-2xl bg-white/10 p-3"><strong className="block text-xl">Room</strong><span className="text-xs text-washi/65">Groups</span></div>
+              </div>
+            </div>
+          </div>
+          <div className="glass absolute -left-1 bottom-4 w-44 rotate-[-5deg] rounded-[2rem] p-3 md:w-56">
+            <img src={A.logo} alt="SHAKARIKI432 logo public source" className="rounded-3xl bg-rice object-cover" />
+          </div>
+          <div className="glass absolute bottom-0 right-0 w-44 rotate-[4deg] rounded-[2rem] p-2 md:w-64">
+            <img src={A.plan} alt="Official public room layout image" className="h-60 rounded-[1.5rem] object-cover md:h-80" />
+          </div>
+        </div>
+      </section>
+    }
+
+    function BeforeAfter() {
+      const items = [
+        ['Before', 'หน้า branch info มีข้อมูลครบ แต่ภาพรวมยังเหมือน directory มากกว่า sales landing page'],
+        ['After', 'Hero + glass CTA + official photo ทำให้ลูกค้ารู้สึกถึงร้านและกด action ได้ทันที'],
+        ['Sales angle', 'เจ้าของร้านเห็นภาพชัดว่า CI เดิมสามารถยกระดับให้ขาย reservation/private room ได้']
+      ];
+      return <section id="before" className="mx-auto max-w-7xl px-4 py-20 md:px-8">
+        <div className="mb-10 flex items-end justify-between gap-6">
+          <div><p className="text-xs font-black uppercase tracking-[.25em] text-gold">01 · Redesign proof</p><h2 className="mt-4 max-w-4xl font-display text-5xl leading-[.9] tracking-[-.06em] md:text-7xl">ออกแบบใหม่ให้เห็นความต่าง ไม่ใช่แค่เปลี่ยนสี</h2></div>
+        </div>
+        <div className="grid gap-4 lg:grid-cols-3">
+          {items.map((it, i) => <article key={it[0]} className={`glass rounded-[2.25rem] p-7 ${i===1?'lg:scale-[1.04] bg-white/10':''}`}>
+            <span className="text-sm font-black uppercase tracking-[.2em] text-gold">{it[0]}</span>
+            <p className="mt-6 text-xl leading-8 text-washi/85">{it[1]}</p>
+          </article>)}
+        </div>
+      </section>
+    }
+
+    function Experience() {
+      const cards = [
+        ['Osaka soul food', 'แปลงเมนูเยอะให้เป็น story card ที่ scan ง่ายบนมือถือ'],
+        ['Late night mood', 'ใช้แดง lacquer + gold lantern + ภาพจริงให้เกิด mood ร้านกลางคืน'],
+        ['Private room', 'ทำให้ห้องส่วนตัว/karaoke เป็น CTA ไม่ใช่ข้อมูลที่ซ่อนอยู่ล่างเว็บ'],
+        ['Public CI', 'ใช้ logo และ brand asset จาก official public source เพื่อให้ demo ตรงตัวร้าน']
+      ];
+      return <section id="experience" className="mx-auto max-w-7xl px-4 py-20 md:px-8">
+        <div className="grid gap-5 lg:grid-cols-[.85fr_1.15fr]">
+          <div className="glass-dark rounded-[2.7rem] p-8 md:p-10">
+            <p className="text-xs font-black uppercase tracking-[.25em] text-gold">02 · Experience architecture</p>
+            <h2 className="mt-5 font-display text-5xl leading-[.9] tracking-[-.06em] md:text-7xl">Glass UI ที่ดูเหมือน proposal ระดับ agency</h2>
+            <p className="mt-6 text-lg leading-8 text-washi/75">ใช้ layered glass, floating cards, official imagery และ conversion panel เพื่อให้เจ้าของร้านเห็นทันทีว่าเว็บใหม่จะดูแพงกว่าเดิมและใช้งานง่ายกว่าเดิม</p>
+          </div>
+          <div className="grid gap-4 sm:grid-cols-2">
+            {cards.map((c, i) => <article key={c[0]} className="glass group rounded-[2.25rem] p-6 transition hover:-translate-y-1">
+              <span className="font-display text-6xl text-gold/80">{String(i+1).padStart(2,'0')}</span>
+              <h3 className="mt-8 text-2xl font-black tracking-tight">{c[0]}</h3>
+              <p className="mt-3 leading-7 text-washi/70">{c[1]}</p>
+            </article>)}
+          </div>
+        </div>
+      </section>
+    }
+
+    function Rooms() {
+      return <section id="rooms" className="mx-auto grid max-w-7xl grid-cols-1 gap-5 px-4 py-20 md:px-8 lg:grid-cols-[1.05fr_.95fr]">
+        <div className="glass overflow-hidden rounded-[3rem] p-3"><img src={A.parking} alt="Official public parking/location image" className="h-[520px] w-full rounded-[2.35rem] object-cover" /></div>
+        <div className="glass-dark rounded-[3rem] p-8 md:p-10">
+          <p className="text-xs font-black uppercase tracking-[.25em] text-gold">03 · Group dining flow</p>
+          <h2 className="mt-5 font-display text-5xl leading-[.9] tracking-[-.06em] md:text-7xl">จุดขายกลุ่มเพื่อนต้องอยู่ก่อน footer</h2>
+          <p className="mt-6 text-lg leading-8 text-washi/75">Redesign ใหม่นี้ขายห้องส่วนตัว/กลุ่ม/หลังเลิกงานแบบมองเห็นทันที พร้อม CTA โทรซ้ำในจุดที่นิ้วแตะง่าย</p>
+          <div className="mt-8 grid grid-cols-3 gap-3">
+            {['1 tap call','Map ready','Group room'].map(x => <div key={x} className="rounded-3xl border border-white/15 bg-white/10 p-4 text-center font-black text-rice">{x}</div>)}
+          </div>
+          <img src={A.graphic} alt="Official public SHAKARIKI432 graphic asset" className="mt-8 max-h-52 rounded-[2rem] object-contain" />
+        </div>
+      </section>
+    }
+
+    function Visit() {
+      return <section id="visit" className="mx-auto max-w-7xl px-4 py-20 pb-32 md:px-8">
+        <div className="glass rounded-[3rem] p-8 md:p-12">
+          <p className="text-xs font-black uppercase tracking-[.25em] text-gold">04 · Visit / public contact</p>
+          <h2 className="mt-5 font-display text-5xl leading-[.9] tracking-[-.06em] md:text-7xl">SHAKARIKI432 Ekkamai</h2>
+          <p className="mt-6 max-w-4xl text-xl leading-9 text-washi/80">114/1-114/2 Soi Sukhumvit 63 (Ekkamai), Khlong Tan Nuea, Watthana, Bangkok 10110</p>
+          <div className="mt-8 flex flex-col gap-3 sm:flex-row sm:flex-wrap">
+            <a className="rounded-full bg-gradient-to-r from-lacquer to-ember px-7 py-4 text-center font-black text-white shadow-glow" href="tel:020041713">โทร 02-004-1713</a>
+            <a className="glass rounded-full px-7 py-4 text-center font-black" href="https://www.google.com/maps/search/?api=1&query=114%2F1-114%2F2%20Soi%20Sukhumvit%2063%20Ekkamai%20Bangkok" target="_blank" rel="noopener">เปิดแผนที่</a>
+            <a className="glass rounded-full px-7 py-4 text-center font-black" href={A.official} target="_blank" rel="noopener">Official source</a>
+          </div>
+        </div>
+      </section>
+    }
+
+    function App() {
+      return <>
+        <Nav />
+        <main><Hero /><BeforeAfter /><Experience /><Rooms /><Visit /></main>
+        <footer className="border-t border-white/10 px-5 py-8 pb-28 text-sm leading-7 text-washi/65 md:px-10">
+          <p><strong className="text-rice">Concept redesign demo prepared for discussion.</strong> This is not the official website unless approved by the business owner. Public brand assets are referenced from official/public sources only for proposal context.</p>
+          <p className="mt-2">ตัวอย่างคอนเซ็ปต์เว็บไซต์ที่ออกแบบเพื่อใช้พูดคุย/เสนอแนวทางเท่านั้น ยังไม่ใช่เว็บไซต์ทางการของธุรกิจนี้ เว้นแต่เจ้าของธุรกิจจะอนุมัติ</p>
+        </footer>
+        <div className="fixed bottom-3 left-3 right-3 z-50 grid grid-cols-3 gap-2 rounded-full border border-white/15 bg-sumi/70 p-2 backdrop-blur-2xl md:hidden">
+          <a className="rounded-full bg-gold py-3 text-center font-black text-ink" href="tel:020041713">โทร</a>
+          <a className="rounded-full bg-white/10 py-3 text-center font-black" href="https://www.google.com/maps/search/?api=1&query=114%2F1-114%2F2%20Soi%20Sukhumvit%2063%20Ekkamai%20Bangkok" target="_blank" rel="noopener">แผนที่</a>
+          <a className="rounded-full bg-white/10 py-3 text-center font-black" href="#visit">ข้อมูล</a>
+        </div>
+      </>;
+    }
+
+    ReactDOM.createRoot(document.getElementById('root')).render(<App />);
+  </script>
+</body>
+</html>

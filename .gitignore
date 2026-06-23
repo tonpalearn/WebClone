@@ -1,0 +1,25 @@
+# OS/editor
+.DS_Store
+.vscode/
+.idea/
+
+# Local env/secrets
+.env
+.env.*
+!.env.example
+*.key
+*.pem
+
+# Generated/temp
+.cache/
+tmp/
+
+# Node/Python future tooling
+node_modules/
+dist/
+build/
+__pycache__/
+.pytest_cache/
+.venv/
+
+# Keep generated output reviewable; do not ignore output/subprojects by default

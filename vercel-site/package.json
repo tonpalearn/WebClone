@@ -1,0 +1,17 @@
+{
+  "name": "tpldesign",
+  "version": "0.2.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "build": "vite build && node scripts/postbuild.js",
+    "preview": "vite preview --host 127.0.0.1 --port 8099"
+  },
+  "dependencies": {
+    "@vitejs/plugin-react": "latest",
+    "vite": "latest",
+    "react": "latest",
+    "react-dom": "latest"
+  },
+  "devDependencies": {}
+}
