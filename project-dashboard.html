@@ -1,0 +1,188 @@
+<!doctype html>
+<html lang="th">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<meta name="robots" content="noindex,nofollow" />
+<title>WebClone — กระดานติดตามงาน</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Thai:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+<script src="https://cdn.tailwindcss.com"></script>
+<script>
+tailwind.config = { theme: { extend: {
+  colors: { ink:'#1c2230', slate2:'#5b6678', line:'#e4e8ef', bg:'#f5f7fb', card:'#ffffff' },
+  fontFamily: { body: ['"IBM Plex Sans Thai"','ui-sans-serif','system-ui','sans-serif'] }
+}}}
+</script>
+<style>
+  body{margin:0;background:#f5f7fb;color:#1c2230;font-family:'IBM Plex Sans Thai',system-ui,sans-serif}
+  ::-webkit-scrollbar{height:10px;width:10px}::-webkit-scrollbar-thumb{background:#d4dae6;border-radius:9px}
+  .col-scroll{scrollbar-width:thin}
+  textarea{font-family:inherit}
+</style>
+</head>
+<body>
+<div id="root" class="min-h-screen"></div>
+
+<script crossorigin src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
+<script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
+<script src="https://unpkg.com/@babel/standalone@7.23.6/babel.min.js"></script>
+<script>
+  if (window.Babel && Babel.registerPreset) {
+    Babel.registerPreset('react-classic', { presets: [[Babel.availablePresets['react'], { runtime: 'classic' }]] });
+  }
+</script>
+<script type="text/babel" data-presets="react-classic">
+const { useState, useEffect } = React;
+const BASE = 'https://tpldesign.vercel.app/subproject/';
+
+const STAGES = [
+  { id:'todo',    label:'รอส่ง',   icon:'📋', dot:'#64748b', bg:'#eef2f8' },
+  { id:'sent',    label:'ส่งแล้ว', icon:'📤', dot:'#d97706', bg:'#fef6e7' },
+  { id:'talking', label:'คุยอยู่', icon:'💬', dot:'#2563eb', bg:'#e8f0fe' },
+  { id:'won',     label:'ปิดดีล',  icon:'✅', dot:'#16a34a', bg:'#e9f7ee' },
+  { id:'lost',    label:'พับไว้',  icon:'😴', dot:'#9aa3b2', bg:'#f1f3f7' },
+];
+
+const DATA = [
+  { slug:'baanpanya-teak-furniture', name:'บ้านปัญญา เฟอร์นิเจอร์ไม้สัก', type:'งานไม้สัก', rich:true,
+    phones:['0984287619','0835369597'], line:'@teak', email:'baanpanya2009@gmail.com',
+    lineMsg:`สวัสดีครับร้านบ้านปัญญา 🙏 ผม [ชื่อ] ทำเว็บให้ธุรกิจแถวราชพฤกษ์ครับ ชอบงานไม้สักแท้ของร้านมากเลยครับ เลยลองทำตัวอย่างหน้าเว็บใหม่ให้ดูเป็นคอนเซ็ปต์ (ฟรี ไม่มีผูกมัด) เน้นเปิดบนมือถือลื่นขึ้น โชว์ภาพงานไม้เด่นขึ้น มีหน้าเทียบเว็บเดิม–ใหม่ให้ดูเลยครับ:\n${BASE}baanpanya-teak-furniture/site/\nถ้าชอบแนวค่อยคุยต่อได้ ถ้ายังไม่สนใจก็ลองเก็บไอเดียไปใช้ได้เลยครับ 🙂`,
+    emailSub:'ลองทำหน้าเว็บใหม่ให้ร้านบ้านปัญญาดูครับ (ตัวอย่างฟรี)' },
+  { slug:'cera-dental-ratchaphruek', name:'CERA Dental Clinic', type:'ทันตกรรม', rich:false,
+    phones:['0917375477'], line:'@ceradental', email:'',
+    lineMsg:`สวัสดีครับคลินิก CERA Dental 🙏 ผม [ชื่อ] ทำเว็บให้ธุรกิจแถวราชพฤกษ์ครับ ลองออกแบบหน้าเว็บใหม่ให้คลินิกดูเป็นตัวอย่าง (ฟรี) เน้นให้คนไข้เห็นเวลาทำการ + จองง่ายตั้งแต่หน้าแรก และดูน่าเชื่อถือบนมือถือ มีหน้าเทียบเว็บเดิม–ใหม่ครับ:\n${BASE}cera-dental-ratchaphruek/site/\nถ้าสนใจค่อยคุยต่อได้ครับ 🙂`,
+    emailSub:'ตัวอย่างหน้าเว็บใหม่สำหรับคลินิก CERA Dental ครับ' },
+  { slug:'phedphed-ratchaphruek', name:'เผ็ดเผ็ด ราชพฤกษ์', type:'ร้านอาหารไทย', rich:false,
+    phones:['0650929690','0635165574'], line:'@phedphed.aw', email:'mail@phedphed.com',
+    lineMsg:`สวัสดีครับร้านเผ็ดเผ็ด 🙏 ผม [ชื่อ] ทำเว็บให้ธุรกิจแถวราชพฤกษ์ ชอบร้านอยู่แล้วครับ เลยลองทำตัวอย่างหน้าเว็บที่โฟกัสสาขาราชพฤกษ์ให้ดู (ฟรี) กดดูเมนู/โทร/นำทางได้ไวบนมือถือ ดูน่ากิน มีหน้าเทียบเว็บเดิม–ใหม่ครับ:\n${BASE}phedphed-ratchaphruek/site/\nถ้าชอบค่อยคุยต่อได้เลยครับ 🙂`,
+    emailSub:'ลองทำหน้าเว็บสาขาราชพฤกษ์ให้เผ็ดเผ็ดดูครับ' },
+  { slug:'zenvana-wellness-spa', name:'ZENVANA Wellness Spa', type:'สปา & เวลเนส', rich:true,
+    phones:['0906544269'], line:'@zenvanaspa', email:'',
+    lineMsg:`สวัสดีครับ ZENVANA 🙏 ผม [ชื่อ] ทำเว็บให้ธุรกิจแถวราชพฤกษ์ครับ ชอบบรรยากาศเวลเนสของร้านมาก เลยลองทำตัวอย่างหน้าเว็บใหม่ให้ดู (ฟรี) ดึงภาพบรรยากาศร้านขึ้นเด่น + ปุ่มจองคิวชัดบนมือถือ มีหน้าเทียบเว็บเดิม–ใหม่ครับ:\n${BASE}zenvana-wellness-spa/site/\nถ้าชอบแนวค่อยคุยต่อได้เลยครับ 🙂`,
+    emailSub:'ตัวอย่างหน้าเว็บใหม่สำหรับ ZENVANA Wellness Spa ครับ' },
+  { slug:'classy-clinic-ratchaphruek', name:'Classy Clinic', type:'คลินิกความงาม', rich:true,
+    phones:['0628293563','0911524266'], line:'', email:'',
+    lineMsg:`สวัสดีครับ Classy Clinic 🙏 ผม [ชื่อ] ทำเว็บให้ธุรกิจแถวราชพฤกษ์ครับ ลองออกแบบหน้าเว็บใหม่ให้คลินิกดูเป็นตัวอย่าง (ฟรี) โทนขาว–ดำ–ทองพรีเมียมตรงแบรนด์ ดึงภาพคลินิกจริงขึ้นเด่น + กดปรึกษา/จองง่ายบนมือถือ มีหน้าเทียบเว็บเดิม–ใหม่ครับ:\n${BASE}classy-clinic-ratchaphruek/site/\nถ้าสนใจค่อยคุยต่อได้เลยครับ 🙂`,
+    emailSub:'ลองทำหน้าเว็บใหม่ให้ Classy Clinic ดูครับ (ตัวอย่างฟรี)' },
+  { slug:'rachaphruek-massage-spa', name:'ราชพฤกษ์ นวดเพื่อสุขภาพ', type:'นวดไทย & สปา', rich:true,
+    phones:['0917129889'], line:'', email:'',
+    lineMsg:`สวัสดีครับร้านนวดราชพฤกษ์ 🙏 ผม [ชื่อ] ทำเว็บให้ธุรกิจแถวนี้ครับ ลองทำตัวอย่างหน้าเว็บใหม่ให้ร้านดู (ฟรี) จัดเมนูบริการให้อ่านง่าย มีที่ใส่ราคา + ปุ่มโทร/LINE/แผนที่ จองสะดวกบนมือถือ มีหน้าเทียบเว็บเดิม–ใหม่ครับ:\n${BASE}rachaphruek-massage-spa/site/\nถ้าชอบแนวค่อยคุยต่อได้เลยครับ 🙂`,
+    emailSub:'ตัวอย่างหน้าเว็บใหม่สำหรับร้านนวดราชพฤกษ์ครับ' },
+  { slug:'shakariki432-ekkamai', name:'SHAKARIKI432 เอกมัย', type:'ร้านอาหารญี่ปุ่น', rich:false, legacy:true,
+    phones:['020041713'], line:'', email:'',
+    lineMsg:'', emailSub:'' },
+];
+
+function load() { try { return JSON.parse(localStorage.getItem('webclone-board-v1')||'{}'); } catch { return {}; } }
+function save(s) { localStorage.setItem('webclone-board-v1', JSON.stringify(s)); }
+
+function Copy({ text, label='คัดลอก', small }) {
+  const [done, setDone] = useState(false);
+  if (!text) return null;
+  const cls = small ? 'px-2 py-1 text-[11px]' : 'px-3 py-1.5 text-xs';
+  return <button onClick={async()=>{ try{await navigator.clipboard.writeText(text);}catch(e){const t=document.createElement('textarea');t.value=text;document.body.appendChild(t);t.select();document.execCommand('copy');t.remove();} setDone(true); setTimeout(()=>setDone(false),1400); }}
+    className={`${cls} rounded-md font-medium transition ${done?'bg-green-600 text-white':'bg-ink text-white hover:bg-slate-700'}`}>{done?'คัดลอกแล้ว ✓':label}</button>;
+}
+
+function fmtPhone(p){ return p.replace(/(\d{3})(\d{3})(\d+)/,'$1-$2-$3'); }
+
+function Card({ b, state, onStage, onNote }) {
+  const [open, setOpen] = useState(false);
+  const st = state.stage || 'todo';
+  const idx = STAGES.findIndex(s=>s.id===st);
+  const demo = BASE + b.slug + '/site/';
+  return <div className="rounded-xl border border-line bg-card p-3.5 shadow-sm">
+    <div className="flex items-start justify-between gap-2">
+      <div className="min-w-0">
+        <div className="flex items-center gap-2">
+          <h3 className="font-semibold leading-tight">{b.name}</h3>
+          {b.rich && <span title="ใช้รูปจริง+ดูไม่ AI" className="rounded bg-green-50 px-1.5 py-0.5 text-[10px] font-medium text-green-700">รูปจริง</span>}
+          {b.legacy && <span className="rounded bg-slate-100 px-1.5 py-0.5 text-[10px] text-slate2">ตัวอย่างแรก</span>}
+        </div>
+        <p className="mt-0.5 text-xs text-slate2">{b.type}</p>
+      </div>
+    </div>
+
+    <div className="mt-3 flex flex-wrap gap-1.5">
+      <a href={demo} target="_blank" rel="noopener" className="rounded-md bg-blue-600 px-2.5 py-1.5 text-xs font-medium text-white hover:bg-blue-700">เปิดเดโม ↗</a>
+      {b.phones.map(p=><a key={p} href={`tel:${p}`} className="rounded-md border border-line px-2.5 py-1.5 text-xs hover:bg-bg">📞 {fmtPhone(p)}</a>)}
+      {b.line && <a href={`https://line.me/R/ti/p/${encodeURIComponent(b.line)}`} target="_blank" rel="noopener" className="rounded-md border border-line px-2.5 py-1.5 text-xs hover:bg-bg">LINE {b.line}</a>}
+      {b.email && <a href={`mailto:${b.email}`} className="rounded-md border border-line px-2.5 py-1.5 text-xs hover:bg-bg">✉️ อีเมล</a>}
+    </div>
+
+    {!b.legacy && <button onClick={()=>setOpen(o=>!o)} className="mt-2.5 text-xs font-medium text-blue-600 hover:underline">{open?'▲ ซ่อนข้อความ':'▼ ดู/คัดลอกข้อความที่จะส่ง'}</button>}
+
+    {open && !b.legacy && <div className="mt-2 space-y-2 rounded-lg bg-bg p-2.5">
+      <div>
+        <div className="mb-1 flex items-center justify-between"><span className="text-[11px] font-semibold text-slate2">ข้อความ LINE / Facebook</span><Copy small text={b.lineMsg} /></div>
+        <pre className="whitespace-pre-wrap break-words rounded-md bg-white p-2 text-[11px] leading-5 text-ink border border-line">{b.lineMsg}</pre>
+      </div>
+      <div className="flex items-center justify-between rounded-md bg-white p-2 border border-line">
+        <span className="truncate text-[11px] text-slate2">หัวข้ออีเมล: {b.emailSub}</span>
+        <Copy small label="คัดลอกหัวข้อ" text={b.emailSub} />
+      </div>
+      <p className="text-[10px] text-slate2">อีเมลฉบับเต็มอยู่ใน output/outreach-drafts-ratchaphruek.md · อย่าลืมแทน [ชื่อ] + เบอร์ก่อนส่ง</p>
+    </div>}
+
+    <textarea value={state.note||''} onChange={e=>onNote(b.slug, e.target.value)} placeholder="โน้ต เช่น ส่งวันไหน เขาตอบว่า..." rows={state.note?2:1}
+      className="mt-2.5 w-full resize-y rounded-md border border-line bg-white px-2 py-1.5 text-xs outline-none focus:border-blue-400" />
+
+    <div className="mt-2.5 flex items-center gap-1">
+      <button disabled={idx<=0} onClick={()=>onStage(b.slug, STAGES[idx-1].id)} className="rounded-md border border-line px-2 py-1 text-xs disabled:opacity-30 hover:bg-bg">◀</button>
+      <select value={st} onChange={e=>onStage(b.slug, e.target.value)} className="flex-1 rounded-md border border-line bg-white px-2 py-1 text-xs">
+        {STAGES.map(s=><option key={s.id} value={s.id}>{s.icon} {s.label}</option>)}
+      </select>
+      <button disabled={idx>=STAGES.length-1} onClick={()=>onStage(b.slug, STAGES[idx+1].id)} className="rounded-md border border-line px-2 py-1 text-xs disabled:opacity-30 hover:bg-bg">▶</button>
+    </div>
+  </div>;
+}
+
+function App() {
+  const [board, setBoard] = useState(load);
+  useEffect(()=>save(board), [board]);
+  const stageOf = slug => (board[slug]&&board[slug].stage) || 'todo';
+  const setStage = (slug, stage) => setBoard(b=>({...b, [slug]:{...b[slug], stage}}));
+  const setNote = (slug, note) => setBoard(b=>({...b, [slug]:{...b[slug], note}}));
+  const count = id => DATA.filter(b=>stageOf(b.slug)===id).length;
+
+  return <div className="mx-auto max-w-[1400px] px-4 py-6 md:px-7">
+    <header className="mb-5">
+      <div className="flex flex-wrap items-end justify-between gap-3">
+        <div>
+          <h1 className="text-2xl font-bold tracking-tight md:text-3xl">WebClone · กระดานติดตามงาน</h1>
+          <p className="mt-1 text-sm text-slate2">{DATA.length} ธุรกิจย่านราชพฤกษ์ · ลากสถานะ คัดลอกข้อความ แล้วส่งได้เลย · สถานะจำไว้ในเครื่องนี้</p>
+        </div>
+        <div className="flex gap-2 text-xs">
+          {STAGES.map(s=><div key={s.id} className="flex items-center gap-1.5 rounded-lg border border-line bg-card px-2.5 py-1.5">
+            <span className="h-2 w-2 rounded-full" style={{background:s.dot}}></span><span className="font-medium">{count(s.id)}</span><span className="text-slate2">{s.label}</span>
+          </div>)}
+        </div>
+      </div>
+    </header>
+
+    <div className="grid grid-cols-1 gap-3 md:grid-cols-2 lg:grid-cols-5">
+      {STAGES.map(s=><section key={s.id} className="rounded-2xl p-2.5" style={{background:s.bg}}>
+        <div className="mb-2.5 flex items-center justify-between px-1">
+          <h2 className="flex items-center gap-1.5 text-sm font-semibold"><span>{s.icon}</span>{s.label}</h2>
+          <span className="rounded-full bg-white/70 px-2 py-0.5 text-xs font-medium">{count(s.id)}</span>
+        </div>
+        <div className="col-scroll flex flex-col gap-2.5">
+          {DATA.filter(b=>stageOf(b.slug)===s.id).map(b=><Card key={b.slug} b={b} state={board[b.slug]||{}} onStage={setStage} onNote={setNote} />)}
+          {count(s.id)===0 && <p className="px-1 py-4 text-center text-xs text-slate2/60">— ว่าง —</p>}
+        </div>
+      </section>)}
+    </div>
+
+    <footer className="mt-6 flex flex-wrap items-center justify-between gap-2 border-t border-line pt-4 text-xs text-slate2">
+      <span>หน้ารวมเดโมทั้งหมด: <a className="text-blue-600 hover:underline" href="https://tpldesign.vercel.app" target="_blank" rel="noopener">tpldesign.vercel.app</a></span>
+      <button onClick={()=>{if(confirm('รีเซ็ตทุกสถานะและโน้ตกลับเป็นเริ่มต้น?')){setBoard({});}}} className="rounded-md border border-line bg-white px-2.5 py-1 hover:bg-bg">รีเซ็ตกระดาน</button>
+    </footer>
+  </div>;
+}
+
+ReactDOM.createRoot(document.getElementById('root')).render(<App />);
+</script>
+</body>
+</html>
