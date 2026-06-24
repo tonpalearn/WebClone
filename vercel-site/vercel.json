@@ -1,7 +1,7 @@
 {
   "version": 2,
-  "cleanUrls": true,
-  "trailingSlash": false,
+  "cleanUrls": false,
+  "trailingSlash": true,
   "buildCommand": "npm run build",
   "outputDirectory": "dist",
   "headers": [
