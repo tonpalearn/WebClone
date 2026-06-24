@@ -1,0 +1,322 @@
+<!doctype html>
+<html lang="th">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>ราชพฤกษ์ นวดเพื่อสุขภาพแอนด์สปา — คอนเซ็ปต์เว็บใหม่</title>
+  <meta name="description" content="คอนเซ็ปต์ redesign ร้านราชพฤกษ์ นวดเพื่อสุขภาพแอนด์สปา ปากเกร็ด นนทบุรี — ตัวอย่างเพื่อพูดคุย ไม่ใช่เว็บทางการ" />
+  <meta name="robots" content="noindex,nofollow" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Trirong:ital,wght@0,300;0,400;0,500;0,600;1,400&family=IBM+Plex+Sans+Thai:wght@300;400;500;600&display=swap" rel="stylesheet" />
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            cream: '#f7f1e6', sand: '#efe5d3', ink: '#2c241b', stone: '#6e6557',
+            teak: '#7c5a3a', teakdk: '#5d4127', sage: '#6f8a5e', sagedk: '#54704a',
+            brick: '#c2683b', honey: '#d9a86a', line: '#e3d8c4'
+          },
+          fontFamily: {
+            serif: ['Trirong', 'serif'],
+            sans: ['"IBM Plex Sans Thai"', 'ui-sans-serif', 'sans-serif']
+          }
+        }
+      }
+    }
+  </script>
+  <style>
+    html { scroll-behavior: smooth; }
+    body { margin: 0; background: #f7f1e6; color: #2c241b; -webkit-font-smoothing: antialiased; }
+    .label { font-family: '"IBM Plex Sans Thai"', sans-serif; letter-spacing: .22em; font-size: .7rem; font-weight: 600; }
+    .ksm { background-image: linear-gradient(currentColor,currentColor); background-size: 0 1.5px; background-position: 0 100%; background-repeat: no-repeat; transition: background-size .45s cubic-bezier(.16,1,.3,1); padding-bottom: 2px; }
+    .ksm:hover { background-size: 100% 1.5px; }
+    .card { transition: transform .5s cubic-bezier(.16,1,.3,1), box-shadow .5s; }
+    .card:hover { transform: translateY(-6px); box-shadow: 0 26px 50px -22px rgba(92,65,39,.42); }
+    .card:hover img { transform: scale(1.06); }
+    .rv { opacity: 0; transform: translateY(20px); animation: rv 1s cubic-bezier(.16,1,.3,1) forwards; }
+    .d1 { animation-delay: .1s } .d2 { animation-delay: .22s } .d3 { animation-delay: .34s }
+    @keyframes rv { to { opacity: 1; transform: none; } }
+    .grain:before { content:""; position:fixed; inset:0; pointer-events:none; z-index:1; opacity:.05; mix-blend-mode:multiply;
+      background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E"); }
+    @media (prefers-reduced-motion: reduce) { *, .rv { animation: none !important; opacity: 1 !important; transform: none !important; scroll-behavior: auto !important; } }
+  </style>
+</head>
+<body class="font-sans grain">
+  <div id="root"></div>
+
+  <script crossorigin src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
+  <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
+  <script src="https://unpkg.com/@babel/standalone@7.23.6/babel.min.js"></script>
+  <script>
+    // บังคับ Babel ใช้ classic JSX runtime (React.createElement) กัน import react/jsx-runtime ที่ทำให้ไม่ mount
+    if (window.Babel && Babel.registerPreset) {
+      Babel.registerPreset('react-classic', { presets: [[Babel.availablePresets['react'], { runtime: 'classic' }]] });
+    }
+  </script>
+  <script type="text/babel" data-presets="react-classic">
+    const PHONE = '0917129889', PHONE_D = '091-712-9889';
+    const LINE = '#line'; // เว็บเดิมไม่มีไลน์ — เจ้าของใส่ไอดีจริงภายหลัง
+    const ADDR = '55/62 ถนนราชพฤกษ์ ต.อ้อมเกร็ด อ.ปากเกร็ด นนทบุรี 11120';
+    const MAP = 'https://www.google.com/maps/search/?api=1&query=' + encodeURIComponent('ราชพฤกษ์ นวดเพื่อสุขภาพแอนด์สปา 55/62 ถนนราชพฤกษ์ อ้อมเกร็ด ปากเกร็ด นนทบุรี');
+
+    function Leaf({ className = '' }) {
+      return <svg viewBox="0 0 48 48" className={className} fill="none" aria-hidden="true">
+        <path d="M24 6C14 12 9 22 11 34c10 2 20-4 24-14-7 1-13 4-17 10" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+        <path d="M24 38c-2-8 1-16 7-22" stroke="currentColor" strokeWidth="2" strokeLinecap="round"/>
+      </svg>;
+    }
+
+    function Top() {
+      const [open, setOpen] = React.useState(false);
+      const links = [['บริการ','#services'],['ราคา','#pricing'],['สาขา & ที่ตั้ง','#visit'],['ติดต่อ','#visit']];
+      return <header className="fixed inset-x-0 top-0 z-40 border-b border-line/70 bg-cream/90 backdrop-blur-md">
+        <div className="mx-auto flex max-w-6xl items-center justify-between px-5 py-3.5 md:px-8">
+          <a href="#top" className="flex items-center gap-2.5">
+            <span className="grid h-9 w-9 place-items-center rounded-full bg-sage/15 text-sage"><Leaf className="h-6 w-6" /></span>
+            <span className="font-serif text-lg font-500 leading-none text-teakdk">ราชพฤกษ์<span className="block text-[.62rem] font-sans font-400 tracking-wide text-stone">นวดเพื่อสุขภาพแอนด์สปา</span></span>
+          </a>
+          <nav className="hidden items-center gap-8 md:flex">
+            {links.slice(0,3).map(l => <a key={l[0]} href={l[1]} className="ksm text-sm font-500 text-ink/80 hover:text-teak">{l[0]}</a>)}
+            <a href={`tel:${PHONE}`} className="rounded-full bg-teak px-5 py-2 text-sm font-600 text-cream transition hover:bg-teakdk">โทร {PHONE_D}</a>
+          </nav>
+          <button onClick={() => setOpen(!open)} className="grid h-9 w-9 place-items-center rounded-lg text-teakdk md:hidden" aria-label="เมนู">
+            <svg viewBox="0 0 24 24" className="h-6 w-6" fill="none" stroke="currentColor" strokeWidth="2"><path d="M4 7h16M4 12h16M4 17h16" strokeLinecap="round"/></svg>
+          </button>
+        </div>
+        {open && <div className="border-t border-line bg-cream px-5 py-3 md:hidden">
+          {links.map(l => <a key={l[0]} href={l[1]} onClick={() => setOpen(false)} className="block py-2.5 text-sm font-500 text-ink/80">{l[0]}</a>)}
+        </div>}
+      </header>;
+    }
+
+    function Hero() {
+      return <section id="top" className="relative">
+        <div className="mx-auto grid max-w-6xl grid-cols-1 items-center gap-10 px-5 pb-14 pt-28 md:px-8 lg:grid-cols-[1.02fr_1fr] lg:gap-14 lg:pt-32">
+          <div className="rv">
+            <span className="label inline-flex items-center gap-2 rounded-full bg-sage/12 px-3.5 py-1.5 text-sagedk">
+              <Leaf className="h-4 w-4" /> ปากเกร็ด · นนทบุรี · เปิดทุกวัน
+            </span>
+            <h1 className="mt-6 font-serif text-[2.7rem] font-400 leading-[1.08] text-teakdk sm:text-6xl">
+              ปล่อยความเมื่อยล้า<br/>ไว้ที่นี่<br/><span className="text-brick">ผ่อนคลายแบบไทยแท้</span>
+            </h1>
+            <p className="mt-6 max-w-md text-[1.02rem] font-300 leading-8 text-stone">
+              นวดไทย นวดน้ำมัน นวดเท้า นวดคอบ่าไหล่ นวดสปอร์ต และสปา โดยพนักงานมีประสบการณ์
+              บรรยากาศอบอุ่นเป็นกันเอง มาเมื่อไรก็สบายใจ จองง่ายในไม่กี่นาที
+            </p>
+            <div className="mt-9 flex flex-wrap items-center gap-3">
+              <a href={`tel:${PHONE}`} className="rounded-full bg-brick px-7 py-3.5 font-600 text-cream shadow-lg shadow-brick/25 transition hover:-translate-y-0.5 hover:bg-[#a9572f]">โทรจองเลย {PHONE_D}</a>
+              <a href="#services" className="rounded-full border-2 border-teak/40 px-7 py-3.5 font-600 text-teakdk transition hover:border-teak hover:bg-teak/5">ดูบริการทั้งหมด</a>
+            </div>
+            <div className="mt-9 flex flex-wrap gap-x-7 gap-y-3 border-t border-line pt-6 text-sm text-stone">
+              <span className="flex items-center gap-2"><b className="text-teakdk">10:00–21:30</b> ทุกวัน</span>
+              <span className="flex items-center gap-2"><span className="text-sage">●</span> ที่จอดรถหน้า-หลัง</span>
+              <span className="flex items-center gap-2"><span className="text-sage">●</span> พนักงานมีใบรับรอง*</span>
+            </div>
+          </div>
+          <div className="rv d1">
+            <div className="relative overflow-hidden rounded-[1.8rem] shadow-2xl shadow-teakdk/25">
+              <img src="../assets/massage-01.webp" alt="บริการนวดน้ำมันเพื่อสุขภาพที่ร้านราชพฤกษ์" className="h-[52vh] w-full object-cover md:h-[64vh]" loading="eager" />
+              <div className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-teakdk/75 to-transparent p-6">
+                <p className="font-serif text-xl text-cream">นวดเพื่อสุขภาพ · ผ่อนคลายทุกสัมผัส</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>;
+    }
+
+    const SERVICES = [
+      ['นวดไทย', 'กดจุด ยืดเส้น คลายปวดเมื่อย คอ บ่า หลัง สะโพก ขา ฟื้นความสมดุลของร่างกายแบบนวดแผนไทย', '../assets/massage-07.webp'],
+      ['นวดน้ำมัน', 'ผ่อนคลายลึกด้วยน้ำมันหอม ลดอาการปวดกล้ามเนื้อ บำรุงผิวให้ชุ่มชื้น รู้สึกเบาสบายทั้งตัว', '../assets/massage-03.webp'],
+      ['นวดคอ บ่า ไหล่', 'เน้นจุดที่ตึงล้าจากการทำงาน นั่งนาน ก้มจอ คลายกล้ามเนื้อมัดลึก บรรเทาออฟฟิศซินโดรม', '../assets/massage-09.webp'],
+      ['นวดสปอร์ต & กดจุด', 'สำหรับคนออกกำลังกายหรือปวดเฉพาะจุด คลายกล้ามเนื้อ ฟื้นฟูร่างกายหลังใช้งานหนัก', '../assets/massage-08.webp'],
+      ['นวดฝ่าเท้า', 'กดจุดสะท้อนฝ่าเท้า กระตุ้นการไหลเวียนเลือด ผ่อนคลายความเหนื่อยล้าจากการเดินยืนทั้งวัน', null],
+      ['สปา & ทรีตเมนต์', 'ดูแลผิวพรรณให้สดใส ลดความเครียด ป้องกันริ้วรอย ผ่อนคลายร่างกายและจิตใจไปพร้อมกัน', null],
+    ];
+
+    function Services() {
+      return <section id="services" className="mx-auto max-w-6xl px-5 py-16 md:px-8 md:py-20">
+        <div className="text-center">
+          <span className="label text-sagedk">บริการของเรา</span>
+          <h2 className="mt-3 font-serif text-4xl font-400 text-teakdk md:text-5xl">เลือกนวดแบบที่ใช่สำหรับคุณ</h2>
+          <p className="mx-auto mt-4 max-w-xl font-300 leading-7 text-stone">ทุกบริการเลือกเวลาได้ 60 / 90 / 120 นาที — ทักไลน์หรือโทรเพื่อสอบถามรายละเอียดและราคาล่าสุด</p>
+        </div>
+        <div className="mt-12 grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
+          {SERVICES.map((s, i) => <div key={s[0]} className="card overflow-hidden rounded-2xl border border-line bg-white/60">
+            <div className="relative h-44 overflow-hidden bg-sand">
+              {s[2]
+                ? <img src={s[2]} alt={s[0]} className="h-full w-full object-cover transition duration-700" loading="eager" />
+                : <div className="grid h-full w-full place-items-center bg-gradient-to-br from-sand to-sage/20 text-sage"><Leaf className="h-14 w-14 opacity-50" /></div>}
+              <span className="absolute left-3 top-3 rounded-full bg-cream/90 px-3 py-1 text-xs font-600 text-teakdk">{['60','60','60','60','45','60'][i]}–{['120','120','90','90','60','120'][i]} นาที</span>
+            </div>
+            <div className="p-5">
+              <h3 className="font-serif text-2xl font-500 text-teakdk">{s[0]}</h3>
+              <p className="mt-2 text-sm font-300 leading-6 text-stone">{s[1]}</p>
+              <a href={`tel:${PHONE}`} className="mt-4 inline-flex items-center gap-1.5 text-sm font-600 text-brick ksm">สอบถาม / จอง →</a>
+            </div>
+          </div>)}
+        </div>
+      </section>;
+    }
+
+    function Pricing() {
+      const rows = [
+        ['นวดไทย / นวดเท้า', '60 · 90 · 120 นาที'],
+        ['นวดน้ำมันอโรมา', '60 · 90 · 120 นาที'],
+        ['นวดคอ บ่า ไหล่', '60 · 90 นาที'],
+        ['นวดสปอร์ต / กดจุด', '60 · 90 นาที'],
+        ['สปา & ทรีตเมนต์', 'แพ็กเกจหลายแบบ'],
+      ];
+      return <section id="pricing" className="bg-teakdk text-cream">
+        <div className="mx-auto max-w-5xl px-5 py-16 md:px-8 md:py-20">
+          <div className="text-center">
+            <span className="label text-honey">บริการ & ราคา</span>
+            <h2 className="mt-3 font-serif text-4xl font-400 md:text-5xl">โทรหรือทักไลน์ รับราคาล่าสุด</h2>
+            <p className="mx-auto mt-4 max-w-xl font-300 leading-7 text-cream/75">เลือกระยะเวลาได้ตามต้องการ สอบถามโปรโมชั่นและแพ็กเกจกับทางร้านได้ทุกวัน</p>
+          </div>
+          <div className="mt-10 overflow-hidden rounded-2xl border border-cream/15 bg-cream/5">
+            <table className="w-full text-left">
+              <thead>
+                <tr className="border-b border-cream/15 text-xs uppercase tracking-wider text-honey">
+                  <th className="px-5 py-4 font-600">บริการ</th>
+                  <th className="px-5 py-4 font-600">ระยะเวลา</th>
+                  <th className="px-5 py-4 text-right font-600">ราคา</th>
+                </tr>
+              </thead>
+              <tbody className="divide-y divide-cream/10">
+                {rows.map(r => <tr key={r[0]} className="transition hover:bg-cream/5">
+                  <td className="px-5 py-4 font-500 text-cream">{r[0]}</td>
+                  <td className="px-5 py-4 text-sm font-300 text-cream/75">{r[1]}</td>
+                  <td className="px-5 py-4 text-right">
+                    <a href={`tel:${PHONE}`} className="inline-block rounded-full bg-brick px-4 py-1.5 text-sm font-600 text-cream transition hover:bg-[#a9572f]">สอบถามราคา</a>
+                  </td>
+                </tr>)}
+              </tbody>
+            </table>
+          </div>
+          <p className="mt-4 text-center text-xs font-300 text-cream/55">* ราคาจริงสอบถามทางร้านโดยตรง ตัวอย่างนี้ไม่ได้ระบุตัวเลขราคาเพื่อหลีกเลี่ยงข้อมูลคลาดเคลื่อน</p>
+        </div>
+      </section>;
+    }
+
+    function Why() {
+      const items = [
+        ['เปิดทุกวัน 10:00–21:30', 'มาได้ทุกวันไม่มีวันหยุด เลิกงานแวะได้สบาย'],
+        ['ที่จอดรถหน้า-หลัง', 'สะดวก ปลอดภัย ไม่ต้องวนหาที่จอด'],
+        ['พนักงานมีประสบการณ์', 'มีใบรับรองจากกระทรวงสาธารณสุข* ดูแลใส่ใจทุกขั้นตอน'],
+        ['บรรยากาศเป็นกันเอง', 'แวะมาดูสถานที่ พูดคุยกับพนักงาน รับกาแฟก่อนนวดได้'],
+      ];
+      return <section className="mx-auto max-w-6xl px-5 py-16 md:px-8 md:py-20">
+        <div className="text-center">
+          <span className="label text-sagedk">ทำไมต้องราชพฤกษ์</span>
+          <h2 className="mt-3 font-serif text-4xl font-400 text-teakdk md:text-5xl">ดูแลคุณเหมือนคนในครอบครัว</h2>
+        </div>
+        <div className="mt-12 grid grid-cols-1 gap-x-8 gap-y-10 sm:grid-cols-2 lg:grid-cols-4">
+          {items.map((c, i) => <div key={c[0]} className="text-center sm:text-left">
+            <span className="mx-auto grid h-12 w-12 place-items-center rounded-full bg-sage/15 font-serif text-xl font-500 text-sagedk sm:mx-0">{String(i+1).padStart(2,'0')}</span>
+            <h3 className="mt-5 font-serif text-xl font-500 text-teakdk">{c[0]}</h3>
+            <p className="mt-2 text-sm font-300 leading-6 text-stone">{c[1]}</p>
+          </div>)}
+        </div>
+      </section>;
+    }
+
+    function Visit() {
+      return <section id="visit" className="bg-sand/70">
+        <div className="mx-auto max-w-6xl px-5 py-16 md:px-8 md:py-20">
+          <div className="grid grid-cols-1 gap-12 lg:grid-cols-[1.1fr_.9fr] lg:items-center">
+            <div>
+              <span className="label text-sagedk">สาขา & ที่ตั้ง</span>
+              <h2 className="mt-3 font-serif text-4xl font-400 leading-tight text-teakdk md:text-5xl">แวะมาผ่อนคลาย<br/>ริมถนนราชพฤกษ์</h2>
+              <dl className="mt-9 space-y-5">
+                <div className="border-t border-line pt-4">
+                  <dt className="label text-stone">ที่อยู่</dt>
+                  <dd className="mt-1.5 text-lg font-400 text-ink">{ADDR}</dd>
+                </div>
+                <div className="border-t border-line pt-4">
+                  <dt className="label text-stone">เวลาทำการ</dt>
+                  <dd className="mt-1.5 text-lg font-400 text-ink">เปิดทุกวัน 10:00 – 21:30 น.</dd>
+                </div>
+                <div className="border-t border-line pt-4">
+                  <dt className="label text-stone">โทรศัพท์ / ไลน์</dt>
+                  <dd className="mt-1.5 text-lg font-400 text-ink">{PHONE_D} · ไลน์ (สอบถามไอดีกับทางร้าน)</dd>
+                </div>
+                <div className="border-t border-line pt-4">
+                  <dt className="label text-stone">สาขา</dt>
+                  <dd className="mt-1.5 text-base font-300 text-stone">ทางร้านมีหลายสาขาในย่านราชพฤกษ์ โทรสอบถามสาขาที่สะดวกสำหรับคุณได้</dd>
+                </div>
+              </dl>
+              <div className="mt-9 flex flex-wrap gap-3">
+                <a href={`tel:${PHONE}`} className="rounded-full bg-brick px-7 py-3.5 font-600 text-cream transition hover:-translate-y-0.5 hover:bg-[#a9572f]">โทรเลย</a>
+                <a href={LINE} className="rounded-full border-2 border-sage/50 px-7 py-3.5 font-600 text-sagedk transition hover:bg-sage/10">ทักไลน์</a>
+                <a href={MAP} target="_blank" rel="noopener" className="rounded-full border-2 border-teak/40 px-7 py-3.5 font-600 text-teakdk transition hover:bg-teak/5">เปิดแผนที่ →</a>
+              </div>
+            </div>
+            <div className="overflow-hidden rounded-[1.8rem] border border-line shadow-xl shadow-teakdk/15">
+              <iframe
+                title="แผนที่ร้านราชพฤกษ์ นวดเพื่อสุขภาพแอนด์สปา"
+                src="https://www.google.com/maps?q=55%2F62%20%E0%B8%96%E0%B8%99%E0%B8%99%E0%B8%A3%E0%B8%B2%E0%B8%8A%E0%B8%9E%E0%B8%A4%E0%B8%81%E0%B8%A9%E0%B9%8C%20%E0%B8%AD%E0%B9%89%E0%B8%AD%E0%B8%A1%E0%B9%80%E0%B8%81%E0%B8%A3%E0%B9%87%E0%B8%94%20%E0%B8%9B%E0%B8%B2%E0%B8%81%E0%B9%80%E0%B8%81%E0%B8%A3%E0%B9%87%E0%B8%94%20%E0%B8%99%E0%B8%99%E0%B8%97%E0%B8%9A%E0%B8%B8%E0%B8%A3%E0%B8%B5&output=embed"
+                className="h-[44vh] w-full border-0 md:h-[56vh]" loading="lazy" referrerPolicy="no-referrer-when-downgrade"></iframe>
+            </div>
+          </div>
+        </div>
+      </section>;
+    }
+
+    function Footer() {
+      return <footer className="bg-teakdk text-cream/85">
+        <div className="mx-auto max-w-6xl px-5 py-12 md:px-8">
+          <div className="flex flex-col gap-6 md:flex-row md:items-center md:justify-between">
+            <div className="flex items-center gap-3">
+              <span className="grid h-10 w-10 place-items-center rounded-full bg-cream/10 text-honey"><Leaf className="h-6 w-6" /></span>
+              <div>
+                <p className="font-serif text-lg text-cream">ราชพฤกษ์ นวดเพื่อสุขภาพแอนด์สปา</p>
+                <p className="text-sm font-300 text-cream/60">{ADDR}</p>
+              </div>
+            </div>
+            <div className="flex gap-3">
+              <a href={`tel:${PHONE}`} className="rounded-full bg-brick px-5 py-2.5 text-sm font-600 text-cream">โทร {PHONE_D}</a>
+              <a href={MAP} target="_blank" rel="noopener" className="rounded-full border border-cream/25 px-5 py-2.5 text-sm font-600 text-cream">แผนที่</a>
+            </div>
+          </div>
+          <div className="mt-10 border-t border-cream/15 pt-6 text-xs font-300 leading-6 text-cream/55">
+            <p>Concept redesign demo prepared for discussion. Not the official website unless approved by the business owner. ใช้ภาพจากเว็บไซต์ของร้านเพื่อประกอบการนำเสนอ ไม่มีการคัดลอกข้อความ/โค้ด/ดีไซน์ และไม่มีการแต่งราคา/รีวิว/ใบรับรอง</p>
+            <p className="mt-2">ตัวอย่างคอนเซ็ปต์เว็บไซต์เพื่อใช้พูดคุย/เสนอแนวทางเท่านั้น ยังไม่ใช่เว็บไซต์ทางการของธุรกิจนี้ เว้นแต่เจ้าของธุรกิจจะอนุมัติ · *ข้อมูลพนักงาน/ใบรับรองอ้างอิงตามเว็บไซต์เดิมของร้าน</p>
+          </div>
+        </div>
+      </footer>;
+    }
+
+    function MobileBar() {
+      return <div className="fixed inset-x-0 bottom-0 z-50 grid grid-cols-3 border-t border-line bg-cream/95 backdrop-blur-md md:hidden">
+        <a className="flex items-center justify-center gap-1.5 bg-brick py-3.5 text-sm font-600 text-cream" href={`tel:${PHONE}`}>
+          <svg viewBox="0 0 24 24" className="h-4 w-4" fill="currentColor"><path d="M6.6 10.8a15 15 0 006.6 6.6l2.2-2.2c.3-.3.7-.4 1-.2 1.1.4 2.3.6 3.6.6.6 0 1 .4 1 1V20c0 .6-.4 1-1 1A17 17 0 013 4c0-.6.4-1 1-1h3.4c.6 0 1 .4 1 1 0 1.3.2 2.5.6 3.6.1.4 0 .8-.3 1l-2.1 2.2z"/></svg>โทร
+        </a>
+        <a className="flex items-center justify-center border-x border-line py-3.5 text-sm font-600 text-sagedk" href="#line">ทักไลน์</a>
+        <a className="flex items-center justify-center py-3.5 text-sm font-600 text-teakdk" href="#visit">จอง/แผนที่</a>
+      </div>;
+    }
+
+    function App() {
+      return <>
+        <Top />
+        <main>
+          <Hero />
+          <Services />
+          <Pricing />
+          <Why />
+          <Visit />
+        </main>
+        <Footer />
+        <MobileBar />
+        <div className="h-14 md:hidden"></div>
+      </>;
+    }
+
+    ReactDOM.createRoot(document.getElementById('root')).render(<App />);
+  </script>
+</body>
+</html>

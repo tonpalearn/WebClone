@@ -1,0 +1,231 @@
+<!doctype html>
+<html lang="th">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>ราชพฤกษ์ นวดเพื่อสุขภาพแอนด์สปา — เทียบเว็บเดิม vs เว็บใหม่</title>
+  <meta name="description" content="หน้าเปรียบเทียบคอนเซ็ปต์ redesign เว็บไซต์ร้านราชพฤกษ์ นวดเพื่อสุขภาพแอนด์สปา — ตัวอย่างเพื่อพูดคุย ไม่ใช่เว็บทางการ" />
+  <meta name="robots" content="noindex,nofollow" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Trirong:wght@300;400;500;600&family=IBM+Plex+Sans+Thai:wght@300;400;500;600&display=swap" rel="stylesheet" />
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            cream: '#f7f1e6', sand: '#efe5d3', ink: '#2c241b', stone: '#6e6557',
+            teak: '#7c5a3a', teakdk: '#5d4127', sage: '#6f8a5e', sagedk: '#54704a',
+            brick: '#c2683b', honey: '#d9a86a', line: '#e3d8c4'
+          },
+          fontFamily: {
+            serif: ['Trirong', 'serif'],
+            sans: ['"IBM Plex Sans Thai"', 'ui-sans-serif', 'sans-serif']
+          }
+        }
+      }
+    }
+  </script>
+  <style>
+    html { scroll-behavior: smooth; }
+    body { margin: 0; background: #f7f1e6; color: #2c241b; overflow-x: hidden; -webkit-font-smoothing: antialiased; }
+    .label { letter-spacing: .22em; font-size: .7rem; font-weight: 600; }
+    .reveal { opacity: 0; transform: translateY(22px); animation: reveal .9s cubic-bezier(.16,1,.3,1) forwards; }
+    .delay-1 { animation-delay: .12s; } .delay-2 { animation-delay: .22s; }
+    @keyframes reveal { to { opacity: 1; transform: none; } }
+    .card { border: 1px solid #e3d8c4; background: rgba(255,255,255,.6); border-radius: 1.5rem; }
+    /* device frame */
+    .device { position: relative; border-radius: 1.4rem; overflow: hidden; background:#fff; border: 1px solid #e3d8c4; }
+    .device iframe { width: 100%; height: 100%; border: 0; display:block; background:#fff; }
+    /* drag-slider compare */
+    #cmp { position: relative; width: 100%; height: 560px; border-radius: 1.4rem; overflow: hidden; user-select: none; touch-action: pan-y; background:#fff; }
+    #cmp .pane { position:absolute; inset:0; }
+    #cmp iframe { width:100%; height:100%; border:0; display:block; }
+    #cmp .new-pane { z-index:1; }
+    #cmp .old-pane { z-index:2; overflow:hidden; width:50%; border-right:3px solid #c2683b; }
+    #cmp .handle { position:absolute; top:0; bottom:0; left:50%; z-index:4; width:44px; margin-left:-22px; cursor:ew-resize; display:flex; align-items:center; justify-content:center; }
+    #cmp .handle .knob { width:44px; height:44px; border-radius:9999px; background:#c2683b; color:#fff; display:flex; align-items:center; justify-content:center; font-weight:900; box-shadow:0 6px 24px rgba(0,0,0,.3); }
+    #cmp .tag { position:absolute; top:10px; z-index:5; font-size:11px; font-weight:700; letter-spacing:.05em; padding:5px 11px; border-radius:9999px; }
+    #cmp .tag-old { left:10px; background:#8a6d2a; color:#fff; }
+    #cmp .tag-new { right:10px; background:#54704a; color:#fff; }
+    #cmp.dragging iframe { pointer-events:none; }
+    @media (prefers-reduced-motion: reduce) { * { animation-duration:.01ms !important; scroll-behavior:auto !important; } }
+  </style>
+</head>
+<body class="font-sans">
+  <!-- ป้ายมุมจอ -->
+  <div class="fixed left-3 top-3 z-[60] rounded-full bg-teakdk/90 px-3 py-1.5 text-[11px] font-600 text-cream backdrop-blur-md">ตัวอย่างคอนเซ็ปต์ • ไม่ใช่เว็บทางการ</div>
+
+  <!-- HERO -->
+  <header class="mx-auto max-w-6xl px-4 pt-24 pb-8 text-center md:px-8 md:pt-28">
+    <p class="reveal mb-4 label uppercase text-sagedk">ราชพฤกษ์ นวดเพื่อสุขภาพแอนด์สปา · ปากเกร็ด นนทบุรี</p>
+    <h1 class="reveal delay-1 mx-auto max-w-4xl font-serif text-[13vw] font-400 leading-[1] tracking-tight text-teakdk md:text-7xl">เว็บเดิม <span class="text-brick">vs</span> เว็บใหม่</h1>
+    <p class="reveal delay-2 mx-auto mt-6 max-w-2xl text-lg font-300 leading-8 text-stone md:text-xl">ยกร้านนวดให้ดูอบอุ่น น่าเชื่อถือ มีเมนูบริการ+เวลาชัด ใช้ง่ายบนมือถือ และมีปุ่มโทร/ไลน์/จองที่ลูกค้ากดได้ทันที</p>
+    <div class="reveal delay-2 mt-8 flex flex-col items-center justify-center gap-3 sm:flex-row">
+      <a class="rounded-full bg-brick px-7 py-4 font-600 text-cream shadow-lg shadow-brick/25 transition hover:-translate-y-0.5" href="new.html" target="_blank" rel="noopener">เปิดเว็บใหม่เต็มจอ →</a>
+      <a class="rounded-full border-2 border-teak/40 px-7 py-4 font-600 text-teakdk transition hover:-translate-y-0.5 hover:bg-teak/5" href="old.html" target="_blank" rel="noopener">ดูเว็บเดิมจำลอง</a>
+    </div>
+  </header>
+
+  <!-- DRAG COMPARE SLIDER -->
+  <section class="mx-auto max-w-6xl px-4 pb-6 md:px-8">
+    <div class="card p-4 md:p-5">
+      <div class="mb-3 flex items-center justify-between gap-3">
+        <h2 class="font-serif text-2xl font-500 text-teakdk md:text-3xl">ลากเพื่อเทียบ</h2>
+        <span class="hidden text-sm text-stone sm:block">ลากปุ่มกลางซ้าย-ขวา · ซ้าย = เดิม · ขวา = ใหม่</span>
+      </div>
+      <div id="cmp">
+        <span class="tag tag-old">เดิม</span>
+        <span class="tag tag-new">ใหม่</span>
+        <div class="pane new-pane"><iframe src="new.html" title="เว็บใหม่ ราชพฤกษ์" loading="lazy" scrolling="no"></iframe></div>
+        <div class="pane old-pane" id="oldPane"><iframe src="old.html" title="เว็บเดิมจำลอง ราชพฤกษ์" loading="lazy" scrolling="no"></iframe></div>
+        <div class="handle" id="cmpHandle"><div class="knob">⇆</div></div>
+      </div>
+      <p class="mt-2 text-center text-xs text-stone sm:hidden">แตะค้างแล้วลากซ้าย-ขวาเพื่อเทียบ</p>
+    </div>
+  </section>
+
+  <!-- SIDE BY SIDE -->
+  <section class="mx-auto max-w-6xl px-4 py-8 md:px-8">
+    <div class="mb-6 text-center">
+      <p class="label uppercase text-sagedk">วางข้างกัน</p>
+      <h2 class="mt-3 font-serif text-4xl font-400 text-teakdk md:text-5xl">เห็นสองเว็บพร้อมกัน</h2>
+    </div>
+    <div class="grid gap-5 lg:grid-cols-2">
+      <div class="card p-4">
+        <div class="mb-3 flex items-center gap-2">
+          <span class="rounded-full bg-[#8a6d2a] px-3 py-1 text-xs font-600 text-cream">เดิม</span>
+          <span class="text-sm text-stone">เทมเพลตเดิม ไม่มีราคา/ไลน์</span>
+        </div>
+        <div class="device h-[460px] md:h-[520px]"><iframe src="old.html" title="เว็บเดิมจำลอง" loading="lazy"></iframe></div>
+        <a class="mt-3 block text-center text-sm font-600 text-brick hover:text-[#a9572f]" href="old.html" target="_blank" rel="noopener">เปิดเต็มจอ →</a>
+      </div>
+      <div class="card p-4 ring-2 ring-brick/25">
+        <div class="mb-3 flex items-center gap-2">
+          <span class="rounded-full bg-[#54704a] px-3 py-1 text-xs font-600 text-cream">ใหม่</span>
+          <span class="text-sm text-stone">โทนไม้อุ่น รูปจริง mobile-first</span>
+        </div>
+        <div class="device h-[460px] md:h-[520px]"><iframe src="new.html" title="เว็บใหม่" loading="lazy"></iframe></div>
+        <a class="mt-3 block text-center text-sm font-600 text-brick hover:text-[#a9572f]" href="new.html" target="_blank" rel="noopener">เปิดเต็มจอ →</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- COMPARISON TABLE -->
+  <section class="mx-auto max-w-5xl px-4 py-12 md:px-8">
+    <div class="mb-6 text-center">
+      <p class="label uppercase text-sagedk">ต่างกันตรงไหน</p>
+      <h2 class="mt-3 font-serif text-4xl font-400 text-teakdk md:text-5xl">เทียบทีละจุด</h2>
+    </div>
+    <div class="overflow-hidden rounded-[1.5rem] border border-line bg-white/70">
+      <table class="w-full text-left text-sm md:text-base">
+        <thead>
+          <tr class="border-b border-line text-xs uppercase tracking-wider text-stone">
+            <th class="p-4">หัวข้อ</th>
+            <th class="p-4 text-[#a9572f]">เว็บเดิม</th>
+            <th class="p-4 text-sagedk">เว็บใหม่</th>
+          </tr>
+        </thead>
+        <tbody class="divide-y divide-line">
+          <tr>
+            <td class="p-4 font-600 text-teakdk">ราคา / บริการ</td>
+            <td class="p-4 text-stone"><span class="text-brick">✗</span> ไม่มีราคา/เวลา ต้องโทรถามทุกอย่าง</td>
+            <td class="p-4 text-ink"><span class="text-sage">✓</span> เมนูบริการ+เวลาชัด ตารางราคา "สอบถาม" พร้อมเติมจริง</td>
+          </tr>
+          <tr>
+            <td class="p-4 font-600 text-teakdk">ช่องทางจอง</td>
+            <td class="p-4 text-stone"><span class="text-brick">✗</span> มีแต่เบอร์โทร ไม่มีไลน์/จอง</td>
+            <td class="p-4 text-ink"><span class="text-sage">✓</span> โทร + ไลน์ + จอง + แถบลอยล่างจอมือถือ</td>
+          </tr>
+          <tr>
+            <td class="p-4 font-600 text-teakdk">มือถือ</td>
+            <td class="p-4 text-stone"><span class="text-brick">✗</span> เทมเพลตเก่า ปุ่มไม่เด่น ใช้ยาก</td>
+            <td class="p-4 text-ink"><span class="text-sage">✓</span> mobile-first พอดีจอ ปุ่มใหญ่กดง่าย</td>
+          </tr>
+          <tr>
+            <td class="p-4 font-600 text-teakdk">สาขา & ที่ตั้ง</td>
+            <td class="p-4 text-stone"><span class="text-brick">✗</span> เอ่ยชื่อ 3 สาขา แต่ไม่มีแผนที่</td>
+            <td class="p-4 text-ink"><span class="text-sage">✓</span> ที่อยู่+แผนที่ฝัง + ปุ่มโทรเช็กสาขา</td>
+          </tr>
+          <tr>
+            <td class="p-4 font-600 text-teakdk">แบรนด์ / ความน่าเชื่อถือ</td>
+            <td class="p-4 text-stone"><span class="text-brick">✗</span> โทนอ่อน ดูเหมือนเว็บทั่วไป</td>
+            <td class="p-4 text-ink"><span class="text-sage">✓</span> โทนไม้อุ่น+เขียวสาคู รูปจริงเป็นพระเอก ดูผ่อนคลายมีระดับ</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <!-- SALES PITCH -->
+  <section class="mx-auto max-w-5xl px-4 py-12 md:px-8">
+    <div class="card p-8 md:p-12">
+      <div class="grid gap-8 lg:grid-cols-[1.2fr_.8fr] lg:items-center">
+        <div>
+          <p class="label uppercase text-sagedk">ข้อเสนอ</p>
+          <h2 class="mt-4 font-serif text-4xl font-400 leading-tight text-teakdk md:text-5xl">หน้าเว็บที่ทำให้ลูกค้าจองง่ายขึ้น</h2>
+          <ul class="mt-6 space-y-3 text-stone">
+            <li class="flex gap-3"><span class="text-brick">●</span> เห็นบริการ+เวลานวดครบในหน้าเดียว ลูกค้าไม่ต้องโทรถามทีละอย่าง</li>
+            <li class="flex gap-3"><span class="text-brick">●</span> ปุ่มโทร/ไลน์/จองเด่น + แถบลอยล่างจอบนมือถือ กดจองได้ใน 1 แตะ</li>
+            <li class="flex gap-3"><span class="text-brick">●</span> ที่ตั้ง+แผนที่ชัด ลูกค้าหาทางมาง่าย ลดการถามเส้นทาง</li>
+            <li class="flex gap-3"><span class="text-brick">●</span> โทนแบรนด์อุ่น ผ่อนคลาย ใช้รูปนวดจริง สื่อความเป็นมืออาชีพ</li>
+          </ul>
+          <div class="mt-8 flex flex-col gap-3 sm:flex-row">
+            <a class="rounded-full bg-brick px-7 py-4 text-center font-600 text-cream shadow-lg shadow-brick/25 transition hover:-translate-y-0.5" href="new.html" target="_blank" rel="noopener">เปิดเว็บใหม่เต็มจอ</a>
+            <a class="rounded-full border-2 border-teak/40 px-7 py-4 text-center font-600 text-teakdk transition hover:-translate-y-0.5 hover:bg-teak/5" href="#">ติดต่อทีมออกแบบ</a>
+          </div>
+        </div>
+        <div class="rounded-[1.5rem] bg-teakdk p-6 text-center text-cream">
+          <div class="grid grid-cols-2 gap-3">
+            <div class="rounded-2xl bg-cream/8 p-4"><div class="font-serif text-3xl text-honey">6</div><div class="mt-1 text-xs text-cream/65">บริการ จัดเมนูชัด</div></div>
+            <div class="rounded-2xl bg-cream/8 p-4"><div class="font-serif text-3xl text-honey">1 แตะ</div><div class="mt-1 text-xs text-cream/65">โทร/ไลน์/จอง</div></div>
+            <div class="rounded-2xl bg-cream/8 p-4"><div class="font-serif text-3xl text-honey">100%</div><div class="mt-1 text-xs text-cream/65">mobile-first</div></div>
+            <div class="rounded-2xl bg-cream/8 p-4"><div class="font-serif text-3xl text-honey">1 หน้า</div><div class="mt-1 text-xs text-cream/65">โหลดไว</div></div>
+          </div>
+          <p class="mt-4 text-xs text-cream/50">ตัวเลขสื่อแนวทางออกแบบ ไม่ใช่ตัวชี้วัดที่วัดจากเว็บจริง</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="border-t border-line px-5 py-10 text-sm leading-7 text-stone md:px-10">
+    <div class="mx-auto max-w-5xl">
+      <p><strong class="text-teakdk">Concept redesign demo prepared for discussion.</strong> This is not the official website unless approved by the business owner. ใช้ภาพจากเว็บไซต์ของร้านเพื่อประกอบการนำเสนอ — ไม่มีการคัดลอกข้อความ/โค้ด/ดีไซน์ และไม่มีการแต่งราคา/รีวิว/ใบรับรอง</p>
+      <p class="mt-2">ตัวอย่างคอนเซ็ปต์เว็บไซต์เพื่อใช้พูดคุย/เสนอแนวทางเท่านั้น ยังไม่ใช่เว็บไซต์ทางการของธุรกิจนี้ เว้นแต่เจ้าของธุรกิจจะอนุมัติ</p>
+      <p class="mt-3 text-xs text-stone/70">ราชพฤกษ์ นวดเพื่อสุขภาพแอนด์สปา · โทร 091-712-9889 · 55/62 ถนนราชพฤกษ์ ต.อ้อมเกร็ด อ.ปากเกร็ด นนทบุรี 11120 · เปิดทุกวัน 10:00–21:30</p>
+    </div>
+  </footer>
+
+  <script>
+    (function(){
+      var cmp = document.getElementById('cmp');
+      var oldPane = document.getElementById('oldPane');
+      var handle = document.getElementById('cmpHandle');
+      if(!cmp || !oldPane || !handle) return;
+      var dragging = false;
+      function setPos(clientX){
+        var r = cmp.getBoundingClientRect();
+        var x = clientX - r.left;
+        var pct = Math.max(0, Math.min(100, (x / r.width) * 100));
+        oldPane.style.width = pct + '%';
+        handle.style.left = pct + '%';
+      }
+      function start(e){ dragging = true; cmp.classList.add('dragging'); move(e); }
+      function end(){ dragging = false; cmp.classList.remove('dragging'); }
+      function move(e){
+        if(!dragging) return;
+        var cx = (e.touches && e.touches[0]) ? e.touches[0].clientX : e.clientX;
+        if(cx != null) setPos(cx);
+      }
+      handle.addEventListener('mousedown', start);
+      window.addEventListener('mousemove', move);
+      window.addEventListener('mouseup', end);
+      handle.addEventListener('touchstart', start, {passive:true});
+      window.addEventListener('touchmove', move, {passive:true});
+      window.addEventListener('touchend', end);
+    })();
+  </script>
+</body>
+</html>

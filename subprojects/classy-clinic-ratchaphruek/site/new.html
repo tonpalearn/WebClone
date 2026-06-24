@@ -1,0 +1,354 @@
+<!doctype html>
+<html lang="th">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Classy Clinic ราชพฤกษ์ — คอนเซ็ปต์เว็บใหม่</title>
+  <meta name="description" content="คอนเซ็ปต์ redesign Classy Clinic สาขาราชพฤกษ์ คลินิกความงามพรีเมียม — ตัวอย่างเพื่อพูดคุย ไม่ใช่เว็บทางการ" />
+  <meta name="robots" content="noindex,nofollow" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=Jost:wght@300;400;500&family=IBM+Plex+Sans+Thai:wght@300;400;500&display=swap" rel="stylesheet" />
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            ivory: '#fbf9f5', cream: '#f4eee3', sand: '#e9dfcb', ink: '#161310',
+            charcoal: '#211d18', stone: '#7a7164', gold: '#b08d50', goldlt: '#c9a978', line: '#e7ddcb'
+          },
+          fontFamily: {
+            serif: ['"Cormorant Garamond"', 'Georgia', 'serif'],
+            sans: ['Jost', '"IBM Plex Sans Thai"', 'ui-sans-serif', 'sans-serif']
+          }
+        }
+      }
+    }
+  </script>
+  <style>
+    html { scroll-behavior: smooth; }
+    body { margin: 0; background: #fbf9f5; color: #161310; -webkit-font-smoothing: antialiased; }
+    .label { font-family: 'Jost', sans-serif; text-transform: uppercase; letter-spacing: .32em; font-size: .66rem; }
+    .hair { border-top: 1px solid #e7ddcb; }
+    .goldrule { height: 1px; background: linear-gradient(90deg, transparent, #b08d50 50%, transparent); }
+    .ul { background-image: linear-gradient(currentColor,currentColor); background-size: 100% 1px; background-position: 0 100%; background-repeat: no-repeat; padding-bottom: 3px; transition: background-size .5s cubic-bezier(.16,1,.3,1), color .3s; }
+    .ul:hover { background-size: 0 1px; color: #b08d50; }
+    .btn-gold { background: #161310; color: #fbf9f5; border: 1px solid #161310; transition: all .4s cubic-bezier(.16,1,.3,1); }
+    .btn-gold:hover { background: #b08d50; border-color: #b08d50; color: #fff; }
+    .btn-out { border: 1px solid #b08d50; color: #161310; transition: all .4s cubic-bezier(.16,1,.3,1); }
+    .btn-out:hover { background: #b08d50; color: #fff; }
+    .svc { transition: border-color .5s, transform .5s cubic-bezier(.16,1,.3,1); }
+    .svc:hover { border-color: #b08d50; transform: translateY(-4px); }
+    .svc:hover .svc-no { color: #b08d50; }
+    .svc-no { transition: color .4s; }
+    .rv { opacity: 0; transform: translateY(20px); animation: rv 1.1s cubic-bezier(.16,1,.3,1) forwards; }
+    .d1 { animation-delay: .12s } .d2 { animation-delay: .26s } .d3 { animation-delay: .4s }
+    @keyframes rv { to { opacity: 1; transform: none; } }
+    .kenburns { animation: kb 18s ease-out infinite alternate; }
+    @keyframes kb { from { transform: scale(1); } to { transform: scale(1.08); } }
+    @media (prefers-reduced-motion: reduce) { *, .rv, .kenburns { animation: none !important; opacity: 1 !important; transform: none !important; scroll-behavior: auto !important; } }
+  </style>
+</head>
+<body class="font-sans">
+  <div id="root"></div>
+
+  <script crossorigin src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
+  <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
+  <script src="https://unpkg.com/@babel/standalone@7.23.6/babel.min.js"></script>
+  <script>
+    // บังคับ Babel ใช้ classic JSX runtime (React.createElement) กัน import react/jsx-runtime ที่ทำให้ไม่ mount
+    if (window.Babel && Babel.registerPreset) {
+      Babel.registerPreset('react-classic', { presets: [[Babel.availablePresets['react'], { runtime: 'classic' }]] });
+    }
+  </script>
+  <script type="text/babel" data-presets="react-classic">
+    const PHONE = '0628293563', PHONE_D = '062 829 3563';
+    const PHONE2 = '0911524266', PHONE2_D = '091 152 4266';
+    const ADDR = '96/9 ม.1 ต.อ้อมเกร็ด อ.ปากเกร็ด นนทบุรี 11120';
+    const MAP = 'https://www.google.com/maps/search/?api=1&query=' + encodeURIComponent('Classy Clinic ราชพฤกษ์ ปากเกร็ด นนทบุรี');
+    const IMG = {
+      doctor: '../assets/doctor-team.webp',
+      facility: '../assets/facility-05.webp',
+      aesthetic: '../assets/aesthetic-img.webp',
+      logo: '../assets/logo.png'
+    };
+
+    function GoldRule({ className = '' }) { return <div className={`goldrule ${className}`} />; }
+
+    function Top() {
+      const [open, setOpen] = React.useState(false);
+      return (
+        <header className="fixed inset-x-0 top-0 z-40 bg-ivory/90 backdrop-blur-md">
+          <div className="mx-auto flex max-w-6xl items-center justify-between px-5 py-4 md:px-10">
+            <a href="#top" className="flex items-center gap-3">
+              <img src={IMG.logo} alt="Classy Clinic" className="h-7 w-auto" />
+              <span className="hidden font-serif text-lg tracking-[.18em] text-ink sm:block">CLASSY CLINIC</span>
+            </a>
+            <nav className="hidden items-center gap-9 label text-stone lg:flex">
+              <a className="ul" href="#services">บริการ</a>
+              <a className="ul" href="#tech">เทคโนโลยี</a>
+              <a className="ul" href="#trust">ทำไมต้องเรา</a>
+              <a className="ul" href="#visit">ติดต่อ</a>
+            </nav>
+            <div className="flex items-center gap-3">
+              <a href={`tel:${PHONE}`} className="hidden btn-gold rounded-full px-5 py-2.5 label sm:inline-block">โทร {PHONE_D}</a>
+              <button aria-label="เมนู" onClick={() => setOpen(!open)} className="lg:hidden p-2 text-ink">
+                <svg width="24" height="24" fill="none" stroke="currentColor" strokeWidth="1.5"><path d="M4 7h16M4 12h16M4 17h16" strokeLinecap="round"/></svg>
+              </button>
+            </div>
+          </div>
+          <div className="hair mx-auto max-w-6xl"></div>
+          {open && (
+            <nav className="lg:hidden bg-ivory px-5 pb-5 pt-2 label text-stone">
+              {[['บริการ','#services'],['เทคโนโลยี','#tech'],['ทำไมต้องเรา','#trust'],['ติดต่อ','#visit']].map(i =>
+                <a key={i[1]} href={i[1]} onClick={() => setOpen(false)} className="block border-b border-line py-3 text-ink">{i[0]}</a>
+              )}
+            </nav>
+          )}
+        </header>
+      );
+    }
+
+    function Hero() {
+      return (
+        <section id="top" className="relative isolate min-h-screen overflow-hidden">
+          <div className="absolute inset-0 -z-10">
+            <img src={IMG.doctor} alt="ปรึกษาแพทย์ผู้เชี่ยวชาญ Classy Clinic" className="kenburns h-full w-full object-cover" />
+            <div className="absolute inset-0" style={{ background: 'linear-gradient(105deg, rgba(251,249,245,.96) 0%, rgba(251,249,245,.86) 38%, rgba(251,249,245,.35) 70%, rgba(33,29,24,.12) 100%)' }}></div>
+          </div>
+          <div className="mx-auto flex min-h-screen max-w-6xl flex-col justify-center px-5 pb-16 pt-32 md:px-10">
+            <div className="max-w-xl">
+              <p className="rv label text-gold">Classy Clinic · สาขาราชพฤกษ์</p>
+              <h1 className="rv d1 mt-7 font-serif text-[3.1rem] font-medium leading-[1.02] tracking-tight text-ink sm:text-6xl lg:text-[4.7rem]">
+                ความงามที่<br/><span className="italic text-gold">ออกแบบ</span>ให้เป็นคุณ
+              </h1>
+              <p className="rv d2 mt-7 max-w-md font-sans text-[1.04rem] font-light leading-8 text-charcoal/80">
+                คลินิกความงามภายใต้แนวคิด Premium Gold Standard ดูแลโดยทีมแพทย์ ฟิลเลอร์ ออกแบบรูปหน้า ร้อยไหม และเทคโนโลยีผิวมาตรฐานสากล วางแผนเฉพาะบุคคลก่อนทุกหัตถการ
+              </p>
+              <div className="rv d3 mt-10 flex flex-wrap items-center gap-x-5 gap-y-3">
+                <a href={`tel:${PHONE}`} className="btn-gold rounded-full px-8 py-3.5 label">ปรึกษาฟรี · จองคิว</a>
+                <a href="#services" className="ul label text-charcoal/70">ดูบริการทั้งหมด</a>
+              </div>
+              <dl className="rv d3 mt-12 grid max-w-md grid-cols-3 gap-4 border-t border-line pt-6">
+                {[['Tue–Sun','เปิดทุกวันยกเว้นจันทร์'],['10:00–20:00','เวลาทำการ'],['ราชพฤกษ์','ปากเกร็ด นนทบุรี']].map(s =>
+                  <div key={s[0]}><dt className="font-serif text-xl text-ink">{s[0]}</dt><dd className="mt-1 font-sans text-[.7rem] leading-snug text-stone">{s[1]}</dd></div>
+                )}
+              </dl>
+            </div>
+          </div>
+        </section>
+      );
+    }
+
+    function Marquee() {
+      const items = ['Filler & Face Design','Botulinum Toxin','Thread Lift · ร้อยไหม','Ultherapy','Thermage','HIFU','Profhilo','Sculptra','Radiesse','ศัลยกรรมจมูก'];
+      return (
+        <div className="border-y border-line bg-cream/60 py-4 overflow-hidden">
+          <div className="mx-auto flex max-w-6xl flex-wrap items-center justify-center gap-x-7 gap-y-2 px-5 label text-stone">
+            {items.map((t,i) => <React.Fragment key={t}><span>{t}</span>{i < items.length-1 && <span className="text-gold">◆</span>}</React.Fragment>)}
+          </div>
+        </div>
+      );
+    }
+
+    function Services() {
+      const groups = [
+        ['๐๑','ฟิลเลอร์ & ออกแบบรูปหน้า','Filler & Face Design','เติมเต็มและปรับโครงหน้าให้ได้สัดส่วนสมดุล วางแผนเฉพาะบุคคลโดยแพทย์'],
+        ['๐๒','โบทูลินั่ม ท็อกซิน','Botulinum Toxin','ปรับริ้วรอยจากการแสดงสีหน้า ลดกราม เก็บรายละเอียดให้ดูเป็นธรรมชาติ'],
+        ['๐๓','ร้อยไหม','Thread Lift','ยกกระชับด้วยไหมเทคนิคต่าง ๆ ปรึกษาแพทย์เพื่อเลือกวิธีที่เหมาะกับโครงหน้า'],
+        ['๐๔','ยกกระชับด้วยพลังงาน','Ultherapy · Thermage · HIFU','ดูแลความกระชับของผิวด้วยเครื่องมือมาตรฐาน เลือกใช้ตามสภาพผิวแต่ละคน'],
+        ['๐๕','ฟื้นฟูผิว','Profhilo · Sculptra · Radiesse','กลุ่มหัตถการดูแลคุณภาพและความเปล่งปลั่งของผิว ตามคำแนะนำของแพทย์'],
+        ['๐๖','ศัลยกรรมจมูก','Rhinoplasty','ปรับรูปทรงจมูกให้รับกับใบหน้า ประเมินและวางแผนโดยแพทย์เฉพาะทาง']
+      ];
+      return (
+        <section id="services" className="mx-auto max-w-6xl px-5 py-24 md:px-10">
+          <div className="flex flex-col items-start justify-between gap-3 sm:flex-row sm:items-end">
+            <div>
+              <p className="label text-gold">บริการของเรา</p>
+              <h2 className="mt-4 font-serif text-4xl font-medium text-ink md:text-5xl">หัตถการที่ดูแลโดยแพทย์</h2>
+            </div>
+            <p className="max-w-xs font-sans text-sm font-light text-stone">ทุกหัตถการเริ่มจากการปรึกษาและประเมินกับแพทย์ เพื่อวางแผนการดูแลเฉพาะบุคคล</p>
+          </div>
+          <GoldRule className="mt-8" />
+          <div className="mt-10 grid gap-px sm:grid-cols-2 lg:grid-cols-3">
+            {groups.map(g =>
+              <article key={g[0]} className="svc group border border-line bg-ivory p-8">
+                <div className="flex items-baseline justify-between">
+                  <span className="svc-no font-serif text-2xl text-gold">{g[0]}</span>
+                  <span className="label text-stone/60">{g[2]}</span>
+                </div>
+                <h3 className="mt-6 font-serif text-2xl font-medium leading-snug text-ink">{g[1]}</h3>
+                <p className="mt-3 font-sans text-sm font-light leading-7 text-stone">{g[3]}</p>
+              </article>
+            )}
+          </div>
+          <p className="mt-6 font-sans text-xs font-light text-stone/70">* ผลลัพธ์ขึ้นกับสภาพผิวและร่างกายของแต่ละบุคคล โปรดปรึกษาแพทย์เพื่อรับคำแนะนำที่เหมาะสมก่อนเข้ารับบริการ</p>
+        </section>
+      );
+    }
+
+    function Tech() {
+      return (
+        <section id="tech" className="bg-charcoal text-ivory">
+          <div className="mx-auto grid max-w-6xl grid-cols-1 gap-0 lg:grid-cols-2">
+            <div className="relative min-h-[44vh] overflow-hidden lg:min-h-full">
+              <img src={IMG.facility} alt="บรรยากาศภายในคลินิก Classy Clinic" className="h-full w-full object-cover" />
+            </div>
+            <div className="px-5 py-20 md:px-12 lg:py-28">
+              <p className="label text-goldlt">เทคโนโลยี & มาตรฐาน</p>
+              <h2 className="mt-6 font-serif text-4xl font-medium leading-tight md:text-5xl">เครื่องมือมาตรฐาน<br/>ในบรรยากาศที่ผ่อนคลาย</h2>
+              <p className="mt-7 max-w-md font-sans font-light leading-8 text-ivory/75">
+                เราเลือกใช้เทคโนโลยีดูแลผิวและรูปหน้าที่เป็นที่รู้จักในระดับสากล เช่น Ultherapy, Thermage และ HIFU โดยแพทย์เป็นผู้ประเมินและเลือกวิธีที่เหมาะกับผิวของแต่ละคน
+              </p>
+              <dl className="mt-10 grid grid-cols-2 gap-x-8 gap-y-8">
+                {[['Ultherapy','ยกกระชับชั้นลึก'],['Thermage','ดูแลความเฟิร์มผิว'],['HIFU','คลื่นเสียงความถี่สูง'],['Premium Gold','มาตรฐานการดูแล']].map(t =>
+                  <div key={t[0]} className="border-t border-ivory/15 pt-4">
+                    <dt className="font-serif text-2xl text-goldlt">{t[0]}</dt>
+                    <dd className="mt-1 font-sans text-sm font-light text-ivory/60">{t[1]}</dd>
+                  </div>
+                )}
+              </dl>
+            </div>
+          </div>
+        </section>
+      );
+    }
+
+    function Trust() {
+      const cards = [
+        ['ดูแลโดยทีมแพทย์','ทุกหัตถการประเมินและทำโดยแพทย์ พร้อมวางแผนเฉพาะบุคคลก่อนเริ่ม'],
+        ['ปรึกษาก่อนเสมอ','พูดคุยถึงความต้องการ ความคาดหวัง และข้อควรระวัง อย่างตรงไปตรงมา'],
+        ['เครื่องมือมาตรฐาน','เลือกใช้เทคโนโลยีที่เป็นที่รู้จักในระดับสากล ตามความเหมาะสมของผิว'],
+        ['ใส่ใจรายละเอียด','เน้นผลลัพธ์ที่ดูเป็นธรรมชาติ รับกับใบหน้าและบุคลิกของแต่ละคน']
+      ];
+      return (
+        <section id="trust" className="mx-auto max-w-6xl px-5 py-24 md:px-10">
+          <div className="grid grid-cols-1 gap-12 lg:grid-cols-[.9fr_1.1fr] lg:items-center lg:gap-16">
+            <div className="relative">
+              <img src={IMG.aesthetic} alt="ดูแลผิวพรรณ Classy Clinic" className="w-full object-cover" style={{ aspectRatio: '3/4' }} />
+              <div className="absolute -bottom-5 -right-3 hidden bg-ink px-7 py-5 text-ivory sm:block">
+                <p className="font-serif text-3xl text-goldlt">Gold</p>
+                <p className="label mt-1 text-ivory/70">Standard of Care</p>
+              </div>
+            </div>
+            <div>
+              <p className="label text-gold">ทำไมต้อง Classy Clinic</p>
+              <h2 className="mt-5 font-serif text-4xl font-medium leading-tight text-ink md:text-5xl">ความมั่นใจ เริ่มจากความเข้าใจ</h2>
+              <p className="mt-6 max-w-lg font-sans font-light leading-8 text-stone">
+                ก่อนตัดสินใจฉีดหรือทำหัตถการใด ๆ เราเชื่อว่าคนไข้ควรได้คุยกับแพทย์ เข้าใจทางเลือก และรู้สึกปลอดภัย คลินิกจึงให้น้ำหนักกับการปรึกษาและการวางแผนเป็นอันดับแรก
+              </p>
+              <div className="mt-10 grid gap-px sm:grid-cols-2">
+                {cards.map((c,i) =>
+                  <div key={c[0]} className="border border-line bg-ivory p-7">
+                    <span className="font-serif text-4xl font-medium text-gold/70">{String(i+1).padStart(2,'0')}</span>
+                    <h3 className="mt-4 font-serif text-xl font-medium text-ink">{c[0]}</h3>
+                    <p className="mt-2 font-sans text-sm font-light leading-7 text-stone">{c[1]}</p>
+                  </div>
+                )}
+              </div>
+            </div>
+          </div>
+        </section>
+      );
+    }
+
+    function CTA() {
+      return (
+        <section className="bg-cream/70">
+          <div className="mx-auto max-w-4xl px-5 py-20 text-center md:px-10">
+            <p className="label text-gold">นัดหมายเข้ารับคำปรึกษา</p>
+            <h2 className="mt-5 font-serif text-4xl font-medium leading-tight text-ink md:text-6xl">พร้อมออกแบบความงาม<br/>ในแบบของคุณ</h2>
+            <p className="mx-auto mt-6 max-w-lg font-sans font-light leading-8 text-stone">โทรเพื่อสอบถามและจองคิวปรึกษากับแพทย์ ทีมงานยินดีดูแลและให้คำแนะนำเบื้องต้น</p>
+            <div className="mt-10 flex flex-wrap items-center justify-center gap-4">
+              <a href={`tel:${PHONE}`} className="btn-gold rounded-full px-9 py-4 label">โทร {PHONE_D}</a>
+              <a href={`tel:${PHONE2}`} className="btn-out rounded-full px-9 py-4 label">โทร {PHONE2_D}</a>
+            </div>
+          </div>
+        </section>
+      );
+    }
+
+    function Visit() {
+      return (
+        <section id="visit" className="bg-ink text-ivory">
+          <div className="mx-auto max-w-6xl px-5 py-24 md:px-10">
+            <div className="grid grid-cols-1 gap-12 lg:grid-cols-[1.3fr_1fr]">
+              <div>
+                <p className="label text-goldlt">Visit · ที่ตั้งและเวลาทำการ</p>
+                <h2 className="mt-6 max-w-xl font-serif text-4xl font-medium leading-tight md:text-6xl">Classy Clinic<br/>สาขาราชพฤกษ์</h2>
+                <p className="mt-8 max-w-lg font-sans text-lg font-light leading-9 text-ivory/80">{ADDR}</p>
+                <div className="mt-10 flex flex-wrap gap-x-6 gap-y-3">
+                  <a href={`tel:${PHONE}`} className="border border-ivory px-8 py-3.5 label text-ivory transition hover:bg-ivory hover:text-ink">โทรเลย</a>
+                  <a href={MAP} target="_blank" rel="noopener" className="ul label text-ivory/80">เปิดแผนที่</a>
+                </div>
+              </div>
+              <dl className="grid grid-cols-1 gap-6 self-start font-sans text-sm font-light">
+                {[
+                  ['โทรศัพท์', `${PHONE_D}\n${PHONE2_D}`],
+                  ['เวลาทำการ', 'อังคาร – อาทิตย์\n10:00 – 20:00 น. (ปิดวันจันทร์)'],
+                  ['ที่ตั้ง', 'ราชพฤกษ์ · อ.ปากเกร็ด นนทบุรี']
+                ].map(r =>
+                  <div key={r[0]} className="border-t border-ivory/15 pt-4">
+                    <dt className="label text-ivory/45">{r[0]}</dt>
+                    <dd className="mt-2 whitespace-pre-line text-ivory">{r[1]}</dd>
+                  </div>
+                )}
+              </dl>
+            </div>
+          </div>
+        </section>
+      );
+    }
+
+    function Footer() {
+      return (
+        <footer className="bg-ink text-ivory/55">
+          <div className="goldrule"></div>
+          <div className="mx-auto max-w-6xl px-5 py-10 md:px-10">
+            <div className="flex flex-col items-start justify-between gap-4 sm:flex-row sm:items-center">
+              <img src={IMG.logo} alt="Classy Clinic" className="h-7 w-auto opacity-90" style={{ filter: 'brightness(0) invert(1)' }} />
+              <p className="font-sans text-xs font-light text-ivory/45">© Classy Clinic · สาขาราชพฤกษ์ · {PHONE_D}, {PHONE2_D}</p>
+            </div>
+            <div className="mt-8 font-sans text-xs font-light leading-6 text-ivory/40">
+              <p>Concept redesign demo prepared for discussion. Not the official website unless approved by the business owner. Real photos used are from the business's public website for proposal purposes only — no fabricated reviews, prices, awards, or treatment-result claims.</p>
+              <p class="mt-2">ตัวอย่างคอนเซ็ปต์เว็บไซต์เพื่อใช้พูดคุย/เสนอแนวทางเท่านั้น ยังไม่ใช่เว็บไซต์ทางการของธุรกิจนี้ เว้นแต่เจ้าของธุรกิจจะอนุมัติ · ข้อมูลทั่วไป ไม่ใช่คำโฆษณาผลการรักษา โปรดปรึกษาแพทย์ก่อนเข้ารับบริการ</p>
+            </div>
+          </div>
+        </footer>
+      );
+    }
+
+    function MobileBar() {
+      return (
+        <div className="fixed inset-x-0 bottom-0 z-50 grid grid-cols-3 border-t border-line bg-ivory/95 backdrop-blur-md label lg:hidden">
+          <a className="bg-ink py-4 text-center text-ivory" href={`tel:${PHONE}`}>โทร</a>
+          <a className="border-x border-line py-4 text-center text-ink" href={`tel:${PHONE2}`}>สายที่ 2</a>
+          <a className="py-4 text-center text-ink" href={MAP} target="_blank" rel="noopener">แผนที่</a>
+        </div>
+      );
+    }
+
+    function App() {
+      return (
+        <React.Fragment>
+          <Top />
+          <main>
+            <Hero />
+            <Marquee />
+            <Services />
+            <Tech />
+            <Trust />
+            <CTA />
+            <Visit />
+          </main>
+          <Footer />
+          <MobileBar />
+        </React.Fragment>
+      );
+    }
+
+    ReactDOM.createRoot(document.getElementById('root')).render(<App />);
+  </script>
+</body>
+</html>

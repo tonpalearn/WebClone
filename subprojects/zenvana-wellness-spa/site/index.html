@@ -1,0 +1,237 @@
+<!doctype html>
+<html lang="th">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>ZENVANA Wellness Spa — เทียบเว็บเดิม vs เว็บใหม่</title>
+  <meta name="description" content="หน้าเปรียบเทียบคอนเซ็ปต์ redesign เว็บไซต์ ZENVANA Wellness Spa สาขาราชพฤกษ์ — ตัวอย่างเพื่อพูดคุย ไม่ใช่เว็บทางการ" />
+  <meta name="robots" content="noindex,nofollow" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600&family=Jost:wght@300;400;500&family=IBM+Plex+Sans+Thai:wght@200;300;400;500&display=swap" rel="stylesheet" />
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            forest: '#2f4438', sage: '#5f7a67', moss: '#8aa28e', leaf: '#b6c6b3',
+            cream: '#faf8f3', sand: '#f0eadd', clay: '#a99577', bark: '#6b5d49',
+            gold: '#b89968', ink: '#26302a', mist: '#eef1ea'
+          },
+          fontFamily: {
+            serif: ['"Cormorant Garamond"', 'serif'],
+            sans: ['Jost', '"IBM Plex Sans Thai"', 'ui-sans-serif', 'sans-serif'],
+            thai: ['"IBM Plex Sans Thai"', 'Jost', 'sans-serif']
+          }
+        }
+      }
+    }
+  </script>
+  <style>
+    html { scroll-behavior: smooth; }
+    body { margin: 0; background: #faf8f3; color: #26302a; -webkit-font-smoothing: antialiased; }
+    .label { font-family: 'Jost', sans-serif; text-transform: uppercase; letter-spacing: .3em; font-size: .68rem; }
+    .th { font-family: 'IBM Plex Sans Thai', 'Jost', sans-serif; }
+    .hair { border-top: 1px solid rgba(95,122,103,.2); }
+    .card { background: #fff; border: 1px solid rgba(95,122,103,.16); box-shadow: 0 20px 50px -34px rgba(47,68,56,.4); }
+    .btn { transition: transform .4s cubic-bezier(.16,1,.3,1), background-color .4s, color .4s; }
+    .btn:hover { transform: translateY(-2px); }
+    .rv { opacity: 0; transform: translateY(20px); animation: rv 1s cubic-bezier(.16,1,.3,1) forwards; }
+    .d1 { animation-delay: .12s } .d2 { animation-delay: .24s }
+    @keyframes rv { to { opacity: 1; transform: none; } }
+    /* device frame */
+    .device { position: relative; border-radius: 1.4rem; overflow: hidden; background:#fff; border:1px solid rgba(95,122,103,.18); }
+    .device iframe { width: 100%; height: 100%; border: 0; display:block; background:#faf8f3; }
+    /* drag-slider compare */
+    #cmp { position: relative; width: 100%; height: 560px; border-radius: 1.4rem; overflow: hidden; user-select: none; touch-action: pan-y; background:#fff; }
+    #cmp .pane { position:absolute; inset:0; }
+    #cmp iframe { width:100%; height:100%; border:0; display:block; }
+    #cmp .new-pane { z-index:1; }
+    #cmp .old-pane { z-index:2; overflow:hidden; width:50%; border-right:3px solid #b89968; }
+    #cmp .handle { position:absolute; top:0; bottom:0; left:50%; z-index:4; width:44px; margin-left:-22px; cursor:ew-resize; display:flex; align-items:center; justify-content:center; }
+    #cmp .handle .knob { width:46px; height:46px; border-radius:9999px; background:#2f4438; color:#faf8f3; display:flex; align-items:center; justify-content:center; font-weight:700; box-shadow:0 6px 22px rgba(0,0,0,.4); }
+    #cmp .tag { position:absolute; top:12px; z-index:5; font-size:11px; font-weight:600; letter-spacing:.08em; padding:5px 12px; border-radius:9999px; font-family:'Jost',sans-serif; }
+    #cmp .tag-old { left:12px; background:#a3402a; color:#fff; }
+    #cmp .tag-new { right:12px; background:#2f4438; color:#eaf2ec; }
+    #cmp.dragging iframe { pointer-events:none; }
+    @media (prefers-reduced-motion: reduce) { * { animation-duration:.01ms !important; scroll-behavior:auto !important; } }
+  </style>
+</head>
+<body class="font-sans">
+  <!-- ป้ายมุมจอ -->
+  <div class="fixed left-3 top-3 z-[60] rounded-full bg-forest/85 px-3 py-1.5 text-[11px] font-medium text-cream backdrop-blur-md th">ตัวอย่างคอนเซ็ปต์ • ไม่ใช่เว็บทางการ</div>
+
+  <!-- HERO -->
+  <header class="mx-auto max-w-6xl px-5 pt-24 pb-10 text-center md:px-10 md:pt-28">
+    <p class="rv label text-gold">ZENVANA Wellness Spa · สาขาราชพฤกษ์</p>
+    <h1 class="rv d1 mx-auto mt-6 max-w-4xl font-serif text-[3.4rem] font-light leading-[1.02] text-forest md:text-7xl">เว็บเดิม <span class="italic text-sage">vs</span> เว็บใหม่</h1>
+    <p class="rv d2 th mx-auto mt-6 max-w-2xl text-[1.05rem] font-light leading-8 text-bark">ยกหน้าเว็บสปาให้สงบ พรีเมียม เป็นธรรมชาติ ใช้รูปจริงของร้านเป็นพระเอก ใช้ง่ายบนมือถือ และทำให้ปุ่มจองคิว/โทร/ไลน์เด่นชัด</p>
+    <div class="rv d2 mt-9 flex flex-col items-center justify-center gap-3 sm:flex-row">
+      <a class="btn rounded-full bg-forest px-8 py-4 label text-cream hover:bg-sage" href="new.html" target="_blank" rel="noopener">เปิดเว็บใหม่เต็มจอ →</a>
+      <a class="btn rounded-full border border-forest/40 px-8 py-4 label text-forest hover:bg-forest hover:text-cream" href="old.html" target="_blank" rel="noopener">ดูเว็บเดิมจำลอง</a>
+    </div>
+  </header>
+
+  <!-- DRAG COMPARE SLIDER -->
+  <section class="mx-auto max-w-6xl px-5 pb-6 md:px-10">
+    <div class="card rounded-[1.8rem] p-4 md:p-5">
+      <div class="mb-3 flex items-center justify-between gap-3">
+        <h2 class="font-serif text-2xl font-normal text-forest md:text-3xl">ลากเพื่อเทียบ</h2>
+        <span class="th hidden text-sm font-light text-bark sm:block">ลากปุ่มกลางซ้าย–ขวา · ซ้าย = เดิม · ขวา = ใหม่</span>
+      </div>
+      <div id="cmp">
+        <span class="tag tag-old">เดิม</span>
+        <span class="tag tag-new">ใหม่</span>
+        <div class="pane new-pane"><iframe src="new.html" title="เว็บใหม่ ZENVANA" loading="lazy" scrolling="no"></iframe></div>
+        <div class="pane old-pane" id="oldPane"><iframe src="old.html" title="เว็บเดิมจำลอง ZENVANA" loading="lazy" scrolling="no"></iframe></div>
+        <div class="handle" id="cmpHandle"><div class="knob">⇆</div></div>
+      </div>
+      <p class="th mt-2 text-center text-xs font-light text-bark/70 sm:hidden">แตะค้างแล้วลากซ้าย–ขวาเพื่อเทียบ</p>
+    </div>
+  </section>
+
+  <!-- SIDE BY SIDE -->
+  <section class="mx-auto max-w-6xl px-5 py-10 md:px-10">
+    <div class="mb-7 text-center">
+      <p class="label text-gold">วางข้างกัน</p>
+      <h2 class="mt-3 font-serif text-4xl font-light text-forest md:text-5xl">เห็นสองเว็บพร้อมกัน</h2>
+    </div>
+    <div class="grid gap-5 lg:grid-cols-2">
+      <div class="card rounded-[1.6rem] p-4">
+        <div class="mb-3 flex items-center gap-2">
+          <span class="rounded-full bg-[#a3402a] px-3 py-1 text-xs font-medium text-white" style="font-family:'Jost',sans-serif">เดิม</span>
+          <span class="th text-sm font-light text-bark">เทมเพลตทั่วไป ปุ่มจองอ่อน</span>
+        </div>
+        <div class="device h-[460px] md:h-[520px]"><iframe src="old.html" title="เว็บเดิมจำลอง" loading="lazy"></iframe></div>
+        <a class="th mt-3 block text-center text-sm font-medium text-sage hover:text-gold" href="old.html" target="_blank" rel="noopener">เปิดเต็มจอ →</a>
+      </div>
+      <div class="card rounded-[1.6rem] p-4 ring-1 ring-gold/30">
+        <div class="mb-3 flex items-center gap-2">
+          <span class="rounded-full bg-forest px-3 py-1 text-xs font-medium text-cream" style="font-family:'Jost',sans-serif">ใหม่</span>
+          <span class="th text-sm font-light text-bark">รูปจริง สงบพรีเมียม mobile-first</span>
+        </div>
+        <div class="device h-[460px] md:h-[520px]"><iframe src="new.html" title="เว็บใหม่" loading="lazy"></iframe></div>
+        <a class="th mt-3 block text-center text-sm font-medium text-sage hover:text-gold" href="new.html" target="_blank" rel="noopener">เปิดเต็มจอ →</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- COMPARISON TABLE -->
+  <section class="mx-auto max-w-5xl px-5 py-12 md:px-10">
+    <div class="mb-7 text-center">
+      <p class="label text-gold">ต่างกันตรงไหน</p>
+      <h2 class="mt-3 font-serif text-4xl font-light text-forest md:text-5xl">เทียบทีละจุด</h2>
+    </div>
+    <div class="card overflow-hidden rounded-[1.6rem]">
+      <table class="w-full text-left text-sm md:text-base">
+        <thead>
+          <tr class="border-b border-sage/20 label text-bark">
+            <th class="p-4">หัวข้อ</th>
+            <th class="p-4 text-[#a3402a]">เว็บเดิม</th>
+            <th class="p-4 text-sage">เว็บใหม่</th>
+          </tr>
+        </thead>
+        <tbody class="th divide-y divide-sage/12 font-light">
+          <tr>
+            <td class="p-4 font-medium text-forest">ปุ่มจอง / CTA</td>
+            <td class="p-4 text-bark"><span class="text-[#a3402a]">✗</span> ปุ่มจองจาง กลืนพื้นหลัง ต้องมองหา</td>
+            <td class="p-4 text-ink"><span class="text-sage">✓</span> ปุ่มจองคิว/โทร/ไลน์เด่นทุกจุด + แถบลอยล่างจอ</td>
+          </tr>
+          <tr>
+            <td class="p-4 font-medium text-forest">เวลาเปิด / ที่ตั้ง</td>
+            <td class="p-4 text-bark"><span class="text-[#a3402a]">✗</span> ฝังลึกในหน้าติดต่อ หาไม่เจอจากหน้าแรก</td>
+            <td class="p-4 text-ink"><span class="text-sage">✓</span> เวลาเปิด+สาขาราชพฤกษ์เห็นชัดบนหน้าแรก</td>
+          </tr>
+          <tr>
+            <td class="p-4 font-medium text-forest">ภาพลักษณ์ / รูป</td>
+            <td class="p-4 text-bark"><span class="text-[#a3402a]">✗</span> รูป placeholder ไม่สื่ออารมณ์เวลเนส</td>
+            <td class="p-4 text-ink"><span class="text-sage">✓</span> รูปจริงของร้านเต็มตา โทนธรรมชาติสงบ</td>
+          </tr>
+          <tr>
+            <td class="p-4 font-medium text-forest">มือถือ</td>
+            <td class="p-4 text-bark"><span class="text-[#a3402a]">✗</span> หน้ากว้างคงที่ ต้องซูม/เลื่อนแนวนอน</td>
+            <td class="p-4 text-ink"><span class="text-sage">✓</span> mobile-first พอดีจอ ปุ่มใหญ่กดง่าย</td>
+          </tr>
+          <tr>
+            <td class="p-4 font-medium text-forest">บริการ</td>
+            <td class="p-4 text-bark"><span class="text-[#a3402a]">✗</span> เมนูยาวเรียงรวมกัน เลือกยาก</td>
+            <td class="p-4 text-ink"><span class="text-sage">✓</span> จัดเป็น journey + Signature Retreat เด่น</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <!-- SALES PITCH BOX -->
+  <section class="mx-auto max-w-5xl px-5 py-12 md:px-10">
+    <div class="card rounded-[2rem] p-8 md:p-12">
+      <div class="grid gap-8 lg:grid-cols-[1.2fr_.8fr] lg:items-center">
+        <div>
+          <p class="label text-gold">ข้อเสนอ</p>
+          <h2 class="mt-4 font-serif text-4xl font-light leading-[1.05] text-forest md:text-5xl">หน้าเว็บที่ทำให้ลูกค้าจองคิวง่ายขึ้น</h2>
+          <ul class="th mt-6 space-y-3 font-light text-bark">
+            <li class="flex gap-3"><span class="text-gold">●</span> หน้าเว็บสงบ ผ่อนคลาย เป็นธรรมชาติ สมกับความเป็นรีทรีตเวลเนส</li>
+            <li class="flex gap-3"><span class="text-gold">●</span> ใช้รูปจริงของร้านเต็มตา ลูกค้าเห็นบรรยากาศจริงก่อนตัดสินใจ</li>
+            <li class="flex gap-3"><span class="text-gold">●</span> ปุ่มจองคิว/โทร/ไลน์เด่น กดง่ายบนมือถือ ทุกหน้าจอ</li>
+            <li class="flex gap-3"><span class="text-gold">●</span> เวลาเปิดและที่ตั้งสาขาราชพฤกษ์เห็นชัด ไม่ต้องค้นหา</li>
+          </ul>
+          <div class="mt-9 flex flex-col gap-3 sm:flex-row">
+            <a class="btn rounded-full bg-forest px-8 py-4 text-center label text-cream hover:bg-sage" href="new.html" target="_blank" rel="noopener">เปิดเว็บใหม่เต็มจอ</a>
+            <a class="btn rounded-full border border-forest/40 px-8 py-4 text-center label text-forest hover:bg-forest hover:text-cream" href="#">ติดต่อทีมออกแบบ</a>
+          </div>
+        </div>
+        <div class="rounded-[1.6rem] bg-mist p-6 text-center">
+          <div class="grid grid-cols-2 gap-3">
+            <div class="rounded-2xl bg-white p-4"><div class="font-serif text-4xl text-sage">1 แตะ</div><div class="th mt-1 text-xs font-light text-bark">จอง/โทร/ไลน์</div></div>
+            <div class="rounded-2xl bg-white p-4"><div class="font-serif text-4xl text-sage">100%</div><div class="th mt-1 text-xs font-light text-bark">mobile-first</div></div>
+            <div class="rounded-2xl bg-white p-4"><div class="font-serif text-4xl text-sage">7 รูป</div><div class="th mt-1 text-xs font-light text-bark">ภาพจริงร้าน</div></div>
+            <div class="rounded-2xl bg-white p-4"><div class="font-serif text-4xl text-sage">1 หน้า</div><div class="th mt-1 text-xs font-light text-bark">โหลดไว</div></div>
+          </div>
+          <p class="th mt-4 text-xs font-light text-bark/60">ตัวเลขสื่อแนวทางออกแบบ ไม่ใช่ตัวชี้วัดที่วัดจากเว็บจริง</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="hair px-5 py-10 text-sm leading-7 text-bark md:px-10">
+    <div class="th mx-auto max-w-5xl font-light">
+      <p><strong class="text-forest">Concept redesign demo prepared for discussion.</strong> This is not the official website unless approved by the business owner. Real shop photos used with the owner's permission for this demo — no fabricated reviews/awards/prices.</p>
+      <p class="mt-2">ตัวอย่างคอนเซ็ปต์เว็บไซต์เพื่อใช้พูดคุย/เสนอแนวทางเท่านั้น ยังไม่ใช่เว็บไซต์ทางการของธุรกิจนี้ เว้นแต่เจ้าของธุรกิจจะอนุมัติ</p>
+      <p class="mt-3 text-xs text-bark/60">ZENVANA Wellness Spa · สาขาราชพฤกษ์ จ.นนทบุรี · โทร 090-654-4269 · Line @zenvanaspa</p>
+    </div>
+  </footer>
+
+  <script>
+    // drag-to-compare slider
+    (function(){
+      var cmp = document.getElementById('cmp');
+      var oldPane = document.getElementById('oldPane');
+      var handle = document.getElementById('cmpHandle');
+      if(!cmp || !oldPane || !handle) return;
+      var dragging = false;
+      function setPos(clientX){
+        var r = cmp.getBoundingClientRect();
+        var x = clientX - r.left;
+        var pct = Math.max(0, Math.min(100, (x / r.width) * 100));
+        oldPane.style.width = pct + '%';
+        handle.style.left = pct + '%';
+      }
+      function start(e){ dragging = true; cmp.classList.add('dragging'); move(e); }
+      function end(){ dragging = false; cmp.classList.remove('dragging'); }
+      function move(e){
+        if(!dragging) return;
+        var cx = (e.touches && e.touches[0]) ? e.touches[0].clientX : e.clientX;
+        if(cx != null) setPos(cx);
+      }
+      handle.addEventListener('mousedown', start);
+      window.addEventListener('mousemove', move);
+      window.addEventListener('mouseup', end);
+      handle.addEventListener('touchstart', start, {passive:true});
+      window.addEventListener('touchmove', move, {passive:true});
+      window.addEventListener('touchend', end);
+    })();
+  </script>
+</body>
+</html>

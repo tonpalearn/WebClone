@@ -1,0 +1,147 @@
+<!doctype html>
+<html lang="th">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Classy Clinic — เว็บเดิม (จำลอง)</title>
+  <meta name="description" content="แบบจำลองเว็บไซต์เดิมเพื่อใช้เปรียบเทียบเท่านั้น ไม่ใช่ภาพจริงของเว็บไซต์ และไม่ใช่เว็บทางการ" />
+  <meta name="robots" content="noindex,nofollow" />
+  <style>
+    * { box-sizing: border-box; }
+    body { margin: 0; font-family: Tahoma, "Microsoft Sans Serif", sans-serif; color: #333; background: #fff; font-size: 15px; }
+    /* แถบจำลอง */
+    .simbar { background: #6b2f3a; color: #fff; text-align: center; font-size: 12px; padding: 6px 10px; letter-spacing: .02em; }
+    /* header รก เมนูซ้ำ */
+    .topbar { background: #f3f3f3; border-bottom: 1px solid #ddd; font-size: 12px; color: #777; padding: 4px 12px; text-align: right; }
+    header.main { background: #fff; border-bottom: 3px solid #c9a978; padding: 14px 12px; text-align: center; }
+    header.main .brand { font-size: 30px; letter-spacing: 4px; color: #b08d50; font-weight: bold; }
+    nav.menu { background: #2b2b2b; text-align: center; }
+    nav.menu a { display: inline-block; color: #ddd; text-decoration: none; padding: 11px 13px; font-size: 13px; }
+    nav.menu a:hover { background: #444; color: #fff; }
+    /* เมนูซ้ำชั้นสอง */
+    nav.menu2 { background: #e9e9e9; text-align: center; border-bottom: 1px solid #ccc; }
+    nav.menu2 a { display: inline-block; color: #555; text-decoration: none; padding: 8px 10px; font-size: 12px; }
+    /* hero รูปไม่ขึ้น */
+    .hero { background: #ddd; height: 300px; display: flex; align-items: center; justify-content: center; color: #999; border-bottom: 1px solid #ccc; position: relative; }
+    .brokenimg { width: 92%; max-width: 1100px; height: 240px; border: 1px solid #c4c4c4; background: #eaeaea; display: flex; align-items: center; justify-content: center; color: #a3a3a3; font-size: 13px; }
+    .broken-ic { width: 26px; height: 26px; border: 1px solid #b9b9b9; border-radius: 4px; display: inline-flex; align-items: center; justify-content: center; margin-right: 8px; background: #f3f3f3; color: #b85; font-weight: bold; }
+    .container { max-width: 1100px; margin: 0 auto; padding: 0 12px; }
+    h2.sec { color: #b08d50; font-size: 22px; border-bottom: 1px dotted #ccc; padding-bottom: 6px; margin: 30px 0 16px; }
+    /* การ์ดบริการเรียงยาวรก รูปไม่ขึ้น */
+    .grid { display: flex; flex-wrap: wrap; gap: 10px; }
+    .card { width: calc(25% - 8px); border: 1px solid #ddd; background: #fafafa; padding: 10px; text-align: center; }
+    .card .ph { width: 100%; height: 110px; background: #ececec; border: 1px solid #d6d6d6; display: flex; align-items: center; justify-content: center; color: #b0b0b0; font-size: 12px; margin-bottom: 8px; }
+    .card h4 { font-size: 14px; color: #444; margin: 6px 0 4px; }
+    .card p { font-size: 12px; color: #999; margin: 0; }
+    .pricetag { color: #c0392b; font-size: 13px; font-weight: bold; }
+    /* ปุ่ม line จาง */
+    .linebtn { display: inline-block; background: #cfe3cf; color: #5a7a5a; border: 1px solid #b6cdb6; padding: 7px 14px; font-size: 13px; text-decoration: none; border-radius: 3px; }
+    /* ปุ่มโทร กลืน */
+    .callbtn { display: inline-block; background: #efefef; color: #777; border: 1px solid #ccc; padding: 7px 14px; font-size: 13px; text-decoration: none; border-radius: 3px; }
+    .marquee { background: #fff7d6; border: 1px solid #f0e2a0; color: #8a7320; padding: 7px; font-size: 13px; white-space: nowrap; overflow: hidden; }
+    .marquee span { display: inline-block; padding-left: 100%; animation: mq 16s linear infinite; }
+    @keyframes mq { to { transform: translateX(-100%); } }
+    footer { background: #2b2b2b; color: #aaa; font-size: 12px; padding: 22px 12px; margin-top: 30px; }
+    footer a { color: #c9a978; }
+    .tiny { font-size: 11px; color: #999; }
+    /* desktop-only width = ไม่ responsive (มือถือจะล้น/ต้องเลื่อนแนวนอน) */
+    .fixedwrap { min-width: 1000px; }
+  </style>
+</head>
+<body>
+  <div class="simbar">แบบจำลองจากเว็บเดิม • ไม่ใช่ภาพหน้าจอจริง • ใช้เพื่อการเปรียบเทียบเท่านั้น</div>
+
+  <div class="fixedwrap">
+    <div class="topbar">หน้าแรก | เข้าสู่ระบบ | ภาษาไทย / EN | โทร 062-829-3563 | โทร 091-152-4266 &nbsp;</div>
+
+    <header class="main">
+      <div class="brand">CLASSY CLINIC</div>
+      <div style="font-size:12px;color:#999;margin-top:3px;">Beauty &amp; Aesthetic Clinic — Ratchaphruek</div>
+    </header>
+
+    <!-- เมนูชั้นที่ 1 -->
+    <nav class="menu">
+      <a href="#">หน้าแรก</a>
+      <a href="#">เกี่ยวกับเรา</a>
+      <a href="#">บริการ</a>
+      <a href="#">ฟิลเลอร์</a>
+      <a href="#">โบทอกซ์</a>
+      <a href="#">ร้อยไหม</a>
+      <a href="#">Ultherapy</a>
+      <a href="#">Thermage</a>
+      <a href="#">HIFU</a>
+      <a href="#">โปรโมชั่น</a>
+      <a href="#">บทความ</a>
+      <a href="#">ติดต่อเรา</a>
+    </nav>
+    <!-- เมนูชั้นที่ 2 ซ้ำ/รก -->
+    <nav class="menu2">
+      <a href="#">หน้าแรก</a>
+      <a href="#">โปรโมชั่น</a>
+      <a href="#">บริการทั้งหมด</a>
+      <a href="#">ฟิลเลอร์</a>
+      <a href="#">โบทอกซ์</a>
+      <a href="#">Profhilo</a>
+      <a href="#">Sculptra</a>
+      <a href="#">Radiesse</a>
+      <a href="#">ศัลยกรรมจมูก</a>
+      <a href="#">รีวิว</a>
+      <a href="#">แกลเลอรี่</a>
+      <a href="#">แผนที่</a>
+      <a href="#">ติดต่อ</a>
+    </nav>
+
+    <!-- HERO รูปไม่ขึ้น -->
+    <div class="hero">
+      <div class="brokenimg"><span class="broken-ic">⚠</span> ไม่สามารถแสดงรูปภาพแบนเนอร์ได้ (img-banner-home.jpg)</div>
+    </div>
+
+    <div class="marquee"><span>★ โปรโมชั่นพิเศษประจำเดือน !! ฟิลเลอร์ลด 50% — โบทอกซ์ราคาพิเศษ — ร้อยไหมโปรโมชั่น — สอบถาม Line ด่วน !! โทร 062-829-3563 ★</span></div>
+
+    <div class="container">
+      <h2 class="sec">บริการของเรา</h2>
+      <div class="grid">
+        <div class="card"><div class="ph">[ รูปไม่ขึ้น ]</div><h4>ฟิลเลอร์</h4><p>ออกแบบรูปหน้า</p><div class="pricetag">เริ่ม 1,xxx.-</div></div>
+        <div class="card"><div class="ph">[ image not found ]</div><h4>โบทอกซ์</h4><p>ลดริ้วรอย ลดกราม</p><div class="pricetag">โปรพิเศษ !!</div></div>
+        <div class="card"><div class="ph">[ รูปไม่ขึ้น ]</div><h4>ร้อยไหม</h4><p>ยกกระชับ</p><div class="pricetag">สอบถามราคา</div></div>
+        <div class="card"><div class="ph">[ image not found ]</div><h4>Ultherapy</h4><p>ยกกระชับผิว</p><div class="pricetag">เริ่ม xx,xxx.-</div></div>
+        <div class="card"><div class="ph">[ รูปไม่ขึ้น ]</div><h4>Thermage</h4><p>เฟิร์มผิว</p><div class="pricetag">สอบถามราคา</div></div>
+        <div class="card"><div class="ph">[ image not found ]</div><h4>HIFU</h4><p>คลื่นเสียง</p><div class="pricetag">โปรพิเศษ</div></div>
+        <div class="card"><div class="ph">[ รูปไม่ขึ้น ]</div><h4>Profhilo</h4><p>ฟื้นฟูผิว</p><div class="pricetag">สอบถามราคา</div></div>
+        <div class="card"><div class="ph">[ image not found ]</div><h4>Sculptra</h4><p>กระตุ้นคอลลาเจน</p><div class="pricetag">สอบถามราคา</div></div>
+      </div>
+
+      <h2 class="sec">โปรโมชั่นล่าสุด</h2>
+      <p style="color:#777;font-size:13px;">รวมโปรโมชั่นทั้งหมด คลิกอ่านรายละเอียดในแต่ละหัวข้อ (หน้าโหลดช้า มีวิดเจ็ตจำนวนมาก)</p>
+      <div class="grid">
+        <div class="card" style="width:calc(33.33% - 7px)"><div class="ph">[ banner ไม่ขึ้น ]</div><h4>โปรฟิลเลอร์</h4><p class="pricetag">ลด 50%</p></div>
+        <div class="card" style="width:calc(33.33% - 7px)"><div class="ph">[ banner ไม่ขึ้น ]</div><h4>โปรโบทอกซ์</h4><p class="pricetag">ราคาพิเศษ</p></div>
+        <div class="card" style="width:calc(33.33% - 7px)"><div class="ph">[ banner ไม่ขึ้น ]</div><h4>โปรร้อยไหม</h4><p class="pricetag">โปรโมชั่น</p></div>
+      </div>
+
+      <h2 class="sec">รีวิวจากลูกค้า</h2>
+      <div class="brokenimg" style="height:120px;margin:0 auto;">[ สไลด์รีวิว / รูปไม่ขึ้น ]</div>
+
+      <h2 class="sec">ติดต่อเรา</h2>
+      <p style="font-size:13px;color:#555;">
+        96/9 ม.1 ต.อ้อมเกร็ด อ.ปากเกร็ด นนทบุรี 11120<br/>
+        โทร 062-829-3563, 091-152-4266 &nbsp;|&nbsp; เปิด อังคาร–อาทิตย์ 10:00–20:00 (ปิดจันทร์)
+      </p>
+      <p style="margin:14px 0 30px;">
+        <a class="callbtn" href="#">โทรหาเรา</a>&nbsp;&nbsp;
+        <a class="linebtn" href="#">Add Line</a>
+        <span class="tiny" style="display:block;margin-top:8px;">* ปุ่มติดต่อกลืนกับพื้นหลัง หายาก และไม่ได้ทำเป็นลิงก์โทรบนมือถือ</span>
+      </p>
+    </div>
+
+    <footer>
+      <div class="container">
+        <strong style="color:#c9a978;">CLASSY CLINIC</strong> — สาขาราชพฤกษ์<br/>
+        96/9 ม.1 ต.อ้อมเกร็ด อ.ปากเกร็ด นนทบุรี 11120 | โทร 062-829-3563, 091-152-4266<br/>
+        <span class="tiny">หน้าแรก · เกี่ยวกับเรา · บริการ · ฟิลเลอร์ · โบทอกซ์ · ร้อยไหม · Ultherapy · Thermage · HIFU · Profhilo · Sculptra · Radiesse · ศัลยกรรมจมูก · โปรโมชั่น · บทความ · รีวิว · แกลเลอรี่ · ติดต่อ</span><br/><br/>
+        <span class="tiny">แบบจำลองหน้าตาเว็บเดิมเพื่อการเปรียบเทียบ/เสนอแนวทางเท่านั้น — ไม่ใช่ภาพหน้าจอจริง ไม่ใช่เว็บไซต์ทางการ และไม่มีการนำข้อความ/โค้ด/ดีไซน์จริงของเว็บมาใช้</span>
+      </div>
+    </footer>
+  </div>
+</body>
+</html>

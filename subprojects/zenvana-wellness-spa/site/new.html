@@ -1,0 +1,332 @@
+<!doctype html>
+<html lang="th">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>ZENVANA Wellness Spa — คอนเซ็ปต์เว็บใหม่ (สาขาราชพฤกษ์)</title>
+  <meta name="description" content="คอนเซ็ปต์ redesign ZENVANA Wellness Spa สาขาราชพฤกษ์ สไตล์ Organic Wellness Sanctuary — ตัวอย่างเพื่อพูดคุย ไม่ใช่เว็บทางการ" />
+  <meta name="robots" content="noindex,nofollow" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,400&family=Jost:wght@300;400;500&family=IBM+Plex+Sans+Thai:wght@200;300;400;500&display=swap" rel="stylesheet" />
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            forest: '#2f4438', sage: '#5f7a67', moss: '#8aa28e', leaf: '#b6c6b3',
+            cream: '#faf8f3', sand: '#f0eadd', clay: '#a99577', bark: '#6b5d49',
+            gold: '#b89968', ink: '#26302a', mist: '#eef1ea'
+          },
+          fontFamily: {
+            serif: ['"Cormorant Garamond"', 'serif'],
+            sans: ['Jost', '"IBM Plex Sans Thai"', 'ui-sans-serif', 'sans-serif'],
+            thai: ['"IBM Plex Sans Thai"', 'Jost', 'sans-serif']
+          }
+        }
+      }
+    }
+  </script>
+  <style>
+    html { scroll-behavior: smooth; }
+    body { margin: 0; background: #faf8f3; color: #26302a; -webkit-font-smoothing: antialiased; }
+    .label { font-family: 'Jost', sans-serif; text-transform: uppercase; letter-spacing: .32em; font-size: .68rem; }
+    .th { font-family: 'IBM Plex Sans Thai', 'Jost', sans-serif; }
+    .hair { border-top: 1px solid rgba(95,122,103,.22); }
+    .ul { background-image: linear-gradient(currentColor,currentColor); background-size: 100% 1px; background-position: 0 100%; background-repeat: no-repeat; padding-bottom: 3px; transition: background-size .5s cubic-bezier(.16,1,.3,1), color .3s; }
+    .ul:hover { background-size: 0 1px; color: #b89968; }
+    .btn-solid { transition: transform .4s cubic-bezier(.16,1,.3,1), background-color .4s, color .4s; }
+    .btn-solid:hover { transform: translateY(-2px); }
+    .card { transition: transform .6s cubic-bezier(.16,1,.3,1), box-shadow .6s; }
+    .card:hover { transform: translateY(-6px); box-shadow: 0 30px 60px -28px rgba(47,68,56,.45); }
+    .imgzoom { overflow: hidden; }
+    .imgzoom img { transition: transform 1.1s cubic-bezier(.16,1,.3,1); }
+    .imgzoom:hover img { transform: scale(1.05); }
+    .rv { opacity: 0; transform: translateY(22px); animation: rv 1.1s cubic-bezier(.16,1,.3,1) forwards; }
+    .d1 { animation-delay: .12s } .d2 { animation-delay: .26s } .d3 { animation-delay: .4s } .d4 { animation-delay: .54s }
+    @keyframes rv { to { opacity: 1; transform: none; } }
+    .grain:after { content:""; position:fixed; inset:0; pointer-events:none; z-index:60; opacity:.035; mix-blend-mode:multiply;
+      background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E"); }
+    @media (prefers-reduced-motion: reduce) { *, .rv { animation: none !important; opacity: 1 !important; transform: none !important; scroll-behavior: auto !important; } }
+  </style>
+</head>
+<body class="font-sans grain">
+  <div id="root"></div>
+
+  <script crossorigin src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
+  <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
+  <script src="https://unpkg.com/@babel/standalone@7.23.6/babel.min.js"></script>
+  <script>
+    // บังคับ Babel ใช้ classic JSX runtime (React.createElement) กัน import react/jsx-runtime ที่ทำให้ไม่ mount
+    if (window.Babel && Babel.registerPreset) {
+      Babel.registerPreset('react-classic', { presets: [[Babel.availablePresets['react'], { runtime: 'classic' }]] });
+    }
+  </script>
+  <script type="text/babel" data-presets="react-classic">
+    const PHONE = '0906544269', PHONE_D = '090 654 4269';
+    const LINE = 'https://line.me/R/ti/p/@zenvanaspa';
+    const MAP = 'https://www.google.com/maps/search/?api=1&query=' + encodeURIComponent('ZENVANA Wellness Spa ราชพฤกษ์ นนทบุรี');
+
+    function Botanical({ className = '' }) {
+      // เส้นใบไม้บางเบา ใช้เป็น divider/ornament
+      return <svg viewBox="0 0 120 40" className={className} aria-hidden="true" role="img">
+        <g fill="none" stroke="currentColor" strokeWidth="1" strokeLinecap="round">
+          <path d="M60 38V8"/>
+          <path d="M60 14c-7-2-13-7-15-13M60 14c7-2 13-7 15-13"/>
+          <path d="M60 22c-6-1.5-11-6-13-11M60 22c6-1.5 11-6 13-11"/>
+          <path d="M60 30c-5-1-9-5-11-9M60 30c5-1 9-5 11-9"/>
+          <circle cx="60" cy="6" r="2.4"/>
+        </g>
+      </svg>;
+    }
+
+    function Top() {
+      const [open, setOpen] = React.useState(false);
+      return <header className="fixed inset-x-0 top-0 z-50 bg-cream/90 backdrop-blur-md">
+        <div className="mx-auto flex max-w-6xl items-center justify-between px-5 py-4 md:px-10">
+          <a href="#top" className="flex items-center gap-2.5">
+            <img src="../assets/logo.png" alt="ZENVANA" className="h-9 w-auto" />
+            <span className="font-serif text-2xl tracking-[.18em] text-forest">ZENVANA</span>
+          </a>
+          <nav className="hidden items-center gap-8 label text-sage lg:flex">
+            <a className="ul" href="#office">Office Syndrome</a>
+            <a className="ul" href="#journey">บริการ</a>
+            <a className="ul" href="#retreat">Signature</a>
+            <a className="ul" href="#visit">ติดต่อ</a>
+          </nav>
+          <div className="flex items-center gap-3">
+            <a href={`tel:${PHONE}`} className="hidden label text-forest sm:block ul">โทร {PHONE_D}</a>
+            <a href={LINE} target="_blank" rel="noopener" className="btn-solid rounded-full bg-forest px-5 py-2.5 label text-cream hover:bg-sage">จองคิว</a>
+          </div>
+        </div>
+        <div className="hair mx-auto max-w-6xl"></div>
+      </header>;
+    }
+
+    function Hero() {
+      return <section id="top" className="relative min-h-[100svh] w-full overflow-hidden">
+        <img src="../assets/interior.jpg" alt="พื้นที่ผ่อนคลายของ ZENVANA — ผนังต้นไม้ธรรมชาติ" className="absolute inset-0 h-full w-full object-cover" />
+        <div className="absolute inset-0" style={{ background: 'linear-gradient(180deg, rgba(38,48,42,.42) 0%, rgba(38,48,42,.18) 38%, rgba(38,48,42,.62) 100%)' }}></div>
+        <div className="relative mx-auto flex min-h-[100svh] max-w-6xl flex-col justify-end px-5 pb-16 pt-32 md:px-10 md:pb-24">
+          <div className="rv">
+            <p className="label text-cream/85">Wellness Spa · สาขาราชพฤกษ์ นนทบุรี</p>
+          </div>
+          <h1 className="rv d1 mt-6 max-w-3xl font-serif text-[3.3rem] font-light leading-[1.02] text-cream sm:text-7xl lg:text-[5.4rem]">
+            พื้นที่หายใจ<br/>ของ<span className="italic text-leaf"> กายและใจ</span>
+          </h1>
+          <p className="rv d2 th mt-7 max-w-xl text-[1.05rem] font-light leading-8 text-cream/90">
+            สปาและเวลเนสท่ามกลางบรรยากาศธรรมชาติ — นวดบำบัด คลายออฟฟิศซินโดรม เสียงบำบัดจากขันทิเบต และทรีตเมนต์ฟื้นกายใจ ให้ทุกครั้งที่มาเป็นการพักอย่างแท้จริง
+          </p>
+          <div className="rv d3 mt-10 flex flex-wrap items-center gap-4">
+            <a href={LINE} target="_blank" rel="noopener" className="btn-solid rounded-full bg-cream px-8 py-4 label text-forest hover:bg-leaf">จองคิวทางไลน์</a>
+            <a href={`tel:${PHONE}`} className="btn-solid rounded-full border border-cream/70 px-8 py-4 label text-cream hover:bg-cream hover:text-forest">โทร {PHONE_D}</a>
+          </div>
+          <p className="rv d4 th mt-8 text-sm font-light text-cream/75">เปิดทุกวัน · จ.–ศ. 11:00–21:00 · ส.–อา. 10:00–21:00</p>
+        </div>
+      </section>;
+    }
+
+    function Intro() {
+      return <section className="mx-auto max-w-4xl px-5 py-24 text-center md:px-10 md:py-32">
+        <Botanical className="mx-auto h-10 w-28 text-moss" />
+        <p className="label mt-6 text-gold">Body & Mind Retreat</p>
+        <h2 className="mt-7 font-serif text-4xl font-light leading-[1.12] text-forest md:text-[3.4rem]">
+          เวลเนสไม่ใช่ความหรูหรา<br/>แต่คือการกลับมาดูแลตัวเอง
+        </h2>
+        <p className="th mx-auto mt-8 max-w-2xl text-[1.05rem] font-light leading-9 text-bark">
+          ZENVANA ออกแบบทุกพื้นที่ให้เงียบ สงบ และเป็นธรรมชาติ ตั้งแต่ก้าวแรกที่เดินเข้ามา นักบำบัดของเราดูแลอย่างใส่ใจเป็นรายบุคคล เพื่อให้ร่างกายได้คลายความตึง และจิตใจได้พักจากความเร่งรีบของแต่ละวัน
+        </p>
+      </section>;
+    }
+
+    function Office() {
+      const points = ['ปวดคอ บ่า ไหล่ สะบัก จากการนั่งทำงานนาน','ปวดหลังล่าง ออฟฟิศซินโดรมเรื้อรัง','นักบำบัดประเมินจุดตึงก่อนทุกครั้ง','ออกแบบการบำบัดให้เหมาะกับอาการแต่ละคน'];
+      return <section id="office" className="bg-forest text-cream">
+        <div className="mx-auto grid max-w-6xl grid-cols-1 gap-0 lg:grid-cols-2">
+          <div className="imgzoom relative min-h-[58vh] lg:min-h-full">
+            <img src="../assets/land3.jpg" alt="Office Syndrome Therapy ที่ ZENVANA" className="absolute inset-0 h-full w-full object-cover" />
+          </div>
+          <div className="px-5 py-20 md:px-12 lg:py-28">
+            <p className="label text-leaf">Office Syndrome Therapy</p>
+            <h2 className="mt-6 font-serif text-4xl font-light leading-tight md:text-5xl">คลายความตึง<br/>ที่สะสมจากการทำงาน</h2>
+            <p className="th mt-7 max-w-md text-[1.02rem] font-light leading-8 text-cream/80">
+              โปรแกรมบำบัดออฟฟิศซินโดรมโดยเฉพาะ สำหรับคนทำงานที่ปวดคอ บ่า ไหล่ และหลังเรื้อรัง เน้นคลายกล้ามเนื้อมัดลึกและปรับสมดุลร่างกาย
+            </p>
+            <ul className="th mt-9 space-y-4">
+              {points.map(p => <li key={p} className="flex items-start gap-3 text-[.98rem] font-light text-cream/85">
+                <span className="mt-2 h-1.5 w-1.5 flex-none rounded-full bg-gold"></span>{p}
+              </li>)}
+            </ul>
+            <a href={LINE} target="_blank" rel="noopener" className="btn-solid mt-10 inline-block rounded-full bg-cream px-8 py-3.5 label text-forest hover:bg-leaf">ปรึกษา/จองคิว</a>
+          </div>
+        </div>
+      </section>;
+    }
+
+    function Journey() {
+      const items = [
+        ['๐๑','นวดบำบัด','Therapeutic Massage','นวดไทย · นวดสวีดิช · นวดอโรมา · นวดเท้า — เลือกแรงและน้ำมันหอมระเหยตามความชอบ','treat1.jpg'],
+        ['๐๒','เสียงบำบัด & หินภูเขาไฟ','Wellness Ritual','Singing Bowl คลายคลื่นความคิด และนวดหินภูเขาไฟอุ่นผ่อนคลายกล้ามเนื้อ','land1.jpg'],
+        ['๐๓','ดูแลผิวกายและใบหน้า','Body & Facial','ทรีตเมนต์บำรุงผิวกายและใบหน้า ฟื้นความชุ่มชื้นและความกระจ่างใส','hero.jpg']
+      ];
+      return <section id="journey" className="mx-auto max-w-6xl px-5 py-24 md:px-10 md:py-32">
+        <div className="text-center">
+          <p className="label text-gold">The Journey</p>
+          <h2 className="mt-5 font-serif text-4xl font-light text-forest md:text-5xl">เลือกการพักผ่อนของคุณ</h2>
+        </div>
+        <div className="mt-14 grid grid-cols-1 gap-7 md:grid-cols-3">
+          {items.map(it => <article key={it[0]} className="card overflow-hidden rounded-[1.6rem] bg-white shadow-[0_18px_50px_-30px_rgba(47,68,56,.4)]">
+            <div className="imgzoom aspect-[4/5] w-full">
+              <img src={`../assets/${it[4]}`} alt={it[1]} className="h-full w-full object-cover" />
+            </div>
+            <div className="p-7">
+              <div className="flex items-baseline gap-3">
+                <span className="font-serif text-xl text-gold">{it[0]}</span>
+                <span className="label text-moss">{it[2]}</span>
+              </div>
+              <h3 className="mt-3 font-serif text-2xl font-normal text-forest">{it[1]}</h3>
+              <p className="th mt-3 text-sm font-light leading-7 text-bark">{it[3]}</p>
+            </div>
+          </article>)}
+        </div>
+      </section>;
+    }
+
+    function Retreat() {
+      return <section id="retreat" className="relative overflow-hidden bg-mist">
+        <div className="mx-auto grid max-w-6xl grid-cols-1 items-stretch gap-0 lg:grid-cols-[1fr_.9fr]">
+          <div className="px-5 py-20 md:px-12 lg:py-32">
+            <p className="label text-gold">Signature Retreat</p>
+            <h2 className="mt-6 font-serif text-[2.7rem] font-light leading-[1.08] text-forest md:text-[3.6rem]">
+              ประสบการณ์<br/>ฟื้นกายใจ<span className="italic text-sage"> ครบวงจร</span>
+            </h2>
+            <p className="th mt-8 max-w-md text-[1.05rem] font-light leading-9 text-bark">
+              ทรีตเมนต์ลายเซ็นของ ZENVANA ที่ร้อยเรียงการประเมินร่างกาย นวดบำบัด เสียงบำบัด และการดูแลผิว เข้าด้วยกันเป็นช่วงเวลาแห่งการพักผ่อนอย่างแท้จริง เหมาะสำหรับมอบให้ตัวเองหรือคนที่คุณรัก
+            </p>
+            <div className="mt-10 flex flex-wrap gap-4">
+              <a href={LINE} target="_blank" rel="noopener" className="btn-solid rounded-full bg-forest px-8 py-4 label text-cream hover:bg-sage">สอบถามแพ็กเกจ</a>
+              <a href={`tel:${PHONE}`} className="btn-solid rounded-full border border-forest/40 px-8 py-4 label text-forest hover:bg-forest hover:text-cream">โทร {PHONE_D}</a>
+            </div>
+          </div>
+          <div className="imgzoom relative min-h-[60vh] lg:min-h-full">
+            <img src="../assets/treat2.jpg" alt="การประเมินและดูแลร่างกายแบบ Signature Retreat" className="absolute inset-0 h-full w-full object-cover" />
+          </div>
+        </div>
+      </section>;
+    }
+
+    function Ritual() {
+      return <section className="relative w-full overflow-hidden">
+        <img src="../assets/land2.jpg" alt="เสียงบำบัดจากขันทิเบตที่ ZENVANA" className="h-[70vh] w-full object-cover" />
+        <div className="absolute inset-0" style={{ background: 'linear-gradient(90deg, rgba(38,48,42,.74) 0%, rgba(38,48,42,.35) 55%, rgba(38,48,42,.1) 100%)' }}></div>
+        <div className="absolute inset-0 mx-auto flex max-w-6xl flex-col justify-center px-5 md:px-10">
+          <Botanical className="h-9 w-24 text-leaf/80" />
+          <h2 className="mt-5 max-w-xl font-serif text-4xl font-light leading-tight text-cream md:text-[3.2rem]">
+            ปล่อยให้เสียง<br/>พาความคิดสงบลง
+          </h2>
+          <p className="th mt-6 max-w-md text-[1.02rem] font-light leading-8 text-cream/85">
+            Singing Bowl และศาสตร์การผ่อนคลายแบบองค์รวม ช่วยให้ระบบประสาทได้พัก ลมหายใจช้าลง และกลับมาอยู่กับปัจจุบัน
+          </p>
+        </div>
+      </section>;
+    }
+
+    function Marks() {
+      const cards = [
+        ['นักบำบัดดูแลใกล้ชิด','ประเมินอาการและออกแบบการบำบัดเฉพาะบุคคลทุกครั้ง'],
+        ['บรรยากาศธรรมชาติสงบ','พื้นที่ออกแบบให้เงียบ ผ่อนคลาย ท่ามกลางต้นไม้'],
+        ['บริการครบทุกความต้องการ','ตั้งแต่คลายออฟฟิศซินโดรม ไปจนถึงทรีตเมนต์ฟื้นกายใจ'],
+        ['สาขาราชพฤกษ์ เดินทางสะดวก','ทำเลย่านราชพฤกษ์ นนทบุรี เปิดทุกวัน']
+      ];
+      return <section className="mx-auto max-w-6xl px-5 py-24 md:px-10 md:py-28">
+        <div className="grid grid-cols-1 gap-x-10 gap-y-12 sm:grid-cols-2 lg:grid-cols-4">
+          {cards.map((c,i) => <div key={c[0]}>
+            <span className="font-serif text-5xl font-light text-moss/70">{String(i+1).padStart(2,'0')}</span>
+            <div className="hair mt-5 pt-5">
+              <h3 className="th text-lg font-medium text-forest">{c[0]}</h3>
+              <p className="th mt-3 text-sm font-light leading-7 text-bark">{c[1]}</p>
+            </div>
+          </div>)}
+        </div>
+      </section>;
+    }
+
+    function Visit() {
+      const hours = [['จันทร์ – ศุกร์','11:00 – 21:00'],['เสาร์ – อาทิตย์','10:00 – 21:00'],['รับคิวสุดท้าย','19:45 น.']];
+      const contact = [['โทรศัพท์', PHONE_D],['ไลน์','@zenvanaspa'],['สาขา','ราชพฤกษ์ จ.นนทบุรี']];
+      return <section id="visit" className="bg-forest text-cream">
+        <div className="mx-auto max-w-6xl px-5 py-24 md:px-10 md:py-32">
+          <p className="label text-leaf">Visit · Contact</p>
+          <h2 className="mt-6 max-w-2xl font-serif text-4xl font-light leading-tight md:text-6xl">มาพักกายใจ<br/>ที่ ZENVANA ราชพฤกษ์</h2>
+          <div className="mt-14 grid grid-cols-1 gap-12 lg:grid-cols-3">
+            <div>
+              <p className="label text-leaf/70">เวลาทำการ</p>
+              <dl className="th mt-5 space-y-3.5">
+                {hours.map(h => <div key={h[0]} className="flex items-center justify-between border-t border-cream/15 pt-3 text-sm font-light">
+                  <dt className="text-cream/70">{h[0]}</dt><dd className="text-cream">{h[1]}</dd></div>)}
+              </dl>
+            </div>
+            <div>
+              <p className="label text-leaf/70">ติดต่อ</p>
+              <dl className="th mt-5 space-y-3.5">
+                {contact.map(c => <div key={c[0]} className="flex items-center justify-between border-t border-cream/15 pt-3 text-sm font-light">
+                  <dt className="text-cream/70">{c[0]}</dt><dd className="text-cream">{c[1]}</dd></div>)}
+              </dl>
+            </div>
+            <div className="flex flex-col gap-3.5">
+              <a href={LINE} target="_blank" rel="noopener" className="btn-solid rounded-full bg-cream px-7 py-4 text-center label text-forest hover:bg-leaf">จองคิวทางไลน์</a>
+              <a href={`tel:${PHONE}`} className="btn-solid rounded-full border border-cream/60 px-7 py-4 text-center label text-cream hover:bg-cream hover:text-forest">โทร {PHONE_D}</a>
+              <a href={MAP} target="_blank" rel="noopener" className="btn-solid rounded-full border border-cream/30 px-7 py-4 text-center label text-cream/85 hover:border-cream/70">เปิดแผนที่</a>
+            </div>
+          </div>
+        </div>
+      </section>;
+    }
+
+    function Footer() {
+      return <footer className="bg-ink text-cream/70">
+        <div className="mx-auto max-w-6xl px-5 py-12 md:px-10">
+          <div className="flex items-center gap-2.5">
+            <img src="../assets/logo.png" alt="ZENVANA" className="h-8 w-auto opacity-90" />
+            <span className="font-serif text-xl tracking-[.18em] text-cream/90">ZENVANA</span>
+          </div>
+          <div className="th mt-7 text-xs font-light leading-6">
+            <p>Concept redesign demo prepared for discussion. Not the official website unless approved by the business owner. Real shop photos used with the owner's permission for this demo; no fabricated reviews, awards, or prices.</p>
+            <p className="mt-2">ตัวอย่างคอนเซ็ปต์เว็บไซต์เพื่อใช้พูดคุย/เสนอแนวทางเท่านั้น ยังไม่ใช่เว็บไซต์ทางการของธุรกิจนี้ เว้นแต่เจ้าของธุรกิจจะอนุมัติ</p>
+            <p className="mt-3 text-cream/45">ZENVANA Wellness Spa · สาขาราชพฤกษ์ จ.นนทบุรี · โทร 090-654-4269 · Line @zenvanaspa</p>
+          </div>
+        </div>
+      </footer>;
+    }
+
+    function MobileBar() {
+      return <div className="fixed inset-x-0 bottom-0 z-50 grid grid-cols-3 border-t border-moss/30 bg-cream/95 backdrop-blur-md label lg:hidden">
+        <a className="bg-forest py-4 text-center text-cream" href={LINE} target="_blank" rel="noopener">จองคิว</a>
+        <a className="border-x border-moss/30 py-4 text-center text-forest" href={`tel:${PHONE}`}>โทร</a>
+        <a className="py-4 text-center text-forest" href="#visit">เวลา/แผนที่</a>
+      </div>;
+    }
+
+    function App() {
+      return <React.Fragment>
+        <Top />
+        <main>
+          <Hero />
+          <Intro />
+          <Office />
+          <Journey />
+          <Retreat />
+          <Ritual />
+          <Marks />
+          <Visit />
+        </main>
+        <Footer />
+        <MobileBar />
+      </React.Fragment>;
+    }
+
+    ReactDOM.createRoot(document.getElementById('root')).render(<App />);
+  </script>
+</body>
+</html>

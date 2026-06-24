@@ -1,0 +1,239 @@
+<!doctype html>
+<html lang="th">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Classy Clinic ราชพฤกษ์ — เทียบเว็บเดิม vs เว็บใหม่</title>
+  <meta name="description" content="หน้าเปรียบเทียบคอนเซ็ปต์ redesign เว็บไซต์ Classy Clinic สาขาราชพฤกษ์ — ตัวอย่างเพื่อพูดคุย ไม่ใช่เว็บทางการ" />
+  <meta name="robots" content="noindex,nofollow" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;1,400&family=Jost:wght@300;400;500&family=IBM+Plex+Sans+Thai:wght@300;400&display=swap" rel="stylesheet" />
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            ivory: '#fbf9f5', cream: '#f4eee3', sand: '#e9dfcb', ink: '#161310',
+            charcoal: '#211d18', stone: '#7a7164', gold: '#b08d50', goldlt: '#c9a978', line: '#e7ddcb'
+          },
+          fontFamily: {
+            serif: ['"Cormorant Garamond"', 'Georgia', 'serif'],
+            sans: ['Jost', '"IBM Plex Sans Thai"', 'ui-sans-serif', 'sans-serif']
+          }
+        }
+      }
+    }
+  </script>
+  <style>
+    html { scroll-behavior: smooth; }
+    body { margin: 0; background: #fbf9f5; color: #161310; -webkit-font-smoothing: antialiased; overflow-x: hidden; }
+    .label { font-family: 'Jost', sans-serif; text-transform: uppercase; letter-spacing: .3em; font-size: .66rem; }
+    .goldrule { height: 1px; background: linear-gradient(90deg, transparent, #b08d50 50%, transparent); }
+    .btn-gold { background: #161310; color: #fbf9f5; border: 1px solid #161310; transition: all .4s cubic-bezier(.16,1,.3,1); }
+    .btn-gold:hover { background: #b08d50; border-color: #b08d50; color: #fff; transform: translateY(-2px); }
+    .btn-out { border: 1px solid #b08d50; color: #161310; transition: all .4s cubic-bezier(.16,1,.3,1); }
+    .btn-out:hover { background: #b08d50; color: #fff; transform: translateY(-2px); }
+    .card { background: #fff; border: 1px solid #e7ddcb; }
+    .reveal { opacity: 0; transform: translateY(22px); animation: reveal 1s cubic-bezier(.16,1,.3,1) forwards; }
+    .delay-1 { animation-delay: .12s; } .delay-2 { animation-delay: .24s; }
+    @keyframes reveal { to { opacity: 1; transform: none; } }
+    /* device frames */
+    .device { position: relative; border-radius: 1rem; overflow: hidden; background:#fff; border: 1px solid #e7ddcb; box-shadow: 0 24px 60px rgba(33,29,24,.10); }
+    .device iframe { width: 100%; height: 100%; border: 0; display:block; background:#fff; }
+    /* drag-slider compare */
+    #cmp { position: relative; width: 100%; height: 560px; border-radius: 1rem; overflow: hidden; user-select: none; touch-action: pan-y; background:#fff; border: 1px solid #e7ddcb; }
+    #cmp .pane { position:absolute; inset:0; }
+    #cmp iframe { width:100%; height:100%; border:0; display:block; }
+    #cmp .new-pane { z-index:1; }
+    #cmp .old-pane { z-index:2; overflow:hidden; width:50%; border-right:2px solid #b08d50; }
+    #cmp .handle { position:absolute; top:0; bottom:0; left:50%; z-index:4; width:44px; margin-left:-22px; cursor:ew-resize; display:flex; align-items:center; justify-content:center; }
+    #cmp .handle .knob { width:46px; height:46px; border-radius:9999px; background:#b08d50; color:#fff; display:flex; align-items:center; justify-content:center; font-weight:700; box-shadow:0 6px 24px rgba(33,29,24,.4); }
+    #cmp .tag { position:absolute; top:12px; z-index:5; font-family:'Jost',sans-serif; text-transform:uppercase; letter-spacing:.18em; font-size:10px; font-weight:600; padding:6px 12px; border-radius:9999px; }
+    #cmp .tag-old { left:12px; background:#6b2f3a; color:#fff; }
+    #cmp .tag-new { right:12px; background:#161310; color:#c9a978; }
+    #cmp.dragging iframe { pointer-events:none; }
+    @media (prefers-reduced-motion: reduce) { * { animation-duration:.01ms !important; scroll-behavior:auto !important; } }
+  </style>
+</head>
+<body class="font-sans">
+  <!-- ป้ายมุมจอ -->
+  <div class="fixed left-3 top-3 z-[60] rounded-full bg-ink/90 px-3 py-1.5 label text-goldlt backdrop-blur-md">ตัวอย่างคอนเซ็ปต์ • ไม่ใช่เว็บทางการ</div>
+
+  <!-- HERO -->
+  <header class="mx-auto max-w-6xl px-5 pt-24 pb-10 text-center md:px-10 md:pt-28">
+    <p class="reveal label text-gold">Classy Clinic · สาขาราชพฤกษ์ · Redesign Proposal</p>
+    <h1 class="reveal delay-1 mx-auto mt-6 max-w-4xl font-serif text-[3.4rem] font-medium leading-[1] tracking-tight text-ink md:text-7xl">เว็บเดิม <span class="italic text-gold">vs</span> เว็บใหม่</h1>
+    <p class="reveal delay-2 mx-auto mt-6 max-w-2xl text-lg font-light leading-8 text-stone md:text-xl">ยกระดับคลินิกความงามให้ดูพรีเมียม น่าเชื่อถือ ใช้ง่ายบนมือถือ พร้อมปุ่มโทร/ปรึกษาที่ลูกค้ากดได้ทันที</p>
+    <div class="reveal delay-2 mt-9 flex flex-col items-center justify-center gap-3 sm:flex-row">
+      <a class="btn-gold rounded-full px-8 py-4 label" href="new.html" target="_blank" rel="noopener">เปิดเว็บใหม่เต็มจอ →</a>
+      <a class="btn-out rounded-full px-8 py-4 label" href="old.html" target="_blank" rel="noopener">ดูเว็บเดิมจำลอง</a>
+    </div>
+  </header>
+
+  <div class="goldrule mx-auto max-w-3xl"></div>
+
+  <!-- DRAG COMPARE SLIDER -->
+  <section class="mx-auto max-w-6xl px-5 pb-6 pt-12 md:px-10">
+    <div class="card rounded-[1.4rem] p-4 md:p-5">
+      <div class="mb-3 flex items-center justify-between gap-3">
+        <h2 class="font-serif text-2xl font-medium text-ink md:text-3xl">ลากเพื่อเทียบ</h2>
+        <span class="hidden text-sm font-light text-stone sm:block">ลากปุ่มกลางซ้าย-ขวา · ซ้าย = เดิม · ขวา = ใหม่</span>
+      </div>
+      <div id="cmp">
+        <span class="tag tag-old">เดิม</span>
+        <span class="tag tag-new">ใหม่</span>
+        <div class="pane new-pane"><iframe src="new.html" title="เว็บใหม่ Classy Clinic" loading="lazy" scrolling="no"></iframe></div>
+        <div class="pane old-pane" id="oldPane"><iframe src="old.html" title="เว็บเดิมจำลอง Classy Clinic" loading="lazy" scrolling="no"></iframe></div>
+        <div class="handle" id="cmpHandle"><div class="knob">⇆</div></div>
+      </div>
+      <p class="mt-2 text-center text-xs font-light text-stone sm:hidden">แตะค้างแล้วลากซ้าย-ขวาเพื่อเทียบ</p>
+    </div>
+  </section>
+
+  <!-- SIDE BY SIDE -->
+  <section class="mx-auto max-w-6xl px-5 py-12 md:px-10">
+    <div class="mb-8 text-center">
+      <p class="label text-gold">วางข้างกัน</p>
+      <h2 class="mt-3 font-serif text-4xl font-medium text-ink md:text-5xl">เห็นสองเว็บพร้อมกัน</h2>
+    </div>
+    <div class="grid gap-5 lg:grid-cols-2">
+      <div class="card rounded-[1.4rem] p-4">
+        <div class="mb-3 flex items-center gap-2">
+          <span class="rounded-full bg-[#6b2f3a] px-3 py-1 label text-white">เดิม</span>
+          <span class="text-sm font-light text-stone">รูปไม่ขึ้น เมนูซ้ำ ไม่ responsive</span>
+        </div>
+        <div class="device h-[460px] md:h-[520px]"><iframe src="old.html" title="เว็บเดิมจำลอง" loading="lazy"></iframe></div>
+        <a class="mt-3 block text-center label text-gold hover:text-ink" href="old.html" target="_blank" rel="noopener">เปิดเต็มจอ →</a>
+      </div>
+      <div class="card rounded-[1.4rem] p-4 ring-1 ring-gold/40">
+        <div class="mb-3 flex items-center gap-2">
+          <span class="rounded-full bg-ink px-3 py-1 label text-goldlt">ใหม่</span>
+          <span class="text-sm font-light text-stone">Clinical Luxe · รูปจริง · mobile-first</span>
+        </div>
+        <div class="device h-[460px] md:h-[520px]"><iframe src="new.html" title="เว็บใหม่" loading="lazy"></iframe></div>
+        <a class="mt-3 block text-center label text-gold hover:text-ink" href="new.html" target="_blank" rel="noopener">เปิดเต็มจอ →</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- COMPARISON TABLE -->
+  <section class="mx-auto max-w-5xl px-5 py-12 md:px-10">
+    <div class="mb-8 text-center">
+      <p class="label text-gold">ต่างกันตรงไหน</p>
+      <h2 class="mt-3 font-serif text-4xl font-medium text-ink md:text-5xl">เทียบทีละจุด</h2>
+    </div>
+    <div class="card overflow-hidden rounded-[1.4rem]">
+      <table class="w-full text-left text-sm md:text-base">
+        <thead>
+          <tr class="border-b border-line label text-stone">
+            <th class="p-4 font-medium">หัวข้อ</th>
+            <th class="p-4 font-medium text-[#a8556a]">เว็บเดิม</th>
+            <th class="p-4 font-medium text-gold">เว็บใหม่</th>
+          </tr>
+        </thead>
+        <tbody class="divide-y divide-line">
+          <tr>
+            <td class="p-4 font-medium text-ink">รูปภาพ</td>
+            <td class="p-4 font-light text-stone"><span class="text-[#a8556a]">✗</span> SVG/รูป placeholder ไม่ขึ้นหลายจุด ดูไม่น่าเชื่อถือ</td>
+            <td class="p-4 font-light text-charcoal"><span class="text-gold">✓</span> ภาพคลินิก/แพทย์จริง คมชัด สื่อความพรีเมียม</td>
+          </tr>
+          <tr>
+            <td class="p-4 font-medium text-ink">เมนู</td>
+            <td class="p-4 font-light text-stone"><span class="text-[#a8556a]">✗</span> เมนูซ้ำซ้อนสองชั้น หัวข้อยาว หายาก</td>
+            <td class="p-4 font-light text-charcoal"><span class="text-gold">✓</span> เมนูเดียวกระชับ จัดบริการเป็นกลุ่ม สแกนง่าย</td>
+          </tr>
+          <tr>
+            <td class="p-4 font-medium text-ink">มือถือ</td>
+            <td class="p-4 font-light text-stone"><span class="text-[#a8556a]">✗</span> ไม่ responsive ต้องซูม/เลื่อนแนวนอน</td>
+            <td class="p-4 font-light text-charcoal"><span class="text-gold">✓</span> mobile-first พอดีจอ + แถบโทรลอยล่าง</td>
+          </tr>
+          <tr>
+            <td class="p-4 font-medium text-ink">ปุ่มติดต่อ / Line</td>
+            <td class="p-4 font-light text-stone"><span class="text-[#a8556a]">✗</span> ปุ่มจาง กลืนพื้นหลัง ไม่กดโทรบนมือถือ</td>
+            <td class="p-4 font-light text-charcoal"><span class="text-gold">✓</span> ปุ่ม “ปรึกษาฟรี/จองคิว” เด่น กด tel: โทรได้ทันที</td>
+          </tr>
+          <tr>
+            <td class="p-4 font-medium text-ink">ภาพลักษณ์แบรนด์</td>
+            <td class="p-4 font-light text-stone"><span class="text-[#a8556a]">✗</span> หน้าตาเทมเพลตเก่า ป้ายโปรรก ลดความพรีเมียม</td>
+            <td class="p-4 font-light text-charcoal"><span class="text-gold">✓</span> โทนขาว-ทอง-ดำหรู สื่อ Premium Gold Standard</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <p class="mt-3 text-center text-xs font-light text-stone/70">เว็บเดิมเป็นแบบจำลองเพื่อสื่อจุดที่ปรับปรุงได้ ไม่ใช่ภาพหน้าจอจริง</p>
+  </section>
+
+  <!-- SALES PITCH BOX -->
+  <section class="mx-auto max-w-5xl px-5 py-12 md:px-10">
+    <div class="rounded-[1.6rem] bg-ink p-8 text-ivory md:p-12">
+      <div class="grid gap-8 lg:grid-cols-[1.2fr_.8fr] lg:items-center">
+        <div>
+          <p class="label text-goldlt">ข้อเสนอ</p>
+          <h2 class="mt-4 font-serif text-4xl font-medium leading-tight text-ivory md:text-5xl">หน้าเว็บที่ทำให้ลูกค้ากล้าทักและจองคิว</h2>
+          <ul class="mt-7 space-y-3 font-light text-ivory/80">
+            <li class="flex gap-3"><span class="text-goldlt">◆</span> สร้างความน่าเชื่อถือใน 3 วินาทีแรกด้วยภาพแพทย์/คลินิกจริง โทนพรีเมียม</li>
+            <li class="flex gap-3"><span class="text-goldlt">◆</span> ลูกค้าบนมือถือกดโทร/ปรึกษาได้ทันที ปุ่มเด่นทุกหน้าจอ</li>
+            <li class="flex gap-3"><span class="text-goldlt">◆</span> จัดบริการ ฟิลเลอร์/โบทอกซ์/ร้อยไหม/เลเซอร์ เป็นกลุ่มที่สแกนง่าย</li>
+            <li class="flex gap-3"><span class="text-goldlt">◆</span> โหลดเร็ว เหมาะกับการยิงโฆษณาและส่งลิงก์ให้ลูกค้า</li>
+          </ul>
+          <div class="mt-9 flex flex-col gap-3 sm:flex-row">
+            <a class="btn-gold rounded-full px-8 py-4 text-center label" style="background:#fbf9f5;color:#161310;border-color:#fbf9f5;" href="new.html" target="_blank" rel="noopener">เปิดเว็บใหม่เต็มจอ</a>
+            <a class="rounded-full border border-goldlt px-8 py-4 text-center label text-goldlt transition hover:bg-goldlt hover:text-ink" href="#">ติดต่อทีมออกแบบ</a>
+          </div>
+        </div>
+        <div class="rounded-[1.2rem] border border-ivory/15 p-6 text-center">
+          <div class="grid grid-cols-2 gap-3">
+            <div class="rounded-xl bg-ivory/5 p-4"><div class="font-serif text-4xl text-goldlt">2 ชั้น→1</div><div class="mt-1 label text-ivory/55">เมนู กระชับ</div></div>
+            <div class="rounded-xl bg-ivory/5 p-4"><div class="font-serif text-4xl text-goldlt">1 แตะ</div><div class="mt-1 label text-ivory/55">โทร/ปรึกษา</div></div>
+            <div class="rounded-xl bg-ivory/5 p-4"><div class="font-serif text-4xl text-goldlt">100%</div><div class="mt-1 label text-ivory/55">mobile-first</div></div>
+            <div class="rounded-xl bg-ivory/5 p-4"><div class="font-serif text-4xl text-goldlt">รูปจริง</div><div class="mt-1 label text-ivory/55">แทน placeholder</div></div>
+          </div>
+          <p class="mt-4 label text-ivory/40">ตัวเลขสื่อแนวทางออกแบบ ไม่ใช่ตัวชี้วัดที่วัดจากเว็บจริง</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="border-t border-line px-5 py-10 text-sm font-light leading-7 text-stone md:px-10">
+    <div class="mx-auto max-w-5xl">
+      <p><strong class="text-ink">Concept redesign demo prepared for discussion.</strong> This is not the official website unless approved by the business owner. Real photos shown are taken from the business's public website for proposal/illustration only — no fabricated reviews, awards, prices, or treatment-result claims.</p>
+      <p class="mt-2">ตัวอย่างคอนเซ็ปต์เว็บไซต์เพื่อใช้พูดคุย/เสนอแนวทางเท่านั้น ยังไม่ใช่เว็บไซต์ทางการของธุรกิจนี้ เว้นแต่เจ้าของธุรกิจจะอนุมัติ · ข้อมูลทั่วไป ไม่ใช่คำโฆษณาผลการรักษา โปรดปรึกษาแพทย์ก่อนเข้ารับบริการ</p>
+      <p class="mt-3 text-xs text-stone/60">Classy Clinic · สาขาราชพฤกษ์ · โทร 062-829-3563, 091-152-4266 · 96/9 ม.1 ต.อ้อมเกร็ด อ.ปากเกร็ด นนทบุรี 11120 · อังคาร–อาทิตย์ 10:00–20:00</p>
+    </div>
+  </footer>
+
+  <script>
+    // drag-to-compare slider
+    (function(){
+      var cmp = document.getElementById('cmp');
+      var oldPane = document.getElementById('oldPane');
+      var handle = document.getElementById('cmpHandle');
+      if(!cmp || !oldPane || !handle) return;
+      var dragging = false;
+      function setPos(clientX){
+        var r = cmp.getBoundingClientRect();
+        var x = clientX - r.left;
+        var pct = Math.max(0, Math.min(100, (x / r.width) * 100));
+        oldPane.style.width = pct + '%';
+        handle.style.left = pct + '%';
+      }
+      function start(e){ dragging = true; cmp.classList.add('dragging'); move(e); }
+      function end(){ dragging = false; cmp.classList.remove('dragging'); }
+      function move(e){
+        if(!dragging) return;
+        var cx = (e.touches && e.touches[0]) ? e.touches[0].clientX : e.clientX;
+        if(cx != null) setPos(cx);
+      }
+      handle.addEventListener('mousedown', start);
+      window.addEventListener('mousemove', move);
+      window.addEventListener('mouseup', end);
+      handle.addEventListener('touchstart', start, {passive:true});
+      window.addEventListener('touchmove', move, {passive:true});
+      window.addEventListener('touchend', end);
+    })();
+  </script>
+</body>
+</html>
