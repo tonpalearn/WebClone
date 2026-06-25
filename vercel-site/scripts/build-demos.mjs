@@ -23,6 +23,11 @@ const META = {
   'zenvana-wellness-spa': ['ZENVANA Wellness Spa', 'สปา & เวลเนส'],
   'classy-clinic-ratchaphruek': ['Classy Clinic', 'คลินิกความงาม'],
   'rachaphruek-massage-spa': ['ราชพฤกษ์ นวดเพื่อสุขภาพ', 'นวดไทย & สปา'],
+  'sisb-nonthaburi-campus': ['SISB Nonthaburi Campus', 'โรงเรียนนานาชาติ'],
+  'icsn-nonthaburi': ['ICSN Nonthaburi', 'โรงเรียนนานาชาติ'],
+  'vlamoon-wellness-spa-nonthaburi': ['VLA MOON Wellness & Spa', 'สปา & เวลเนส'],
+  'lelana-wellness-spa-nonthaburi': ['Lelana Wellness & Spa', 'สปา นวด ทำเล็บ'],
+  'aplus-nursing-home-pakkret': ['A PLUS Nursing Home', 'ดูแลผู้สูงอายุ'],
 };
 
 // snippet กันคลิกขวา / F12 / Ctrl+U,S,I,J / Ctrl+Shift+I,J,C (กันมือใหม่)
